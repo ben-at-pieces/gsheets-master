@@ -17,16 +17,19 @@ Future<List<double>> assets() async {
   return batch;
 }
 
-Future<List<double>> c() async {
+List<double> c = [];
+Future<List<double>> c_() async {
   C__Snips launch = C__Snips(api: api);
-  double bats = await launch.run();
+
+  /// batchfile count
+  double bats = await launch.c__();
   double batchCount = bats.toDouble();
-  batch.add(batchCount);
-  return batch;
+  c.add(batchCount);
+  return c;
 }
 
-///BatchFile Count
+int key = 0;
 final dataMap = <String, double>{
-  Languages.elementAt(0): batch.first,
-  Languages.elementAt(1): batch.last,
+  Languages.elementAt(0): batch.reversed.first,
+  Languages.elementAt(1): c.reversed.first,
 };

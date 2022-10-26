@@ -25,13 +25,15 @@ void main() async {
   };
 
   await assets();
+  await c_();
+  await c_();
 
   runApp(const MyApp());
 }
 
 batch() async {
   C__Snips launch = C__Snips(api: api);
-  double bats = await launch.run();
+  double bats = await launch.c__();
 }
 
 class MyApp extends StatelessWidget {

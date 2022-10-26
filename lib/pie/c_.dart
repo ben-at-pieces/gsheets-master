@@ -22,7 +22,7 @@ class C__Snips {
     assetApi = AssetApi(api);
   }
 
-  Future<double> run() async {
+  Future<double> c__() async {
     //====================================================================
     ///Step (2) snapshot
     Assets assets = await assetsApi.assetsSnapshot();
