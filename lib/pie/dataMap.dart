@@ -29,11 +29,20 @@ Future<List<double>> c_() async {
   return c;
 }
 
+List<double> coffee = [];
+Future<List<double>> coffee_() async {
+  C__Snips launch = C__Snips(api: api);
+
+  /// batchfile count
+  double bats = await launch.run();
+  double batchCount = bats.toDouble();
+  coffee.add(batchCount);
+  return coffee;
+}
+
 List<double> dart = [];
 Future<List<double>> dartCount() async {
   Dart__Snips launch = Dart__Snips(api: api);
-
-  /// batchfile count
   double bats = await launch.c__();
   double batchCount = bats.toDouble();
   dart.add(batchCount);
@@ -44,5 +53,6 @@ int key = 0;
 final dataMap = <String, double>{
   Languages.elementAt(0): batch.reversed.first,
   Languages.elementAt(1): c.reversed.first,
+  Languages.elementAt(2): coffee.reversed.first,
   Languages.elementAt(6): dart.reversed.first,
 };

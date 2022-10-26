@@ -25,7 +25,9 @@ void main() async {
 
   await batch_file();
   await c_();
+  await coffee_();
   await dartCount();
+  // await dartCount();
 
   runApp(const MyApp());
 }
