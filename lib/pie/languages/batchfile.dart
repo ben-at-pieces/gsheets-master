@@ -1,31 +1,56 @@
 // ignore_for_file: omit_local_variable_types
 
+import 'dart:core';
+
 import 'package:core_openapi/api/asset_api.dart';
 import 'package:core_openapi/api/assets_api.dart' hide Tags;
 import 'package:core_openapi/api_client.dart';
 
-String host = 'http://localhost:1000';
-AssetsApi assetsApi = AssetsApi(ApiClient(basePath: host));
-AssetApi assetApi = AssetApi(ApiClient(basePath: host));
+/// Recipe #7: I want to order all of my assets alphabetically
 
-class BatchCount {}
+void main() {
+  ApiClient api = ApiClient(basePath: 'http://localhost:1000');
 
-Future batchFile() async {
-  /// (2) snapshot
-  final assetsSnapshot = await assetsApi.assetsSnapshot();
-
-  List<Asset> assetCount = assetsSnapshot.iterable;
-
-  /// c
-  List<Asset> filterBatchFile = assetCount
-      .where((element) =>
-          element.original.reference?.classification.specific == ClassificationSpecificEnum.bat)
-      .toList();
-
-  var languageLength = filterBatchFile.length;
-  List<double> Doubles = [languageLength.toDouble()];
-  print(Doubles);
-  print(Doubles);
-  if (languageLength != 0) ;
-  return Doubles.elementAt(0);
+  // BatchFileSnips launch = BatchFileSnips(api: api);
+  // launch.run();
 }
+
+class BatchFileSnips {
+  late final AssetsApi assetsApi;
+  late final AssetApi assetApi;
+  late final ApiClient api;
+
+  /// Occasionally you will need to pass in properties to the constructor
+  /// so that we can use them in your run function.
+
+  //====================================================================
+  //Step (1) Initialize Api
+  BatchFileSnips({required ApiClient api}) {
+    assetsApi = AssetsApi(api);
+    assetApi = AssetApi(api);
+  }
+
+  Future<double> run() async {
+    //====================================================================
+    ///Step (2) snapshot
+    Assets assets = await assetsApi.assetsSnapshot();
+
+    List<Asset> assetCount = assets.iterable;
+
+    List<Asset> filterBatchFile = assetCount
+        .where((element) =>
+            element.original.reference?.classification.specific == ClassificationSpecificEnum.bat)
+        .toList();
+
+    double filter = filterBatchFile.length.toDouble();
+
+    // print(filter);
+
+    return filter;
+  }
+}
+
+// Assets ordered = assets.iterable.sort()
+
+/// =================================== Add Throw Away Code && Commented out code here =============
+// static List<T> castFrom<S, T>(List<S> source) => CastList<S, T>(source);

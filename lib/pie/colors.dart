@@ -1,9 +1,9 @@
 import 'dart:ui';
 
 final colorList = <Color>[
-  const Color(0xfffdcb8e),
-  const Color(0xffe17055),
-  const Color(0xff6c5ce7),
+  const Color(0xff494949),
+  const Color(0xff3d5183),
+  const Color(0xff1600ff),
   const Color(0xff02000a),
   const Color(0xffab009d),
   const Color(0xff19dcbe),

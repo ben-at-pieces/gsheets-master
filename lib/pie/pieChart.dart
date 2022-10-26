@@ -9,9 +9,9 @@ import 'package:core_openapi/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
-import 'batch_file.dart';
 import 'colors.dart';
 import 'dataMap.dart';
+import 'languages/batchfile.dart';
 
 enum LegendShape { circle, rectangle }
 

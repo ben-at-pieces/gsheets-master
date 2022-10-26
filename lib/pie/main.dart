@@ -2,11 +2,10 @@
 // ignore_for_file: omit_local_variable_types
 import 'package:core_openapi/api_client.dart';
 import 'package:flutter/material.dart';
-import 'package:gsheets/pie/c_.dart';
 import 'package:gsheets/pie/pieChart.dart';
 
-import 'batch_file.dart';
 import 'dataMap.dart';
+import 'languages/batchfile.dart';
 import 'languages_list.dart';
 
 void main() async {
@@ -24,17 +23,17 @@ void main() async {
     Languages.elementAt(0): doublesList.first,
   };
 
-  await assets();
+  await batch_file();
   await c_();
-  await c_();
+  await dartCount();
 
   runApp(const MyApp());
 }
 
-batch() async {
-  C__Snips launch = C__Snips(api: api);
-  double bats = await launch.c__();
-}
+// batch() async {
+//   C_Snips launch = C_Snips(api: api);
+//   double bats = await launch.c__();
+// }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
