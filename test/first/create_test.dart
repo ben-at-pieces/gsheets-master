@@ -3,8 +3,7 @@
 /// =========================
 import 'package:core_openapi/api.dart';
 import 'package:core_openapi/api/assets_api.dart' hide Tags;
-import 'package:test/test.dart' hide Tags;
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../connect.dart';
 
