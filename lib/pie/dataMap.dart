@@ -6,7 +6,11 @@ import 'languages/batch_file.dart';
 import 'languages/c.dart';
 import 'languages/cSharp.dart';
 import 'languages/coffeescript.dart';
+import 'languages/cpp.dart';
 import 'languages/css.dart';
+import 'languages/dart.dart';
+import 'languages/erlang.dart';
+import 'languages/go.dart';
 import 'languages_list.dart';
 
 /// ================ batchFile
@@ -56,14 +60,14 @@ Future<List<double>> coffee_() async {
 //
 // /// ================ c++
 //
-// List<double> cPP = [];
-// Future<List<double>> cPP_() async {
-//   CPlusPlus__Snips launch = CPlusPlus__Snips(api: api);
-//   double cPPdub = await launch.run();
-//   double cPPCount = cPPdub.toDouble();
-//   cPP.add(cPPCount);
-//   return cPP;
-// }
+List<double> cPP = [];
+Future<List<double>> cPP_() async {
+  CPlusPlus__Snips launch = CPlusPlus__Snips(api: api);
+  double bats = await launch.run();
+  double batchCount = bats.toDouble();
+  cPP.add(batchCount);
+  return cPP;
+}
 //
 
 //
@@ -80,14 +84,38 @@ Future<List<double>> cSS_() async {
   return cSS;
 }
 
-// List<double> dart = [];
-// Future<List<double>> dartCount() async {
-//   Dart__Snips launch = Dart__Snips(api: api);
-//   double bats = await launch.c__();
-//   double batchCount = bats.toDouble();
-//   dart.add(batchCount);
-//   return dart;
-// }
+// /// ================ dart
+
+List<double> dart = [];
+Future<List<double>> dartCount() async {
+  Dart__Snippets launch = Dart__Snippets(api: api);
+  double bats = await launch.run();
+  double batchCount = bats.toDouble();
+  dart.add(batchCount);
+  return dart;
+}
+
+// /// ================ erlang
+
+List<double> erlang = [];
+Future<List<double>> erlang_() async {
+  Erlang__Snips launch = Erlang__Snips(api: api);
+  double bats = await launch.run();
+  double batchCount = bats.toDouble();
+  erlang.add(batchCount);
+  return erlang;
+}
+
+/// ================ erlang
+
+List<double> go = [];
+Future<List<double>> go_() async {
+  Go__Snips launch = Go__Snips(api: api);
+  double bats = await launch.run();
+  double batchCount = bats.toDouble();
+  go.add(batchCount);
+  return go;
+}
 
 int key = 0;
 final dataMap = <String, double>{
@@ -97,13 +125,13 @@ final dataMap = <String, double>{
 
   Languages.elementAt(0): batchFile.reversed.first,
   Languages.elementAt(1): c.reversed.first,
-  // Languages.elementAt(2): cPP.reversed.first,
+  Languages.elementAt(2): cPP.reversed.first,
   Languages.elementAt(3): coffee.reversed.first,
-  // Languages.elementAt(4): cSharp.reversed.first,
+  Languages.elementAt(4): cSharp.reversed.first,
   Languages.elementAt(5): cSS.reversed.first,
-  // Languages.elementAt( 6 ): dart_.reversed.first,
-  // Languages.elementAt( 7 ): erlang_.reversed.first,
-  // Languages.elementAt( 8 ): go_.reversed.first,
+  Languages.elementAt(6): dart.reversed.first,
+  Languages.elementAt(7): erlang.reversed.first,
+  Languages.elementAt(8): go.reversed.first,
   // Languages.elementAt( 9 ): haskell_.reversed.first,
   // Languages.elementAt( 10 ): html_.reversed.first,
   // Languages.elementAt( 11 ): image_.reversed.first,

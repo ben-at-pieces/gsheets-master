@@ -13,11 +13,13 @@ void main() async {
 
   await batch_file_();
   await c_();
-  await cSharp_();
+  await cPP_();
   await coffee_();
-  // await cPP_;
+  await cSharp_();
   await cSS_();
-  // await dartCount();
+  await dartCount();
+  await erlang_();
+  await go_();
 
   runApp(const MyApp());
 }
