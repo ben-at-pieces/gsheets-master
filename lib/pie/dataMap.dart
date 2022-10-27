@@ -15,7 +15,13 @@ import 'languages/haskell.dart';
 import 'languages/html.dart';
 import 'languages/image.dart';
 import 'languages/java.dart';
+import 'languages/javascript.dart';
 import 'languages/json.dart';
+import 'languages/lua.dart';
+import 'languages/markDown.dart';
+import 'languages/matlab.dart';
+import 'languages/objectiveC.dart';
+import 'languages/perl.dart';
 import 'languages_list.dart';
 
 /// ================ batchFile
@@ -177,6 +183,72 @@ Future<List<double>> json_() async {
   return j_son;
 }
 
+/// ================ JAVASCRIPT
+
+List<double> javascript = [];
+Future<List<double>> javascript_() async {
+  javaScript__Snips launch = javaScript__Snips(api: api);
+  double bats = await launch.run();
+  double batchCount = bats.toDouble();
+  javascript.add(batchCount);
+  return javascript;
+}
+
+/// ================ LUA
+
+List<double> lua = [];
+Future<List<double>> lua_() async {
+  lua_Snips launch = lua_Snips(api: api);
+  double bats = await launch.run();
+  double batchCount = bats.toDouble();
+  lua.add(batchCount);
+  return lua;
+}
+
+/// ================ LUA
+
+List<double> markdown = [];
+Future<List<double>> markdown_() async {
+  markdown_Snips launch = markdown_Snips(api: api);
+  double bats = await launch.run();
+  double batchCount = bats.toDouble();
+  markdown.add(batchCount);
+  return markdown;
+}
+
+/// ================ matlab
+
+List<double> matlab = [];
+Future<List<double>> matlab_() async {
+  matlab_Snips launch = matlab_Snips(api: api);
+  double bats = await launch.run();
+  double batchCount = bats.toDouble();
+  matlab.add(batchCount);
+  return matlab;
+}
+
+/// ================ objective_c
+
+List<double> objective_c = [];
+Future<List<double>> objective_c_() async {
+  objective_c_Snips launch = objective_c_Snips(api: api);
+  double bats = await launch.run();
+  double batchCount = bats.toDouble();
+  objective_c.add(batchCount);
+  return objective_c;
+}
+
+/// ================ perl
+
+List<double> perl = [];
+Future<List<double>> perl_() async {
+  perl_Snips launch = perl_Snips(api: api);
+  double bats = await launch.run();
+  double batchCount = bats.toDouble();
+  perl.add(batchCount);
+  return perl;
+}
+
 int key = 0;
 final dataMap = <String, double>{
   // Languages.elementAt(0): batchFile.reversed.first,
@@ -197,12 +269,12 @@ final dataMap = <String, double>{
   Languages.elementAt(11): image.reversed.first,
   Languages.elementAt(12): java.reversed.first,
   Languages.elementAt(13): j_son.reversed.first,
-  // Languages.elementAt( 14 ): javascript_.reversed.first,
-  // Languages.elementAt( 15 ): lua_.reversed.first,
-  // Languages.elementAt( 16 ): markdown_.reversed.first,
-  // Languages.elementAt( 17 ): matlab_.reversed.first,
-  // Languages.elementAt( 18 ): objective_c_.reversed.first,
-  // Languages.elementAt( 19 ): perl_.reversed.first,
+  Languages.elementAt(14): javascript.reversed.first,
+  Languages.elementAt(15): lua.reversed.first,
+  Languages.elementAt(16): markdown.reversed.first,
+  Languages.elementAt(17): matlab.reversed.first,
+  Languages.elementAt(18): objective_c.reversed.first,
+  Languages.elementAt(19): perl.reversed.first,
   // Languages.elementAt( 20 ): php_.reversed.first,
   // Languages.elementAt( 21 ): powerShell_.reversed.first,
   // Languages.elementAt( 22 ): python_.reversed.first,

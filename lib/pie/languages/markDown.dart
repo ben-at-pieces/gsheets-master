@@ -10,14 +10,14 @@ void main() {
   ApiClient api = ApiClient(basePath: 'http://localhost:1000');
 }
 
-class CoffeeScript_Snips {
+class markdown_Snips {
   late final AssetsApi assetsApi;
   late final AssetApi assetApi;
   late final ApiClient api;
 
   //====================================================================
   //Step (1) Initialize Api
-  CoffeeScript_Snips({required ApiClient api}) {
+  markdown_Snips({required ApiClient api}) {
     assetsApi = AssetsApi(api);
     assetApi = AssetApi(api);
   }
@@ -31,7 +31,7 @@ class CoffeeScript_Snips {
 
     List<Asset> filterBatchFile = assetCount
         .where((element) =>
-            element.original.reference?.classification.specific == ClassificationSpecificEnum.c)
+            element.original.reference?.classification.specific == ClassificationSpecificEnum.md)
         .toList();
 
     double filter = filterBatchFile.length.toDouble();

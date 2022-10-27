@@ -25,6 +25,12 @@ void main() async {
   await image_();
   await java_();
   await json_();
+  await javascript_();
+  await lua_();
+  await markdown_();
+  await matlab_();
+  await objective_c_();
+  await perl_();
 
   runApp(const MyApp());
 }

@@ -15,4 +15,10 @@ final colorList = <Color>[
   const Color(0xff000000),
   const Color(0xff1700ff),
   const Color(0xffababab),
+  const Color(0xFFFCBF5A),
+  const Color(0xFF3221DA),
+  const Color(0xFF000000),
+  const Color(0xFFFF8D00),
+  const Color(0xFFFF3C00),
+  const Color(0xFF6C84B9),
 ];
