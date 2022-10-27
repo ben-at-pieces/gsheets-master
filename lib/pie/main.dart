@@ -5,28 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:gsheets/pie/pieChart.dart';
 
 import 'dataMap.dart';
-import 'languages/batchfile.dart';
-import 'languages_list.dart';
 
 void main() async {
   print('gathering your snippets');
 
   ApiClient api = ApiClient(basePath: 'http://localhost:1000');
 
-  BatchFileSnips launch = BatchFileSnips(api: api);
-  double bats = await launch.run();
-  double batchCount = bats.toDouble();
-  List<double> dubList = [batchCount.toDouble()];
-  dubList.add(batchCount);
-  List<double> doublesList = dubList;
-  final dataMap = <String, double>{
-    Languages.elementAt(0): doublesList.first,
-  };
-
-  await batch_file();
+  await batch_file_();
   await c_();
+  await cSharp_();
   await coffee_();
-  await dartCount();
+  // await dartCount();
   // await dartCount();
 
   runApp(const MyApp());

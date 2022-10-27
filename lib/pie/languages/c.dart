@@ -29,12 +29,12 @@ class C__Snips {
 
     List<Asset> assetCount = assets.iterable;
 
-    List<Asset> filterBatchFile = assetCount
+    List<Asset> filterC = assetCount
         .where((element) =>
             element.original.reference?.classification.specific == ClassificationSpecificEnum.c)
         .toList();
 
-    double filter = filterBatchFile.length.toDouble();
+    double filter = filterC.length.toDouble();
 
     print(filter);
 

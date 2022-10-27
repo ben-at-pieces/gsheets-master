@@ -11,7 +11,7 @@ import 'package:pie_chart/pie_chart.dart';
 
 import 'colors.dart';
 import 'dataMap.dart';
-import 'languages/batchfile.dart';
+import 'languages/batch_file.dart';
 
 enum LegendShape { circle, rectangle }
 
@@ -21,8 +21,10 @@ AssetApi assetApi = AssetApi(ApiClient(basePath: host));
 
 ApiClient api = ApiClient(basePath: 'http://localhost:1000');
 BatchFileSnips launch = BatchFileSnips(api: api);
+// Coffee__Snips launch3 = Coffee__Snips(api: api);
 void main() async {
-  double bats = await launch.run();
+  // double bats = await launch.run();
+  // double coffee = await launch.run();
 }
 
 class HomePage extends StatefulWidget {

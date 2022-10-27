@@ -1,9 +1,9 @@
 List<String> Languages = [
   'batchFile',
   'c',
-  'csharp',
+  'c++',
   'coffescript',
-  'cpp',
+  'c#',
   'css',
   'dart',
   'erlang',
