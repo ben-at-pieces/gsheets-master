@@ -31,7 +31,7 @@ class text_Snips {
 
     List<Asset> filterBatchFile = assetCount
         .where((element) =>
-            element.original.reference?.classification.specific == ClassificationSpecificEnum.pl)
+            element.original.reference?.classification.specific == ClassificationSpecificEnum.text)
         .toList();
 
     double filter = filterBatchFile.length.toDouble();

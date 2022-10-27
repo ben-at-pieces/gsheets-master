@@ -29,6 +29,7 @@ import 'languages/ruby.dart';
 import 'languages/rust.dart';
 import 'languages/scala.dart';
 import 'languages/shell.dart';
+import 'languages/sql.dart';
 import 'languages/swift.dart';
 import 'languages/tex.dart';
 import 'languages/text.dart';
@@ -355,7 +356,7 @@ Future<List<double>> shell_() async {
 
 List<double> sql = [];
 Future<List<double>> sql_() async {
-  scala_Snips launch = scala_Snips(api: api);
+  sql_Snips launch = sql_Snips(api: api);
   double bats = await launch.run();
   double batchCount = bats.toDouble();
   sql.add(batchCount);

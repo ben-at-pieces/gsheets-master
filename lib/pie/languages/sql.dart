@@ -10,14 +10,14 @@ void main() {
   ApiClient api = ApiClient(basePath: 'http://localhost:1000');
 }
 
-class powerShell_Snips {
+class sql_Snips {
   late final AssetsApi assetsApi;
   late final AssetApi assetApi;
   late final ApiClient api;
 
   //====================================================================
   //Step (1) Initialize Api
-  powerShell_Snips({required ApiClient api}) {
+  sql_Snips({required ApiClient api}) {
     assetsApi = AssetsApi(api);
     assetApi = AssetApi(api);
   }
@@ -31,7 +31,7 @@ class powerShell_Snips {
 
     List<Asset> filterBatchFile = assetCount
         .where((element) =>
-            element.original.reference?.classification.specific == ClassificationSpecificEnum.pl)
+            element.original.reference?.classification.specific == ClassificationSpecificEnum.sql)
         .toList();
 
     double filter = filterBatchFile.length.toDouble();
