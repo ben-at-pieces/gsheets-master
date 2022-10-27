@@ -7,6 +7,7 @@ import 'package:gsheets/pie/pieChart.dart';
 import 'dataMap.dart';
 
 void main() async {
+  // await create();
   print('gathering your snippets');
 
   ApiClient api = ApiClient(basePath: 'http://localhost:1000');
@@ -31,7 +32,21 @@ void main() async {
   await matlab_();
   await objective_c_();
   await perl_();
-
+  await php_();
+  await powerShell_();
+  await python_();
+  await r_();
+  await ruby_();
+  await rust_();
+  await scala_();
+  await shell_();
+  await sql_();
+  await swift_();
+  await tex_();
+  await text_();
+  await toml_();
+  await typeScript_();
+  await yaml_();
   runApp(const MyApp());
 }
 

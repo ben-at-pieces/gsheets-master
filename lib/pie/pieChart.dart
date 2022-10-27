@@ -42,7 +42,7 @@ class HomePageState extends State<HomePage> {
     final settings = SingleChildScrollView();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Snippets'),
+        title: const Text('pieces.app'),
         actions: [
           ElevatedButton(
             onPressed: () {

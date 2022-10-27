@@ -31,7 +31,7 @@ class Dart__Snippets {
 
     List<Asset> filterBatchFile = assetCount
         .where((element) =>
-            element.original.reference?.classification.specific == ClassificationSpecificEnum.css)
+            element.original.reference?.classification.specific == ClassificationSpecificEnum.dart)
         .toList();
 
     double filter = filterBatchFile.length.toDouble();
