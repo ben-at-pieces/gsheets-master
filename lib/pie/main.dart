@@ -20,6 +20,11 @@ void main() async {
   await dartCount();
   await erlang_();
   await go_();
+  await haskell_();
+  await html_();
+  await image_();
+  await java_();
+  await json_();
 
   runApp(const MyApp());
 }

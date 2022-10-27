@@ -11,6 +11,11 @@ import 'languages/css.dart';
 import 'languages/dart.dart';
 import 'languages/erlang.dart';
 import 'languages/go.dart';
+import 'languages/haskell.dart';
+import 'languages/html.dart';
+import 'languages/image.dart';
+import 'languages/java.dart';
+import 'languages/json.dart';
 import 'languages_list.dart';
 
 /// ================ batchFile
@@ -95,7 +100,7 @@ Future<List<double>> dartCount() async {
   return dart;
 }
 
-// /// ================ erlang
+// /// ================ ERLANG
 
 List<double> erlang = [];
 Future<List<double>> erlang_() async {
@@ -106,7 +111,7 @@ Future<List<double>> erlang_() async {
   return erlang;
 }
 
-/// ================ erlang
+/// ================ GO
 
 List<double> go = [];
 Future<List<double>> go_() async {
@@ -115,6 +120,61 @@ Future<List<double>> go_() async {
   double batchCount = bats.toDouble();
   go.add(batchCount);
   return go;
+}
+
+/// ================ HASKELL
+
+List<double> haskell = [];
+Future<List<double>> haskell_() async {
+  haskell__Snips launch = haskell__Snips(api: api);
+  double bats = await launch.run();
+  double batchCount = bats.toDouble();
+  haskell.add(batchCount);
+  return haskell;
+}
+
+/// ================ HTML
+
+List<double> html = [];
+Future<List<double>> html_() async {
+  html__Snips launch = html__Snips(api: api);
+  double bats = await launch.run();
+  double batchCount = bats.toDouble();
+  html.add(batchCount);
+  return html;
+}
+
+/// ================ IMAGE
+
+List<double> image = [];
+Future<List<double>> image_() async {
+  image__Snips launch = image__Snips(api: api);
+  double bats = await launch.run();
+  double batchCount = bats.toDouble();
+  image.add(batchCount);
+  return image;
+}
+
+/// ================ JAVA
+
+List<double> java = [];
+Future<List<double>> java_() async {
+  java__Snips launch = java__Snips(api: api);
+  double bats = await launch.run();
+  double batchCount = bats.toDouble();
+  java.add(batchCount);
+  return java;
+}
+
+/// ================ JSON
+
+List<double> j_son = [];
+Future<List<double>> json_() async {
+  json__Snips launch = json__Snips(api: api);
+  double bats = await launch.run();
+  double batchCount = bats.toDouble();
+  j_son.add(batchCount);
+  return j_son;
 }
 
 int key = 0;
@@ -132,11 +192,11 @@ final dataMap = <String, double>{
   Languages.elementAt(6): dart.reversed.first,
   Languages.elementAt(7): erlang.reversed.first,
   Languages.elementAt(8): go.reversed.first,
-  // Languages.elementAt( 9 ): haskell_.reversed.first,
-  // Languages.elementAt( 10 ): html_.reversed.first,
-  // Languages.elementAt( 11 ): image_.reversed.first,
-  // Languages.elementAt( 12 ): java_.reversed.first,
-  // Languages.elementAt( 13 ): jason_.reversed.first,
+  Languages.elementAt(9): haskell.reversed.first,
+  Languages.elementAt(10): html.reversed.first,
+  Languages.elementAt(11): image.reversed.first,
+  Languages.elementAt(12): java.reversed.first,
+  Languages.elementAt(13): j_son.reversed.first,
   // Languages.elementAt( 14 ): javascript_.reversed.first,
   // Languages.elementAt( 15 ): lua_.reversed.first,
   // Languages.elementAt( 16 ): markdown_.reversed.first,
