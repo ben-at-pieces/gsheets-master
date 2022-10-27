@@ -6,6 +6,7 @@ import 'languages/batch_file.dart';
 import 'languages/c.dart';
 import 'languages/cSharp.dart';
 import 'languages/coffeescript.dart';
+import 'languages/css.dart';
 import 'languages_list.dart';
 
 /// ================ batchFile
@@ -41,18 +42,6 @@ Future<List<double>> cSharp_() async {
   return cSharp;
 }
 
-//
-// /// ================ c++
-//
-// List<double> cPP = [];
-// Future<List<double>> cPP_() async {
-//   CPlusPlus__Snips launch = CPlusPlus__Snips(api: api);
-//   double cPPdub = await launch.run();
-//   double cPPCount = cPPdub.toDouble();
-//   cPP.add(cPPCount);
-//   return cPP;
-// }
-//
 /// ================ coffescript
 
 List<double> coffee = [];
@@ -65,19 +54,32 @@ Future<List<double>> coffee_() async {
 }
 
 //
-// /// ================ css
+// /// ================ c++
 //
-// List<double> cSS = [];
-// Future<List<double>> cSS_() async {
-//   CSS__Snips launch = CSS__Snips(api: api);
-//
-//   /// batchfile count
-//   double bats = await launch.run();
-//   double batchCount = bats.toDouble();
-//   coffee.add(batchCount);
-//   return coffee;
+// List<double> cPP = [];
+// Future<List<double>> cPP_() async {
+//   CPlusPlus__Snips launch = CPlusPlus__Snips(api: api);
+//   double cPPdub = await launch.run();
+//   double cPPCount = cPPdub.toDouble();
+//   cPP.add(cPPCount);
+//   return cPP;
 // }
 //
+
+//
+// /// ================ css
+
+List<double> cSS = [];
+Future<List<double>> cSS_() async {
+  CSS__Snips launch = CSS__Snips(api: api);
+
+  /// batchfile count
+  double bats = await launch.run();
+  double batchCount = bats.toDouble();
+  cSS.add(batchCount);
+  return cSS;
+}
+
 // List<double> dart = [];
 // Future<List<double>> dartCount() async {
 //   Dart__Snips launch = Dart__Snips(api: api);
@@ -98,7 +100,7 @@ final dataMap = <String, double>{
   // Languages.elementAt(2): cPP.reversed.first,
   Languages.elementAt(3): coffee.reversed.first,
   // Languages.elementAt(4): cSharp.reversed.first,
-  // Languages.elementAt(5): cSS.reversed.first,
+  Languages.elementAt(5): cSS.reversed.first,
   // Languages.elementAt( 6 ): dart_.reversed.first,
   // Languages.elementAt( 7 ): erlang_.reversed.first,
   // Languages.elementAt( 8 ): go_.reversed.first,
