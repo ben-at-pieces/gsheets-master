@@ -94,7 +94,7 @@ void main() async {
   sql();
   swift();
   tex();
-  textRead();
+  text();
   toml();
   typeScript();
   yaml();

@@ -47,6 +47,8 @@ void main() async {
   await toml_();
   await typeScript_();
   await yaml_();
+
+  dataMap.removeWhere((key, value) => value == 0);
   runApp(const MyApp());
 }
 

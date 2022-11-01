@@ -431,10 +431,6 @@ Future<List<double>> yaml_() async {
 
 int key = 0;
 final dataMap = <String, double>{
-  // Languages.elementAt(0): batchFile.reversed.first,
-  // Languages.elementAt(1): c.reversed.first,
-  // Languages.elementAt(2): cPP.reversed.first,
-
   Languages.elementAt(0): batchFile.reversed.first,
   Languages.elementAt(1): c.reversed.first,
   Languages.elementAt(2): cPP.reversed.first,

@@ -13,6 +13,16 @@ final host = 'http://localhost:$port';
 void main() async {
   final text = 'hello world';
   group('asset create', () {
+    test('/asset/{asset}/export', () async {
+      Assets assetsSnapshot = await assetsApi.assetsSnapshot();
+
+      Asset first = assetsSnapshot.iterable.first;
+
+      // Export/**/
+    });
+
+    /// TODO - once I call ^^^ (the endpoint above) I can see a format on the asset with a new classification.rendering == HTML
+
     ///
     test('Asset Create Text', () async {
       final Asset create = await assetsApi.assetsCreateNewAsset(
