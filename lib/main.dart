@@ -9,7 +9,6 @@ import 'languages/cSharp.dart';
 import 'languages/coffeescript.dart';
 import 'languages/cpp.dart';
 import 'languages/css.dart';
-import 'languages/dart.dart';
 import 'languages/erlang.dart';
 import 'languages/go.dart';
 import 'languages/haskell.dart';
@@ -70,7 +69,7 @@ void main() async {
   coffescript();
   cpp();
   css();
-  dart();
+  // dart();
   erlang();
   go();
   haskell();
@@ -95,7 +94,7 @@ void main() async {
   sql();
   swift();
   tex();
-  textRead();
+  text();
   toml();
   typeScript();
   yaml();

@@ -3,6 +3,7 @@ import 'package:core_openapi/api_client.dart';
 import 'package:connector_openapi/api_client.dart' as connector;
 import 'package:core_openapi/api.dart';
 
+
 AssetsApi assetsApi = AssetsApi(ApiClient(basePath: 'http://localhost:1000'));
 AssetApi assetApi = AssetApi(ApiClient(basePath: 'http://localhost:1000'));
 ConnectorApi connectorApi = ConnectorApi(connector.ApiClient(basePath: 'http://localhost:1000'));

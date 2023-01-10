@@ -2,8 +2,6 @@
 // Assets assetsSnapshot = await assetsApi.assetsSnapshot();
 // List<Asset> assetCount = assetsSnapshot.iterable;
 
-// ignore_for_file: omit_local_variable_types
-
 import 'package:core_openapi/api/asset_api.dart';
 import 'package:core_openapi/api/assets_api.dart' hide Tags;
 import 'package:core_openapi/api_client.dart';

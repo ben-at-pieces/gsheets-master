@@ -34,7 +34,7 @@ const credentials = r'''
 final gsheets = GSheets(credentials);
 final spreadsheetID = '18IlCBkFo9Y1Q0BshWiHehI0p3zufEImkWqOr23kBMcM';
 
-Future<void> textRead() async {
+Future<void> text() async {
   final ssheet = await gsheets.spreadsheet(spreadsheetID);
 
   /// (gsheet)

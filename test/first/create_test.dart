@@ -3,8 +3,7 @@
 /// =========================
 import 'package:core_openapi/api.dart';
 import 'package:core_openapi/api/assets_api.dart' hide Tags;
-import 'package:test/test.dart' hide Tags;
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 import '../connect.dart';
 
@@ -14,6 +13,16 @@ final host = 'http://localhost:$port';
 void main() async {
   final text = 'hello world';
   group('asset create', () {
+    test('/asset/{asset}/export', () async {
+      Assets assetsSnapshot = await assetsApi.assetsSnapshot();
+
+      Asset first = assetsSnapshot.iterable.first;
+
+      // Export/**/
+    });
+
+    /// TODO - once I call ^^^ (the endpoint above) I can see a format on the asset with a new classification.rendering == HTML
+
     ///
     test('Asset Create Text', () async {
       final Asset create = await assetsApi.assetsCreateNewAsset(

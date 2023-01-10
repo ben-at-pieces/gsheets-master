@@ -31,9 +31,9 @@ import 'package:core_openapi/api/assets_api.dart' hide Tags;
 import 'package:core_openapi/api/tags_api.dart';
 import 'package:core_openapi/api/websites_api.dart';
 import 'package:core_openapi/api_client.dart' hide Tags;
+import 'package:flutter_test/flutter_test.dart' hide Tags;
 import 'package:gsheets/init/src/gsheets.dart';
 import 'package:gsheets/languages/list.dart';
-import 'package:test/test.dart' hide Tags;
 
 const gsheetsCellsLimit = 5000000;
 
