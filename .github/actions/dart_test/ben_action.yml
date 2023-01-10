@@ -1,0 +1,44 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Dart Test
+
+# What triggers this file to run. "push" means on any push to git
+on:
+  push:
+
+
+# Environment variables than can be used in the below steps
+env:
+  # Authentication key for accessing GitHub repositories from a virtual machine
+  SSH_PRIVATE_KEY: ${{ secrets.PIECES_BITBUCKET_SSH }}
+
+jobs:
+  # Named step in the pipeline
+  test_macos:
+    # Virtual machine specification
+    runs-on: macos-latest
+    steps:
+      # Clones the current repo
+      - uses: actions/checkout@v3
+
+      # Authenticate yourself on the virtual machine, so you can git clone other repositories. This has to run before
+      # the "dart pub get" below because the os_server pubspec.yaml will automatically git clone some of our repos
+      - name: Install SSH Key
+        run: |
+          mkdir -p ~/.ssh && umask 0077 && echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa \
+              && git config --global url."git@bitbucket.org:".insteadOf https://bitbucket.org/ \
+              && ssh-keyscan bitbucket.org >> ~/.ssh/known_hosts
+
+      # Install Dart
+      - uses: dart-lang/setup-dart@v1
+
+      # Get Dart dependencies
+      - name: Install Dart dependencies
+        run: dart pub get
+
+      # Run Dart tests
+      - name: Run dart tests
+        run: dart test
