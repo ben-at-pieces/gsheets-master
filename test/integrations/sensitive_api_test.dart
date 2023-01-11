@@ -1,6 +1,6 @@
 import 'package:core_openapi/api.dart';
 import 'package:core_openapi/api_client.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
 /// TODO check performance && more robust edge case testing.
 /// This will check the sensitive api.

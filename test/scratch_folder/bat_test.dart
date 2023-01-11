@@ -4,7 +4,7 @@ import 'dart:core';
 
 import 'package:core_openapi/api/linkify_api.dart';
 import 'package:core_openapi/api_client.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
 final port = '1000';
 final host = 'http://localhost:$port';
