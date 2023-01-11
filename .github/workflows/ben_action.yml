@@ -9,6 +9,7 @@ name: Dart Test
 on:
   push:
 
+
 # Environment variables than can be used in the below steps
 env:
   # Authentication key for accessing GitHub repositories from a virtual machine
@@ -23,7 +24,7 @@ jobs:
       # Clones the current repo
       - uses: actions/checkout@v3
 
-      # Authenticate yourself on the virtual machine so you can git clone other repositories. This has to run before
+      # Authenticate yourself on the virtual machine, so you can git clone other repositories. This has to run before
       # the "dart pub get" below because the os_server pubspec.yaml will automatically git clone some of our repos
       - name: Install SSH Key
         run: |
@@ -37,6 +38,11 @@ jobs:
       # Get Dart dependencies
       - name: Install Dart dependencies
         run: dart pub get
+
+
+
+
+
 
       # Run Dart tests
       - name: Run dart tests
