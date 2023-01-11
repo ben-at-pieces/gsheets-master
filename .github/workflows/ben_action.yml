@@ -19,7 +19,7 @@ jobs:
   # Named step in the pipeline
   test_macos:
     # Virtual machine specification
-    runs-on: macos-latest
+    runs-on:
     steps:
       # Clones the current repo
       - uses: actions/checkout@v3

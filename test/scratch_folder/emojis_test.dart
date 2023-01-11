@@ -1,3 +1,5 @@
+// ignore_for_file: omit_local_variable_types
+
 import 'dart:io';
 
 import 'package:connector_openapi/api.dart' hide Tags;
