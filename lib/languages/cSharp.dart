@@ -7,7 +7,7 @@
 import 'package:core_openapi/api/asset_api.dart';
 import 'package:core_openapi/api/assets_api.dart' hide Tags;
 import 'package:core_openapi/api_client.dart';
-import 'package:gsheets/init/src/gsheets.dart';
+import '../init/src/gsheets.dart';
 
 /// Recipe #3: I want to get a list of all of my code assets
 

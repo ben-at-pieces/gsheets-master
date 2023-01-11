@@ -2,7 +2,7 @@
 // ignore_for_file: omit_local_variable_types
 import 'package:core_openapi/api_client.dart';
 import 'package:flutter/material.dart';
-import 'package:gsheets/pie/pieChart.dart';
+import 'package:testing/pie/pieChart.dart';
 
 import 'dataMap.dart';
 
