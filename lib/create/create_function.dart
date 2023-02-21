@@ -9,6 +9,15 @@ import 'package:core_openapi/api/assets_api.dart' hide Tags;
 import 'package:core_openapi/api_client.dart';
 import 'package:gsheets/init/src/gsheets.dart';
 
+void main() async {
+  await create();
+
+  /// check qty & first asset of that classification
+  // runApp(MyApp());
+}
+
+
+
 /// Recipe #3: I want to get a list of all of my code assets
 
 String host = 'http://localhost:1000';

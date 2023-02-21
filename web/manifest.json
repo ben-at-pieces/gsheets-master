@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "version": "0.0.1",
+  "name": "Satellite Snippet View",
+  "description": "see your snippets and explore user stats!.",
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "icons/36.png",
+      "32": "icons/369.png",
+      "48": "icons/369.png",
+      "128": "icons/369.png"
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; script-src-elem 'self' wasm-unsafe-eval https://unpkg.com;"
+  }
+
+
+
+}
+

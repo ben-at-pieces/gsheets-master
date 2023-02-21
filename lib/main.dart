@@ -1,27 +1,33 @@
 // ignore_for_file: omit_local_variable_types
 
 import 'package:flutter/material.dart';
+import 'package:gsheets/statistics.dart';
+import 'package:gsheets/statistics_singleton.dart';
 
+import 'TabAppBar.dart';
 import 'create/create_function.dart';
-import 'flutter.dart';
 
 void main() async {
-  await create();
+  StatisticsSingleton().statistics = await getStats();
 
-  /// check qty & first asset of that classification
-  runApp(MyApp());
+
+  runApp(
+    MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  // final Map<String, dynamic> data = {};
-  /// logic here
-  void doLogic() async {}
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: List_Grid(),
+      title: 'Pieces Pie Chart',
+      // theme: ParticleTheme.lightPalette(context),
+      darkTheme: ThemeData(
+        primarySwatch: Colors.blueGrey,
+        brightness: Brightness.dark,
+      ),
+      home: TabAppBar(),
     );
   }
 }
