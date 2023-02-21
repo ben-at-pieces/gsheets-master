@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:runtime_client/particle.dart';
 
 import '../Dashboard/custom_classes.dart';
+import '../Dashboard/faqs.dart';
 import '../Dashboard/reference_GPT.dart/gpt_modify_text.dart';
 import '../lists/relatedLists.dart';
 import '../statistics_singleton.dart';
@@ -37,59 +38,89 @@ class _DashboardBodyState extends State<DashboardBody> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: Container(
-                width: 490,
-                height: 40,
-                color: Colors.black87,
-                child: TextField(
-                  controller: _textEditController,
-                  enableInteractiveSelection: true,
-                  cursorHeight: 12,
-                  autofocus: true,
-                  showCursor: true,
-                  cursorColor: Colors.white,
-                  toolbarOptions: ToolbarOptions(
-                    copy: true,
-                    paste: true,
-                    selectAll: true,
-                    cut: true,
-                  ),
-                  style: ProductTitleText(),
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(
-                      Icons.search,
-                      size: 20,
-                      color: Colors.white,
-                    ),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        Icons.clear,
-                        color: Colors.grey,
-                        size: 12,
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Container(
+                    width: 490,
+                    height: 40,
+                    color: Colors.black87,
+                    child: TextField(
+                      controller: _textEditController,
+                      enableInteractiveSelection: true,
+                      cursorHeight: 12,
+                      autofocus: true,
+                      showCursor: true,
+                      cursorColor: Colors.white,
+                      toolbarOptions: ToolbarOptions(
+                        copy: true,
+                        paste: true,
+                        selectAll: true,
+                        cut: true,
                       ),
-                      onPressed: () {
-                        _textEditController.clear();
+                      style: ProductTitleText(),
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.search,
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            Icons.clear,
+                            color: Colors.grey,
+                            size: 12,
+                          ),
+                          onPressed: () {
+                            _textEditController.clear();
+                          },
+                        ),
+                        fillColor: Colors.black87,
+                        labelText: 'Search...',
+                        labelStyle: ParticleFont.micro(context,
+                            customization: TextStyle(color: Colors.grey, fontSize: 12)),
+                        floatingLabelBehavior: FloatingLabelBehavior.auto,
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          input = value;
+                          related = getRelatedItems(input);
+                        });
                       },
                     ),
-                    fillColor: Colors.black87,
-                    labelText: 'Search...',
-                    labelStyle: ParticleFont.micro(context,
-                        customization: TextStyle(color: Colors.grey, fontSize: 12)),
-                    floatingLabelBehavior: FloatingLabelBehavior.auto,
                   ),
-                  onChanged: (value) {
-                    setState(() {
-                      input = value;
-                      related = getRelatedItems(input);
-                    });
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: FloatingActionButton(
+                  // focusColor: Colors.green,
+                  tooltip: 'frequently asked questions',
+                  hoverColor: Colors.white,
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                  child: Text(
+                    'FAQ',
+                    style: ParticleFont.micro(
+                      context,
+                      customization: TextStyle(color: Colors.grey),
+                    ),
+                  ),
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return FloatingSettingsButton();
+                      },
+                    );
                   },
                 ),
               ),
-            ),
+
+            ],
           ),
           Row(
             children: [
@@ -291,7 +322,20 @@ class _DashboardBodyState extends State<DashboardBody> {
                                       _textFieldController.clear();
 
                                       Navigator.of(context).pop;
-
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'successfully saved to pieces!',
+                                          ),
+                                          duration: Duration(
+                                              days: 0,
+                                              hours: 0,
+                                              minutes: 0,
+                                              seconds: 4,
+                                              milliseconds: 30,
+                                              microseconds: 10),
+                                        ),
+                                      );
 
                                       //   },
                                       // );
@@ -465,42 +509,15 @@ class _DashboardBodyState extends State<DashboardBody> {
                       children: [
                         // SizedBox(height: 30, width: 30, child: Image.asset('img_3.png')),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 15,
-                              width: 15,
-                              child: Image.asset('chrome.png'),
-                            ),
-                            SizedBox(
-                              height: 15,
-                              width: 15,
-                              child: Image.asset('intellij.jpeg'),
-                            ),
-                            SizedBox(
-                              height: 15,
-                              width: 15,
-                              child: Image.asset('vscode.png'),
-                            ),
-                            SizedBox(
-                              height: 15,
-                              width: 15,
-                              child: Image.asset('terminal.png'),
-                            ),
-                            SizedBox(
-                              height: 15,
-                              width: 15,
-                              child: Image.asset('Safari.png'),
-                            ),
-                            Icon(
-                              Icons.description,
-                              color: Colors.white,
-                              size: 12,
-                            )
-                          ],
-                        ),
 
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.description,
+                            color: Colors.white,
+                            size: 12,
+                          ),
+                        ),
                         Divider(
                           color: Colors.white,
                           thickness: 2,

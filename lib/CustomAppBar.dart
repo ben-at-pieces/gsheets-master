@@ -65,7 +65,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ),
                   content: SizedBox(
-                    height: 260,
+                    height: 220,
                     child: Column(
                       children: [
                         Container(
@@ -84,8 +84,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                             ),
                             cursorHeight: 12,
                             cursorColor: Colors.black,
-                            minLines: 20,
-                            maxLines: 20,
+                            minLines: 10,
+                            maxLines: 10,
                             autocorrect: true,
                             controller: _textFieldController,
                             decoration: InputDecoration(
@@ -182,6 +182,20 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                               _textFieldController.clear();
 
                               Navigator.of(context).pop;
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'successfully saved to pieces!',
+                                  ),
+                                  duration: Duration(
+                                      days: 0,
+                                      hours: 0,
+                                      minutes: 0,
+                                      seconds: 4,
+                                      milliseconds: 30,
+                                      microseconds: 10),
+                                ),
+                              );
 
                               // showDialog(
                               //   context: context,
