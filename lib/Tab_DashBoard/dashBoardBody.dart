@@ -41,7 +41,7 @@ class _DashboardBodyState extends State<DashboardBody> {
           Row(
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(4.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
                   child: Container(
@@ -95,7 +95,7 @@ class _DashboardBodyState extends State<DashboardBody> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(4.0),
                 child: FloatingActionButton(
                   // focusColor: Colors.green,
                   tooltip: 'frequently asked questions',
@@ -501,36 +501,25 @@ class _DashboardBodyState extends State<DashboardBody> {
                 shrinkWrap: true,
                 itemCount: related.length,
                 itemBuilder: (context, index) {
-                  return Container(
-                    color: Colors.black87,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // SizedBox(height: 30, width: 30, child: Image.asset('img_3.png')),
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // SizedBox(height: 30, width: 30, child: Image.asset('img_3.png')),
 
 
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Icon(
-                            Icons.description,
-                            color: Colors.white,
-                            size: 12,
-                          ),
-                        ),
-                        Divider(
-                          color: Colors.white,
-                          thickness: 2,
-                        ),
 
-                        Container(
+
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(15),
+                        child: Container(
                           color: Colors.black87,
                           width: 200,
-                          height: 125,
+                          height: 150,
                           child: SingleChildScrollView(
                             scrollDirection: Axis.vertical,
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 8.0, top: 20, bottom: 8),
+                              padding: const EdgeInsets.only(left: 8.0, top: 8, bottom: 8),
                               child: Text(
                                 related[index],
                                 softWrap: true,
@@ -546,23 +535,35 @@ class _DashboardBodyState extends State<DashboardBody> {
                             ),
                           ),
                         ),
-
-                        /// copy button
-                        Row(
+                      ),
+                      Divider(
+                        color: Colors.white,
+                        thickness: 2,
+                      ),
+                      /// copy button
+                      SizedBox(
+                        height: 50,
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Icon(
+                                Icons.description,
+                                color: Colors.white,
+                                size: 14,
+                              ),
+                            ),
+
                             IconButton(
                               // tooltip: 'copy',
-                              icon: Container(
-                                height: 30,
-                                width: 30,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: Icon(
-                                    Icons.copy,
-                                    color: Colors.white,
-                                    size: 18,
-                                  ),
+                              icon: Padding(
+                                padding: const EdgeInsets.all(2.0),
+                                child: Icon(
+                                  Icons.copy,
+                                  color: Colors.white,
+                                  size: 14,
                                 ),
                               ),
                               onPressed: () async {
@@ -585,42 +586,36 @@ class _DashboardBodyState extends State<DashboardBody> {
                               },
                             ),
 
-                            /// teams button
-                            TextButton(
-                              child: SizedBox(
-                                height: 25,
-                                width: 25,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: Image.asset('teams.png'),
-                                ),
-                              ),
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return GPTCustomAlertDialog(
-                                      initialText: related[index],
-                                    );
-                                  },
-                                );
-                              },
-                            ),
+                            // /// teams button
+                            // TextButton(
+                            //   child: SizedBox(
+                            //     height: 25,
+                            //     width: 25,
+                            //     child: Padding(
+                            //       padding: const EdgeInsets.all(2.0),
+                            //       child: Image.asset('teams.png'),
+                            //     ),
+                            //   ),
+                            //   onPressed: () {
+                            //     showDialog(
+                            //       context: context,
+                            //       builder: (context) {
+                            //         return GPTCustomAlertDialog(
+                            //           initialText: related[index],
+                            //         );
+                            //       },
+                            //     );
+                            //   },
+                            // ),
 
                             /// copy and reference
-                            TextButton(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(18),
-                                child: Container(
-                                  // color: Colors.white,
-                                  height: 25,
-                                  width: 25,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(2.0),
-                                    child: Image.asset('gpt.png'),
-                                  ),
-                                ),
-                              ),
+                            IconButton(
+                              icon: SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: Image.asset('gpt.png')),
+
+
                               onPressed: () async {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
@@ -703,14 +698,17 @@ hello chat GPT, please give me an explanation and example about the text below:
                             ),
                           ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   );
                 },
               ),
             ),
           ),
-
+          Divider(
+            color: Colors.white,
+            thickness: 1,
+          ),
           /// ==========================================================
         ],
       ),

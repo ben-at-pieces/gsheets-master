@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:runtime_client/particle.dart';
 
-import '../bottom_appbar_class.dart';
+import '../Bottom_bar/bottom_appbar_class.dart';
 
 class SettingsLanguageBuilder extends StatefulWidget {
   @override

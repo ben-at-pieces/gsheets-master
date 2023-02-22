@@ -14,7 +14,7 @@ import 'package:flutter/services.dart';
 import '../CustomAppBar.dart';
 import '../Dashboard/custom_classes.dart';
 import '../Tab_Activity_Bar_Chart/colors.dart';
-import '../bottom_appbar_class.dart';
+import '../Bottom_bar/bottom_appbar_class.dart';
 import '../statistics_singleton.dart';
 
 // void main() => runApp(const MyApp());

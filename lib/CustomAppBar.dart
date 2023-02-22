@@ -26,7 +26,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: ListTile(
         leading:CircleAvatar(
           backgroundImage: NetworkImage(
+
             userPic,
+          scale: 1,
           ),
           radius: 20,
         ),
@@ -70,7 +72,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       children: [
                         Container(
                           color: Colors.white,
-                          height: 250,
+                          // height: 300,
                           width: 500,
                           child: TextField(
                             autofocus: true,

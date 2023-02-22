@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:runtime_client/particle.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../bottom_appbar_class.dart';
-import '../checkbox_class.dart';
+import '../Bottom_bar/bottom_appbar_class.dart';
+import '../Tab_DashBoard/checkbox_class.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 

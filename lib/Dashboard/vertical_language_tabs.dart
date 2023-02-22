@@ -11,7 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
 import '../CustomAppBar.dart';
 import '../Tab_Plugins_and_More/plugins_and_more.dart';
-import '../bottom_appbar_class.dart';
+import '../Bottom_bar/bottom_appbar_class.dart';
 import '../statistics_singleton.dart';
 import 'custom_classes.dart';
 
@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyDashBoard> {
     List<Image> images = [];
 
     return Scaffold(
-      backgroundColor:   Colors.black87,
+        backgroundColor: Colors.black87,
         bottomNavigationBar: CustomBottomAppBar(),
         appBar: CustomAppBar(
           title: 'Grid Snippet Descriptions',
@@ -73,7 +73,7 @@ class _MyHomePageState extends State<MyDashBoard> {
             MaterialApp(
               debugShowCheckedModeBanner: false,
               home: Scaffold(
-                backgroundColor: Colors.black54,
+                backgroundColor: Colors.black12,
                 body: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     // childAspectRatio: 2,
@@ -84,50 +84,56 @@ class _MyHomePageState extends State<MyDashBoard> {
                   itemBuilder: (context, index) {
                     return Column(
                       children: [
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Container(
-                            height: 35,
-                            width: 200,
-                            color: Colors.black54,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                list.elementAt(index).name ?? '',
-                                style: TextStyle(color: Colors.white, fontSize: 16),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10.0, top: 10),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),                              child: Container(
+                                width: 200,
+                                color: Colors.black12,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    list.elementAt(index).name ?? '',
+                                    style: TextStyle(color: Colors.white, fontSize: 12),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
                         ),
                         // Divider(color: Colors.white, ),
-                        Container(
-                          color: Colors.black87,
-                          width: 200,
-                          height: 100,
-                          child: Padding(
-                            padding: const EdgeInsets.all(14.0),
-                            child: SingleChildScrollView(
-                              child: Text(
-
-                                // StatisticsSingleton()
-                                //         .statistics
-                                //         ?.asset
-                                //         .toList()
-                                //         .elementAt(index)
-                                //         .description ??
-                                    StatisticsSingleton()
-                                    .statistics
-                                    ?.asset
-                                    .toList()
-                                    .elementAt(index)
-                                    .original
-                                    .reference
-                                    ?.fragment
-                                    ?.string
-                                    ?.raw ??
-                                    '',
-                                style: ProductTitleText(),
-                              softWrap: false,
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Container(
+                            color: Colors.black87,
+                            width: 200,
+                            height: 130,
+                            child: Padding(
+                              padding: const EdgeInsets.all(14.0),
+                              child: SingleChildScrollView(
+                                child: Text(
+                                  // StatisticsSingleton()
+                                  //         .statistics
+                                  //         ?.asset
+                                  //         .toList()
+                                  //         .elementAt(index)
+                                  //         .description ??
+                                  StatisticsSingleton()
+                                          .statistics
+                                          ?.asset
+                                          .toList()
+                                          .elementAt(index)
+                                          .original
+                                          .reference
+                                          ?.fragment
+                                          ?.string
+                                          ?.raw ??
+                                      '',
+                                  style: ProductTitleText(),
+                                  softWrap: false,
+                                ),
                               ),
                             ),
                           ),
@@ -135,13 +141,19 @@ class _MyHomePageState extends State<MyDashBoard> {
                         Container(
                           width: 200,
                           height: 45,
-                          color: Colors.black87,
+                          color: Colors.black12,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               IconButton(
-                                tooltip: '',
+                                tooltip: '${ StatisticsSingleton()
+                        .statistics
+                        ?.asset
+                        .toList()
+                        .elementAt(index)
+                        .description ??
+                    ''}',
                                 onPressed: () async {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
@@ -196,8 +208,11 @@ class _MyHomePageState extends State<MyDashBoard> {
                                                 ?.asset
                                                 .toList()
                                                 .elementAt(index)
-                                                .original.reference?.fragment?.string?.raw ??
-
+                                                .original
+                                                .reference
+                                                ?.fragment
+                                                ?.string
+                                                ?.raw ??
                                             '',
                                       );
                                     },
@@ -251,8 +266,7 @@ class _MyHomePageState extends State<MyDashBoard> {
 
                                     var first = applicationsSnapshot.iterable.first;
 
-                                    final Asset response =
-                                        await assetsApi.assetsCreateNewAsset(
+                                    final Asset response = await assetsApi.assetsCreateNewAsset(
                                       seed: Seed(
                                         asset: SeededAsset(
                                           application: Application(
@@ -320,8 +334,6 @@ class _MyHomePageState extends State<MyDashBoard> {
                 ),
               ),
             ),
-
-
           ],
         ));
   }

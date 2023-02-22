@@ -69,7 +69,6 @@ Future<Statistics?> getStats() async {
 
   Iterable<Asset> batch = assetsList.where((element) =>
       element.original.reference?.classification.specific == ClassificationSpecificEnum.bat);
-
   Iterable<Asset> c = assetsList.where((element) =>
       element.original.reference?.classification.specific == ClassificationSpecificEnum.c);
   Iterable<Asset> cPlus = assetsList.where((element) =>

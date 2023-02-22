@@ -9,13 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:gsheets/statistics_singleton.dart';
 import 'package:runtime_client/particle.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'Dashboard/custom_classes.dart';
-import 'Dashboard/faqs.dart';
-import 'Language_Pie_List/pieChartWidget.dart';
-import 'Tab_Plugins_and_More/plugins_and_more.dart';
-import 'create/create_function.dart';
-import 'init/src/gsheets.dart';
-import 'lists/relatedLists.dart';
+import '../Dashboard/custom_classes.dart';
+import '../Dashboard/faqs.dart';
+import '../Language_Pie_List/pieChartWidget.dart';
+import '../Tab_Plugins_and_More/plugins_and_more.dart';
+import '../create/create_function.dart';
+import '../init/src/gsheets.dart';
+import '../lists/relatedLists.dart';
 
 class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -73,59 +73,21 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
 
 
 
+
+
+
+              /// docs
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
-                  height: 35,
-                  width: 35,
+                  height: 30,
+                  width: 30,
                   child: TextButton(
 
                     onPressed: () async {
-                    final gsheets = GSheets(credentials);
 
-                    final spreadsheetID = '18IlCBkFo9Y1Q0BshWiHehI0p3zufEImkWqOr23kBMcM';
-
-                    final ssheet = await gsheets.spreadsheet(spreadsheetID);
-
-                    Worksheet? ws = await ssheet.worksheetByTitle('Indy');
-
-
-                    await ws?.values
-                        .insertRow(1, ['Languages', 'Count', '', 'People', 'Links', 'Tags'], fromColumn: 1);
-
-                    /// Languages Column
-                    await ws?.values.insertColumn(1, languages, fromRow: 2);
-
-
-                    /// count Column
-                    await ws?.values.insertColumn(2, languageCounts, fromRow: 2);
-
-
-                    /// added a blank placeholder
-                  List<String> people =  StatisticsSingleton().statistics?.persons.toList() ?? [];
-                  people.add('');
-
-                    /// people Column
-                    await ws?.values.insertColumn(4, people, fromRow: 2);
-                    /// added a blank placeholder
-                    List<String> links =  StatisticsSingleton().statistics?.relatedLinks.toList() ?? [];
-                    links.add('');
-
-                    /// people Column
-                    await ws?.values.insertColumn(5, links , fromRow: 2);
-
-                    /// added a blank placeholder
-                    List<String> tagsList =  StatisticsSingleton().statistics?.relatedLinks.toList() ?? [];
-                    tagsList.add('');
-                    /// tags Column
-                    await ws?.values.insertColumn(6, tagsList, fromRow: 2);
-
-
-
-
-
-                    /// redirect to gsheets in browser
-                    String linkUrl = 'https://docs.google.com/spreadsheets/d/18IlCBkFo9Y1Q0BshWiHehI0p3zufEImkWqOr23kBMcM/edit#gid=1601436512';
+                    /// redirect to docs in browser
+                    String linkUrl = 'https://docs.google.com/document/u/0/?tgif=d';
 
                     linkUrl = linkUrl; //Twitter's URL
                     if (await canLaunch(linkUrl)) {
@@ -137,7 +99,183 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                     }
 
                   },
-                  child: Image.asset('gsheets.png'),),
+                  child: Image.asset('docs.png'),),
+                ),
+              ),
+
+
+              /// sheets
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  height: 30,
+                  width: 30,
+                  child: TextButton(
+
+                    onPressed: () async {
+
+
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'hold tight while we gather your snapshot!',
+                          ),
+                          duration: Duration(
+                              days: 0,
+                              hours: 0,
+                              minutes: 0,
+                              seconds: 4,
+                              milliseconds: 30,
+                              microseconds: 10),
+                        ),
+                      );
+
+
+
+                      final gsheets = GSheets(credentials);
+
+                      final spreadsheetID = '18IlCBkFo9Y1Q0BshWiHehI0p3zufEImkWqOr23kBMcM';
+
+                      final ssheet = await gsheets.spreadsheet(spreadsheetID);
+
+                      Worksheet? ws = await ssheet.worksheetByTitle('Indy');
+
+
+                      await ws?.values
+                          .insertRow(1, ['Languages', 'Count', '', 'People', 'Links', 'Tags'], fromColumn: 1);
+                          await ws?.values
+                          .insertRow(1, [collection], fromColumn: 7);
+
+
+
+                      /// Languages Column
+                      await ws?.values.insertColumn(1, languages, fromRow: 2);
+
+
+                      /// count Column
+                      await ws?.values.insertColumn(2, languageCounts, fromRow: 2);
+
+
+                      /// added a blank placeholder
+                      List<String> people =  StatisticsSingleton().statistics?.persons.toList() ?? [];
+                      people.add('');
+
+                      /// people Column
+                      await ws?.values.insertColumn(4, people, fromRow: 2);
+                      /// added a blank placeholder
+                      List<String> links =  StatisticsSingleton().statistics?.relatedLinks.toList() ?? [];
+                      links.add('');
+
+                      /// Tags Column
+                      await ws?.values.insertColumn(5, links , fromRow: 2);
+
+                      /// added a blank placeholder
+                      List<String> tagsList =  StatisticsSingleton().statistics?.tags.toList() ?? [];
+                      tagsList.add('');
+                      /// tags Column
+                      await ws?.values.insertColumn(6, tagsList, fromRow: 2);
+
+
+
+
+
+                      /// redirect to gsheets in browser
+                      String linkUrl = 'https://docs.google.com/spreadsheets/d/18IlCBkFo9Y1Q0BshWiHehI0p3zufEImkWqOr23kBMcM/edit#gid=1601436512';
+
+                      linkUrl = linkUrl; //Twitter's URL
+                      if (await canLaunch(linkUrl)) {
+                        await launch(
+                          linkUrl,
+                        );
+                      } else {
+                        throw 'Could not launch $linkUrl';
+                      }
+
+                    },
+                    child: Image.asset('gsheets.png'),),
+                ),
+              ),
+
+              /// calendar
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  height: 35,
+                  width: 35,
+                  child: TextButton(
+
+                    onPressed: () async {
+
+
+
+                    /// redirect to gsheets in browser
+                    String linkUrl = 'https://calendar.google.com/calendar/u/0/r';
+
+                    linkUrl = linkUrl; //Twitter's URL
+                    if (await canLaunch(linkUrl)) {
+                    await launch(
+                    linkUrl,
+                    );
+                    } else {
+                    throw 'Could not launch $linkUrl';
+                    }
+
+                  },
+                  child: Image.asset('calendar.png'),),
+                ),
+              ),
+
+              /// teams
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  height: 35,
+                  width: 35,
+                  child: TextButton(
+
+                    onPressed: () async {
+
+                    /// redirect to gsheets in browser
+                    String linkUrl = '';
+
+                    linkUrl = linkUrl; //Twitter's URL
+                    if (await canLaunch(linkUrl)) {
+                    await launch(
+                    linkUrl,
+                    );
+                    } else {
+                    throw 'Could not launch $linkUrl';
+                    }
+
+                  },
+                  child: Image.asset('teams.png'),),
+                ),
+              ),
+
+              /// drive
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  height: 35,
+                  width: 35,
+                  child: TextButton(
+
+                    onPressed: () async {
+
+                    /// redirect to gsheets in browser
+                    String linkUrl = 'https://drive.google.com/drive/u/0/my-drive';
+
+                    linkUrl = linkUrl; //Twitter's URL
+                    if (await canLaunch(linkUrl)) {
+                    await launch(
+                    linkUrl,
+                    );
+                    } else {
+                    throw 'Could not launch $linkUrl';
+                    }
+
+                  },
+                  child: Image.asset('drive.png'),),
                 ),
               ),
 
@@ -186,6 +324,45 @@ Future<Context> connect() async {
     throw Exception('Error occurred when establishing connection. error:$err');
   }
 }
+
+
+List<String> collection = [
+  'C',
+  'C#',
+  'CoffeeScript',
+  'C++',
+  'CSS',
+  'Dart',
+  'Erlang',
+  'Go',
+  'Haskell',
+  'HTML',
+  'Java',
+  'JavaScript',
+  'json',
+  'Lua',
+  'Markdown',
+  'MatLab',
+  'objective C',
+  'PHP',
+  'Perl',
+  'Powershell',
+  'Python',
+  'R',
+  'Ruby',
+  'Rust',
+  'Scala',
+  'Shell',
+  'SQL',
+  'Swift',
+  'TypeScript',
+  'TeX',
+  'Text',
+  'TOML',
+  'Yaml',
+  'Image',
+];
+
 List<String> languageCounts =    [
 
 

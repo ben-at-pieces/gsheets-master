@@ -7,8 +7,8 @@ import '../CustomAppBar.dart';
 import '../Dashboard/custom_classes.dart';
 import '../Dashboard/sidebar.dart';
 import '../Tab_Plugins_and_More/plugins_and_more.dart';
-import '../bottom_appbar_class.dart';
-import '../checkbox_class.dart';
+import '../Bottom_bar/bottom_appbar_class.dart';
+import '../Tab_DashBoard/checkbox_class.dart';
 import '../statistics_singleton.dart';
 
 void main() => runApp(MyApp());

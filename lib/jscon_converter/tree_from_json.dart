@@ -14,7 +14,7 @@ import '../CustomAppBar.dart';
 import '../Dashboard/custom_classes.dart';
 import '../Tab_Peoples_List/peoples_list.dart';
 import '../boot.dart';
-import '../bottom_appbar_class.dart';
+import '../Bottom_bar/bottom_appbar_class.dart';
 import '../statistics_singleton.dart';
 import 'json_snippets.dart';
 

@@ -14,7 +14,7 @@ import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../TabAppBar.dart';
-import '../bottom_appbar_class.dart';
+import '../Bottom_bar/bottom_appbar_class.dart';
 import '../statistics_singleton.dart';
 
 class BarGraph extends StatefulWidget {

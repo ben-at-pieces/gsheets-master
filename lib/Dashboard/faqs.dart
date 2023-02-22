@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../CustomAppBar.dart';
 import '../Tab_Peoples_List/peoples_list.dart';
-import '../bottom_appbar_class.dart';
+import '../Bottom_bar/bottom_appbar_class.dart';
 
 void main() => runApp(FloatingSettingsButton());
 
