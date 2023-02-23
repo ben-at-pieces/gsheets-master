@@ -39,40 +39,40 @@ class TagsListWidget extends StatelessWidget {
       ),
       body: Scaffold(
         backgroundColor: Colors.black12,
-        appBar: AppBar(
-          elevation: 5,
-          backgroundColor: Colors.black54,
-          leadingWidth: 400,
-          leading: TextButton(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.save,
-                    color: Colors.white,
-                    size: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 18.0),
-                    child: Text(
-                      'View Related Tags',
-                      style: ParticleFont.button(context,
-                          customization: TextStyle(
-                            color: Colors.white,
-                          )),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            onPressed: () {
-              /// TODO select all
-              // ClipboardData data = ClipboardData(text: linkUrl);
-              // await Clipboard.setData(data);
-            },
-          ),
-        ),
+        // appBar: AppBar(
+        //   elevation: 5,
+        //   backgroundColor: Colors.black54,
+        //   leadingWidth: 400,
+        //   leading: TextButton(
+        //     child: Padding(
+        //       padding: const EdgeInsets.all(8.0),
+        //       child: Row(
+        //         children: [
+        //           Icon(
+        //             Icons.save,
+        //             color: Colors.white,
+        //             size: 15,
+        //           ),
+        //           Padding(
+        //             padding: const EdgeInsets.only(left: 18.0),
+        //             child: Text(
+        //               'View Related Tags',
+        //               style: ParticleFont.button(context,
+        //                   customization: TextStyle(
+        //                     color: Colors.white,
+        //                   )),
+        //             ),
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //     onPressed: () {
+        //       /// TODO select all
+        //       // ClipboardData data = ClipboardData(text: linkUrl);
+        //       // await Clipboard.setData(data);
+        //     },
+        //   ),
+        // ),
         body: ListView.builder(
             itemCount: StatisticsSingleton().statistics?.tags.length,
             itemBuilder: (BuildContext context, int index) {

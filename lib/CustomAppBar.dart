@@ -126,6 +126,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ),
                   actions: [
+
+                    ParticleIconButton(icon: Icon(Icons.travel_explore_outlined, color: Colors.black,), onPressed: (){},color: Colors.white,tooltip: 'discover',),
+                    ParticleIconButton(icon: Icon(Icons.attach_file, color: Colors.black,), onPressed: (){},color: Colors.white,tooltip: 'add a file',),
+                    ParticleIconButton(icon: Icon(Icons.paste, color: Colors.black,), onPressed: (){},color: Colors.white,tooltip: 'paste your clipboard',),
+                    ParticleIconButton(icon: Icon(Icons.image, color: Colors.black,), onPressed: (){},color: Colors.white,tooltip: 'add an image',),
+                    ParticleIconButton(icon: Icon(Icons.link, color: Colors.black,), onPressed: (){},color: Colors.white,tooltip: 'add a link',),
+                    ParticleIconButton(icon: Icon(Icons.people, color: Colors.black,), onPressed: (){},color: Colors.white,tooltip: 'add people',),
+
+
+
                     /// Save to Pieces ------------------------------------------------------------
                     Padding(
                       padding: const EdgeInsets.all(15.0),

@@ -60,21 +60,26 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                   }
                 },
               ),
-              TextButton(
-                child: Text(
-                  '${StatisticsSingleton().statistics?.classifications}',
-                  style: ClassificationsTitleText(),
-                ),
+              ParticleButton(
+                text: '${StatisticsSingleton().statistics?.classifications}',
+                backgroundColor: Colors.white,
+                overlayColor: Colors.grey,
+                textColor: Colors.black,
                 onPressed: () {
-                  /// Language Pie Chart ==========================================================
-                  MyPieChart();
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        height: 500,
+                        width: 300,
+                        child: Center(
+                          child: BottomPieChart(),
+                        ),
+                      );
+                    },
+                  );
                 },
               ),
-
-
-
-
-
 
               /// docs
               Padding(
@@ -83,26 +88,23 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                   height: 30,
                   width: 30,
                   child: TextButton(
-
                     onPressed: () async {
+                      /// redirect to docs in browser
+                      String linkUrl = 'https://docs.google.com/document/u/0/?tgif=d';
 
-                    /// redirect to docs in browser
-                    String linkUrl = 'https://docs.google.com/document/u/0/?tgif=d';
-
-                    linkUrl = linkUrl; //Twitter's URL
-                    if (await canLaunch(linkUrl)) {
-                    await launch(
-                    linkUrl,
-                    );
-                    } else {
-                    throw 'Could not launch $linkUrl';
-                    }
-
-                  },
-                  child: Image.asset('docs.png'),),
+                      linkUrl = linkUrl; //Twitter's URL
+                      if (await canLaunch(linkUrl)) {
+                        await launch(
+                          linkUrl,
+                        );
+                      } else {
+                        throw 'Could not launch $linkUrl';
+                      }
+                    },
+                    child: Image.asset('docs.png'),
+                  ),
                 ),
               ),
-
 
               /// sheets
               Padding(
@@ -111,10 +113,7 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                   height: 30,
                   width: 30,
                   child: TextButton(
-
                     onPressed: () async {
-
-
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
@@ -130,57 +129,63 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                         ),
                       );
 
-
-
                       final gsheets = GSheets(credentials);
 
                       final spreadsheetID = '18IlCBkFo9Y1Q0BshWiHehI0p3zufEImkWqOr23kBMcM';
 
+                      /// get the spreadsheet
                       final ssheet = await gsheets.spreadsheet(spreadsheetID);
 
                       Worksheet? ws = await ssheet.worksheetByTitle('Indy');
 
+                      // Clear the sheet data
 
-                      await ws?.values
-                          .insertRow(1, ['Languages', 'Count', '', 'People', 'Links', 'Tags'], fromColumn: 1);
-                          await ws?.values
-                          .insertRow(1, [collection], fromColumn: 7);
+                      await ws?.values.insertRow(
+                          1,
+                          [
+                            'Languages',
+                            'Count',
+                            '',
+                            'People',
+                            'Links',
+                            'Tags',
+                          ],
+                          fromColumn: 1);
 
-
+                      await ws?.values.insertColumn(1, [0, 0, 0, 0, 0], fromRow: 1);
 
                       /// Languages Column
                       await ws?.values.insertColumn(1, languages, fromRow: 2);
 
-
                       /// count Column
                       await ws?.values.insertColumn(2, languageCounts, fromRow: 2);
 
-
                       /// added a blank placeholder
-                      List<String> people =  StatisticsSingleton().statistics?.persons.toList() ?? [];
+                      List<String> people =
+                          StatisticsSingleton().statistics?.persons.toList() ?? [];
                       people.add('');
 
                       /// people Column
                       await ws?.values.insertColumn(4, people, fromRow: 2);
+
                       /// added a blank placeholder
-                      List<String> links =  StatisticsSingleton().statistics?.relatedLinks.toList() ?? [];
+                      List<String> links =
+                          StatisticsSingleton().statistics?.relatedLinks.toList() ?? [];
                       links.add('');
 
                       /// Tags Column
-                      await ws?.values.insertColumn(5, links , fromRow: 2);
+                      await ws?.values.insertColumn(5, links, fromRow: 2);
 
                       /// added a blank placeholder
-                      List<String> tagsList =  StatisticsSingleton().statistics?.tags.toList() ?? [];
+                      List<String> tagsList = StatisticsSingleton().statistics?.tags.toList() ?? [];
                       tagsList.add('');
+
                       /// tags Column
                       await ws?.values.insertColumn(6, tagsList, fromRow: 2);
 
-
-
-
-
                       /// redirect to gsheets in browser
-                      String linkUrl = 'https://docs.google.com/spreadsheets/d/18IlCBkFo9Y1Q0BshWiHehI0p3zufEImkWqOr23kBMcM/edit#gid=1601436512';
+                      String linkUrl =
+                          'https://docs.google.com/spreadsheets/d/18IlCBkFo9Y1Q0BshWiHehI0p3zufEImkWqOr23kBMcM/edit#gid=1601436512';
 
                       linkUrl = linkUrl; //Twitter's URL
                       if (await canLaunch(linkUrl)) {
@@ -190,9 +195,9 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                       } else {
                         throw 'Could not launch $linkUrl';
                       }
-
                     },
-                    child: Image.asset('gsheets.png'),),
+                    child: Image.asset('gsheets.png'),
+                  ),
                 ),
               ),
 
@@ -203,25 +208,21 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                   height: 35,
                   width: 35,
                   child: TextButton(
-
                     onPressed: () async {
+                      /// redirect to gsheets in browser
+                      String linkUrl = 'https://calendar.google.com/calendar/u/0/r';
 
-
-
-                    /// redirect to gsheets in browser
-                    String linkUrl = 'https://calendar.google.com/calendar/u/0/r';
-
-                    linkUrl = linkUrl; //Twitter's URL
-                    if (await canLaunch(linkUrl)) {
-                    await launch(
-                    linkUrl,
-                    );
-                    } else {
-                    throw 'Could not launch $linkUrl';
-                    }
-
-                  },
-                  child: Image.asset('calendar.png'),),
+                      linkUrl = linkUrl; //Twitter's URL
+                      if (await canLaunch(linkUrl)) {
+                        await launch(
+                          linkUrl,
+                        );
+                      } else {
+                        throw 'Could not launch $linkUrl';
+                      }
+                    },
+                    child: Image.asset('calendar.png'),
+                  ),
                 ),
               ),
 
@@ -232,23 +233,21 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                   height: 35,
                   width: 35,
                   child: TextButton(
-
                     onPressed: () async {
+                      /// redirect to gsheets in browser
+                      String linkUrl = '';
 
-                    /// redirect to gsheets in browser
-                    String linkUrl = '';
-
-                    linkUrl = linkUrl; //Twitter's URL
-                    if (await canLaunch(linkUrl)) {
-                    await launch(
-                    linkUrl,
-                    );
-                    } else {
-                    throw 'Could not launch $linkUrl';
-                    }
-
-                  },
-                  child: Image.asset('teams.png'),),
+                      linkUrl = linkUrl; //Twitter's URL
+                      if (await canLaunch(linkUrl)) {
+                        await launch(
+                          linkUrl,
+                        );
+                      } else {
+                        throw 'Could not launch $linkUrl';
+                      }
+                    },
+                    child: Image.asset('teams.png'),
+                  ),
                 ),
               ),
 
@@ -259,26 +258,23 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                   height: 35,
                   width: 35,
                   child: TextButton(
-
                     onPressed: () async {
+                      /// redirect to gsheets in browser
+                      String linkUrl = 'https://drive.google.com/drive/u/0/my-drive';
 
-                    /// redirect to gsheets in browser
-                    String linkUrl = 'https://drive.google.com/drive/u/0/my-drive';
-
-                    linkUrl = linkUrl; //Twitter's URL
-                    if (await canLaunch(linkUrl)) {
-                    await launch(
-                    linkUrl,
-                    );
-                    } else {
-                    throw 'Could not launch $linkUrl';
-                    }
-
-                  },
-                  child: Image.asset('drive.png'),),
+                      linkUrl = linkUrl; //Twitter's URL
+                      if (await canLaunch(linkUrl)) {
+                        await launch(
+                          linkUrl,
+                        );
+                      } else {
+                        throw 'Could not launch $linkUrl';
+                      }
+                    },
+                    child: Image.asset('drive.png'),
+                  ),
                 ),
               ),
-
             ],
           ),
         ),
@@ -301,7 +297,7 @@ Future<Context> connect() async {
   final ConnectorApi connectorApi = ConnectorApi(connector.ApiClient(basePath: host));
 
   final ApplicationsApi applicationsApi =
-  ApplicationsApi(ApiClient(basePath: 'http://localhost:1000'));
+      ApplicationsApi(ApiClient(basePath: 'http://localhost:1000'));
   Applications snapshot = await applicationsApi.applicationsSnapshot();
 
   List<Application> applicationsList = snapshot.iterable.toList();
@@ -324,7 +320,6 @@ Future<Context> connect() async {
     throw Exception('Error occurred when establishing connection. error:$err');
   }
 }
-
 
 List<String> collection = [
   'C',
@@ -363,11 +358,7 @@ List<String> collection = [
   'Image',
 ];
 
-List<String> languageCounts =    [
-
-
-
-
+List<String> languageCounts = [
   '${StatisticsSingleton().statistics?.batch.toList().length ?? 0}',
   '${StatisticsSingleton().statistics?.c.toList().length ?? 0}',
   '${StatisticsSingleton().statistics?.cSharp.toList().length ?? 0}',
@@ -403,7 +394,6 @@ List<String> languageCounts =    [
   '${StatisticsSingleton().statistics?.toml.toList().length ?? 0}',
   '${StatisticsSingleton().statistics?.yaml.toList().length ?? 0}',
   '${StatisticsSingleton().statistics?.image.toList().length ?? 0}'
-
 ];
 
 List<String> languages = [

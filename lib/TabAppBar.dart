@@ -18,6 +18,7 @@ import 'Tab_Activity_Bar_Chart/bar_chart.dart';
 import 'Tab_Origin_Pie_Chart/originPieChart.dart';
 import 'Tab_Plugins_and_More/plugins_and_more.dart';
 import 'Tab_Related_Links_List/related_links_List.dart';
+import 'Tab_Tags_List/tags_list.dart';
 import 'boot.dart';
 import 'jscon_converter/tree_from_json.dart';
 
