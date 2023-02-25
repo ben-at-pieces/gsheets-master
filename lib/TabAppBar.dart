@@ -12,6 +12,7 @@ import 'package:core_openapi/api_client.dart';
 import 'package:flutter/material.dart';
 
 import 'DashBoard.dart';
+import 'Dashboard/Empty States/sample2.dart';
 import 'Dashboard/vertical_language_tabs.dart';
 import 'Language_Pie_List/pieChartWidget.dart';
 import 'Tab_Activity_Bar_Chart/bar_chart.dart';
@@ -125,7 +126,7 @@ class HomePageState extends State<TabAppBar> {
                   ),
                 ),
                 Text(
-                  'JSON',
+                  'Languages',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 8,
@@ -166,7 +167,7 @@ class HomePageState extends State<TabAppBar> {
               Plugins(),
 
               /// json ===================================================================
-              TreeFromJson(),
+              LanguagesGrid(),
             ],
           ), // TabBarView
         ), // Scaffold

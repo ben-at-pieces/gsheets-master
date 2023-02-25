@@ -60,25 +60,31 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                   }
                 },
               ),
-              ParticleButton(
-                text: '${StatisticsSingleton().statistics?.classifications}',
-                backgroundColor: Colors.white,
-                overlayColor: Colors.grey,
-                textColor: Colors.black,
-                onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return Container(
-                        height: 500,
-                        width: 300,
-                        child: Center(
-                          child: BottomPieChart(),
-                        ),
+              SizedBox(
+                width: 250,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: ParticleButton(
+                    text: '${StatisticsSingleton().statistics?.classifications}',
+                    backgroundColor: Colors.white,
+                    overlayColor: Colors.grey,
+                    textColor: Colors.black,
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Container(
+                            height: 500,
+                            width: 300,
+                            child: Center(
+                              child: BottomPieChart(),
+                            ),
+                          );
+                        },
                       );
                     },
-                  );
-                },
+                  ),
+                ),
               ),
 
               /// docs
