@@ -170,7 +170,7 @@ class _DashboardBodyState extends State<DashboardBody> {
                 },
               ),
               LabeledChipButton(
-                chipLabel: 'learn: ${StatisticsSingleton().statistics?.relatedLinks.length}' ?? '',
+                chipLabel: 'learn: ${prompts.toList().length}' ?? '',
                 onPressed: () {
                   setState(() {
                     input = 'learn!';

@@ -1,4 +1,3 @@
-
 import '../statistics_singleton.dart';
 
 List<String> peoples = StatisticsSingleton().statistics?.persons ?? [];
@@ -276,9 +275,6 @@ List<String> sqlTerms = [
 ];
 
 // List<String> userSnippets = StatisticsSingleton().statistics?.asset.toList().elementAt();
-
-
-
 
 List<String> dartSnippets = [
   "print('Hello, Dart!');",
@@ -597,6 +593,20 @@ List<String> learn = [
 ];
 
 List<String> prompts = [
+  'What is image classification?',
+  'What is object detection?',
+  'What is image captioning?',
+  'What is speech recognition?',
+  'What is text generation?',
+  'What is language translation?',
+  'What is text classification?',
+  'What is text summarization?',
+  'What is chatbot development?',
+  'What is conversational AI?',
+  'What is dialogue management?',
+  'What is voice user interface?',
+  'What is language modeling?',
+  'What is named entity recognition?',
   'What is the meaning of life?',
   'What is AI?',
   'What is machine learning?',
@@ -631,21 +641,6 @@ List<String> prompts = [
   'What is support vector machines?',
   'What is neural style transfer?',
   'What is sentiment analysis?',
-  'What is image classification?',
-  'What is object detection?',
-  'What is image segmentation?',
-  'What is image captioning?',
-  'What is speech recognition?',
-  'What is text generation?',
-  'What is language translation?',
-  'What is text classification?',
-  'What is text summarization?',
-  'What is chatbot development?',
-  'What is conversational AI?',
-  'What is dialogue management?',
-  'What is voice user interface?',
-  'What is language modeling?',
-  'What is named entity recognition?',
   'What is part-of-speech tagging?',
   'What is sentiment analysis used for?'
 ];
