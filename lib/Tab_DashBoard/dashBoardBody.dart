@@ -134,7 +134,7 @@ class _DashboardBodyState extends State<DashboardBody> {
                 },
               ),
               LabeledChipButton(
-                chipLabel: 'snippets: ${StatisticsSingleton().statistics?.snippetsSaved}' ?? '',
+                chipLabel: 'snippets: ${StatisticsSingleton().statistics?.asset.length}' ?? '',
                 onPressed: () {
                   setState(() {
                     input = 'snippets';

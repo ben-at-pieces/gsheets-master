@@ -27,6 +27,7 @@ class _MyAppState extends State<LanguagesGrid> {
       debugShowCheckedModeBanner: false,
       title: 'Programming Languages',
       home: Scaffold(
+        backgroundColor: Colors.black87,
         appBar: CustomAppBar(title: 'languages',
         ),
         body: GridView.builder(

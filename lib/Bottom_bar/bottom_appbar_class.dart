@@ -189,6 +189,24 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                       /// tags Column
                       await ws?.values.insertColumn(6, tagsList, fromRow: 2);
 
+                      List <String> assetsList = [];
+                      int index1 = assetsList.length;
+                      List<Asset> assets = StatisticsSingleton().statistics?.asset ?? [];
+                     var name = assets.elementAt(index1).name;
+                      for (Asset name in assets) {
+                        name.name;
+                      }
+                      assetsList.add(name.toString());
+
+
+
+
+
+
+
+                      /// names Column
+                      await ws?.values.insertColumn(7, assetsList.toList(), fromRow: 2);
+
                       /// redirect to gsheets in browser
                       String linkUrl =
                           'https://docs.google.com/spreadsheets/d/18IlCBkFo9Y1Q0BshWiHehI0p3zufEImkWqOr23kBMcM/edit#gid=1601436512';

@@ -46,7 +46,7 @@ class _CustomAlertDialogState extends State<GPTCustomAlertDialog> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.all(2.0),
+                padding: const EdgeInsets.all(25.0),
                 child: TextField(
                   autofocus: false,
                   style: TitleText(),
@@ -62,7 +62,7 @@ class _CustomAlertDialogState extends State<GPTCustomAlertDialog> {
                   autocorrect: true,
                   controller: _textController,
                   decoration: InputDecoration(
-                    labelStyle: TitleText(),
+                    labelStyle: TextStyle(color: Colors.black, fontSize: 24),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     labelText: 'Need to make update before sending?',
                     hintStyle: TitleBlackText(),
@@ -89,9 +89,21 @@ class _CustomAlertDialogState extends State<GPTCustomAlertDialog> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Row(
+                    children: [
+                      ParticleIconButton(icon: Icon(Icons.attach_file, color: Colors.black,), onPressed: (){},color: Colors.white,tooltip: 'add a file',),
+                      ParticleIconButton(icon: Icon(Icons.image_outlined, color: Colors.black,), onPressed: (){},color: Colors.white,tooltip: 'add an image',),
+                      ParticleIconButton(icon: Icon(Icons.link, color: Colors.black,), onPressed: (){},color: Colors.white,tooltip: 'add a link',),
+                    ],
+                  ),
+
+                  SizedBox(height: 8),
+
                   /// bottom buttons
                   Row(
                     children: [
+
+
                       ///save button Teams
                       Padding(
                         padding: const EdgeInsets.all(5.0),
@@ -111,15 +123,18 @@ class _CustomAlertDialogState extends State<GPTCustomAlertDialog> {
                                 ),
                               ),
                               onPressed: () async {
+                                Navigator.of(context).pop;
+                                Navigator.of(context).pop;
+
                                 String port = '1000';
                                 String host = 'http://localhost:$port';
                                 final AssetsApi assetsApi = AssetsApi(ApiClient(basePath: host));
 
                                 final ApplicationsApi applicationsApi =
-                                    await ApplicationsApi(ApiClient(basePath: host));
+                                await ApplicationsApi(ApiClient(basePath: host));
 
                                 Applications applicationsSnapshot =
-                                    await applicationsApi.applicationsSnapshot();
+                                await applicationsApi.applicationsSnapshot();
 
                                 var first = applicationsSnapshot.iterable.first;
 
@@ -148,7 +163,6 @@ class _CustomAlertDialogState extends State<GPTCustomAlertDialog> {
                                 );
                                 _textController.clear();
 
-                                Navigator.of(context).pop;
                               },
                             ),
                           ),
@@ -174,15 +188,16 @@ class _CustomAlertDialogState extends State<GPTCustomAlertDialog> {
                                 ),
                               ),
                               onPressed: () async {
+                                Navigator.of(context).pop;
                                 String port = '1000';
                                 String host = 'http://localhost:$port';
                                 final AssetsApi assetsApi = AssetsApi(ApiClient(basePath: host));
 
                                 final ApplicationsApi applicationsApi =
-                                    await ApplicationsApi(ApiClient(basePath: host));
+                                await ApplicationsApi(ApiClient(basePath: host));
 
                                 Applications applicationsSnapshot =
-                                    await applicationsApi.applicationsSnapshot();
+                                await applicationsApi.applicationsSnapshot();
 
                                 var first = applicationsSnapshot.iterable.first;
 
@@ -211,7 +226,7 @@ class _CustomAlertDialogState extends State<GPTCustomAlertDialog> {
                                 );
                                 _textController.clear();
 
-                                Navigator.of(context).pop;
+
                               },
                             ),
                           ),
@@ -245,57 +260,6 @@ class _CustomAlertDialogState extends State<GPTCustomAlertDialog> {
                       /// reference button
                     ],
                   ),
-                  SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 145,
-                        width: 230,
-                        color: Colors.black87,
-                        child: ListView.builder(
-                            itemCount: StatisticsSingleton().statistics?.persons.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return ListTile(
-                                tileColor: Colors.white,
-                                leading: Icon(
-                                  Icons.account_circle_sharp,
-                                  color: Colors.white,
-                                ),
-                                title: Text(
-                                  '${StatisticsSingleton().statistics?.persons.elementAt(index)}  ',
-                                  style: ClassificationsTitleText(),
-                                ),
-                                trailing: MyCheckBoxWidgget(),
-                              );
-                              // title: Text('Person: $index'));
-                            }),
-                      ),
-                      Container(
-                        height: 145,
-                        width: 210,
-                        color: Colors.black87,
-                        child: ListView.builder(
-                            itemCount: StatisticsSingleton().statistics?.tags.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return ListTile(
-                                tileColor: Colors.white,
-                                leading: Icon(
-                                  Icons.account_circle_sharp,
-                                  color: Colors.white,
-                                ),
-                                title: Text(
-                                  '${StatisticsSingleton().statistics?.tags.elementAt(index)}  ',
-                                  style: ClassificationsTitleText(),
-                                ),
-                                trailing: MyCheckBoxWidgget(),
-                              );
-                              // title: Text('Person: $index'));
-                            }),
-                      ),
-                    ],
-                  ),
-
                   // ///Description text field TODO Update description
                   // CustomDescriptionTextField(
                   //   controller: _textController,
