@@ -43,7 +43,7 @@ class OriginChart extends StatelessWidget {
 
       appBar: CustomAppBar(title: 'Pieces Suite',),
       body: Container(
-        color: Colors.black87,
+        color: Colors.white,
         child: Column(
           children: [
 
@@ -79,7 +79,7 @@ class OriginChart extends StatelessWidget {
                     showLegends: true,
                     legendShape: true ? BoxShape.circle : BoxShape.rectangle,
                     legendTextStyle: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 9,
                       fontWeight: FontWeight.bold,
                     ),

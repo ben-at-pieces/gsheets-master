@@ -50,7 +50,7 @@ class MyPieChart extends StatelessWidget {
         title: 'Snippet Classifications',
       ),
       body: Container(
-        color: Colors.black87,
+        color: Colors.white,
         child: Column(
           children: [
             Padding(
@@ -84,7 +84,7 @@ class MyPieChart extends StatelessWidget {
                     showLegends: true,
                     legendShape: true ? BoxShape.circle : BoxShape.rectangle,
                     legendTextStyle: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 10,
                       fontWeight: FontWeight.bold,
                     ),
@@ -198,22 +198,30 @@ class BottomPieChart extends StatelessWidget {
       // backgroundColor: Colors.black87,
       // appBar: CustomAppBar(title: 'Snippet Classifications',),
       body: Container(
-        color: Colors.black87,
+        color: Colors.white,
         child: Column(
           children: [
-            SizedBox(
-              height: 15,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('esc', style: TextStyle(color: Colors.white),),
-                  )
-                ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: 15,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    FittedBox(
+                      child: Container(
+                        color: Colors.black54,
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('esc', style: TextStyle(color: Colors.white, fontSize: 34),),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
             Row(
@@ -221,7 +229,7 @@ class BottomPieChart extends StatelessWidget {
               children: [
                 Container(
                   height: 225,
-                  width: 230,
+                  width: 200,
                   child: PieChart(
                     centerText: 'TOTAL: ${StatisticsSingleton().statistics?.snippetsSaved}',
                     ringStrokeWidth: 60,
@@ -233,12 +241,13 @@ class BottomPieChart extends StatelessWidget {
                       showChartValuesInPercentage: false,
                     ),
                     emptyColor: Colors.grey,
-                    baseChartColor: Colors.black45,
+                    baseChartColor: Colors.black12,
                     centerTextStyle: TitleText(),
                     key: ValueKey(key),
                     dataMap: StatisticsSingleton().statistics!.classifications,
                     animationDuration: const Duration(milliseconds: 800),
-                    chartLegendSpacing: 50,
+                    chartLegendSpacing: 15,
+                    // chartRadius: math.min(MediaQuery.of(context).size.width / 1.5, 150),
                     chartRadius: math.min(MediaQuery.of(context).size.width / 1.5, 150),
                     colorList: colorList,
                     chartType: ChartType.ring,
@@ -248,7 +257,7 @@ class BottomPieChart extends StatelessWidget {
                       showLegends: true,
                       legendShape: true ? BoxShape.circle : BoxShape.rectangle,
                       legendTextStyle: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
                       ),
@@ -284,7 +293,7 @@ class BottomPieChart extends StatelessWidget {
                       showLegends: true,
                       legendShape: true ? BoxShape.circle : BoxShape.rectangle,
                       legendTextStyle: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 9,
                         fontWeight: FontWeight.bold,
                       ),

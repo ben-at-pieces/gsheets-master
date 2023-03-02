@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyDashBoard> {
     List<Image> images = [];
 
     return Scaffold(
-        backgroundColor: Colors.black87,
+        backgroundColor: Colors.white,
         bottomNavigationBar: CustomBottomAppBar(),
         appBar: CustomAppBar(
           title: 'Grid Snippet Descriptions',
@@ -73,7 +73,7 @@ class _MyHomePageState extends State<MyDashBoard> {
             MaterialApp(
               debugShowCheckedModeBanner: false,
               home: Scaffold(
-                backgroundColor: Colors.black12,
+                backgroundColor: Colors.white,
                 body: GridView.builder(
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     // childAspectRatio: 2,
@@ -89,14 +89,16 @@ class _MyHomePageState extends State<MyDashBoard> {
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),                              child: Container(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Container(
                                 width: 200,
-                                color: Colors.black12,
+                                height: 28,
+                                color: Colors.transparent,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
                                     list.elementAt(index).name ?? '',
-                                    style: TextStyle(color: Colors.white, fontSize: 12),
+                                    style: TextStyle(color: Colors.black, fontSize: 12),
                                   ),
                                 ),
                               ),
@@ -107,9 +109,9 @@ class _MyHomePageState extends State<MyDashBoard> {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(12),
                           child: Container(
-                            color: Colors.black87,
+                            color: Colors.black12,
                             width: 200,
-                            height: 130,
+                            height: 125,
                             child: Padding(
                               padding: const EdgeInsets.all(14.0),
                               child: SingleChildScrollView(
@@ -131,29 +133,23 @@ class _MyHomePageState extends State<MyDashBoard> {
                                           ?.string
                                           ?.raw ??
                                       '',
-                                  style: ProductTitleText(),
+                                  style: TitleText(),
                                   softWrap: false,
                                 ),
                               ),
                             ),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: 200,
                           height: 45,
-                          color: Colors.black12,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               IconButton(
-                                tooltip: '${ StatisticsSingleton()
-                        .statistics
-                        ?.asset
-                        .toList()
-                        .elementAt(index)
-                        .description ??
-                    ''}',
+                                tooltip:
+                                    '${StatisticsSingleton().statistics?.asset.toList().elementAt(index).description ?? ''}',
                                 onPressed: () async {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
@@ -181,8 +177,8 @@ class _MyHomePageState extends State<MyDashBoard> {
                                     width: 30,
                                     child: Icon(
                                       Icons.copy,
-                                      color: Colors.white,
-                                      size: 14,
+                                      color: Colors.black,
+                                      size: 20,
                                     ),
                                   ),
                                 ),
@@ -318,7 +314,7 @@ class _MyHomePageState extends State<MyDashBoard> {
                                           child: Padding(
                                             padding: const EdgeInsets.all(3.0),
                                             child: Image.asset(
-                                              'img.png',
+                                              'PLogo.jpg',
                                             ),
                                           ),
                                         ),

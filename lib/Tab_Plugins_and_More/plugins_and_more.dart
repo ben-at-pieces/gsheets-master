@@ -41,7 +41,7 @@ class Plugins extends StatelessWidget {
       ),
       body: Container(
         // width: 500,
-        color: Colors.black87,
+        color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +70,7 @@ class Plugins extends StatelessWidget {
                                     'Pieces',
                                        style: ParticleFont.micro(
                                     context,
-                                    customization: TextStyle(color: Colors.white, fontSize: 20),
+                                    customization: TextStyle(color: Colors.black, fontSize: 20),
                                   ),
                                   ),
                                 ),
@@ -124,7 +124,7 @@ class Plugins extends StatelessWidget {
                                 'Develop',
                                   style: ParticleFont.micro(
                                 context,
-                                customization: TextStyle(color: Colors.white, fontSize: 20),
+                                customization: TextStyle(color: Colors.black, fontSize: 20),
                               ),
                               ),
                             ),
@@ -204,7 +204,7 @@ class Plugins extends StatelessWidget {
                                     'Enhance',
                                     style: ParticleFont.micro(
                                       context,
-                                      customization: TextStyle(color: Colors.white, fontSize: 20),
+                                      customization: TextStyle(color: Colors.black, fontSize: 20),
                                     ),
                                   ),
                                 ),
@@ -308,7 +308,7 @@ class Plugins extends StatelessWidget {
                                     'Browse',
                                     style: ParticleFont.micro(
                                       context,
-                                      customization: TextStyle(color: Colors.white, fontSize: 20),
+                                      customization: TextStyle(color: Colors.black, fontSize: 20),
                                     ),
                                   ),
                                 ),
@@ -565,8 +565,8 @@ class Plugins extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: SizedBox(
-                          height: 35,
-                          width: 35,
+                          height: 40,
+                          width: 40,
                           child: TextButton(
 
                             onPressed: () async {
@@ -594,8 +594,8 @@ class Plugins extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: SizedBox(
-                          height: 35,
-                          width: 35,
+                          height: 40,
+                          width: 40,
                           child: TextButton(
 
                             onPressed: () async {
@@ -621,8 +621,8 @@ class Plugins extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: SizedBox(
-                          height: 35,
-                          width: 35,
+                          height: 40,
+                          width: 40,
                           child: TextButton(
 
                             onPressed: () async {
@@ -650,7 +650,7 @@ class Plugins extends StatelessWidget {
 
 
                 Padding(
-                  padding: const EdgeInsets.only(left: 35.0, top: 15),
+                  padding: const EdgeInsets.only(left: 40.0, top: 15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -661,8 +661,8 @@ class Plugins extends StatelessWidget {
                       //     child: Row(
                       //       children: [
                       //         SizedBox(
-                      //           height: 35,
-                      //           width: 35,
+                      //           height: 40,
+                      //           width: 40,
                       //           child: Image.asset('pfd.png'),
                       //         ),
                       //         Text(

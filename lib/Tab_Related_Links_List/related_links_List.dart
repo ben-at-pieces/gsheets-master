@@ -39,7 +39,7 @@ class RelatedLinksWidget extends StatelessWidget {
         title: 'Related Links',
       ),
       body: Scaffold(
-        backgroundColor: Colors.black87,
+        backgroundColor: Colors.white,
         body: ListView.builder(
             itemCount: StatisticsSingleton().statistics?.relatedLinks.length,
             itemBuilder: (BuildContext context, int index) {
@@ -56,7 +56,7 @@ class RelatedLinksWidget extends StatelessWidget {
                 ),
                 child: ListTile(
 
-                  tileColor: Colors.black54,
+                  tileColor: Colors.white,
                   subtitle: Row(
                     children: [
                       /// copy =====================================================================
@@ -66,7 +66,7 @@ class RelatedLinksWidget extends StatelessWidget {
                         splashRadius: 2,
                         icon: Icon(
                           Icons.copy,
-                          color: Colors.white,
+                          color: Colors.black,
                           size: 18,
                         ),
                         onPressed: () async {
@@ -120,7 +120,7 @@ class RelatedLinksWidget extends StatelessWidget {
                         children: [
                           SelectableText(
                             linkUrl,
-                            style: ProductTitleText(),
+                            style: TitleText(),
                           ),
                         ],
                       ),

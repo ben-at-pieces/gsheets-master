@@ -60,7 +60,7 @@ class _BarChartState extends State<BarGraph> {
     return Scaffold(
       appBar: CustomAppBar(title: 'Repository Statistics',),
       body: Container(
-        color: Colors.black87,
+        color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.all(45.0),
           child: BarChart(
@@ -100,7 +100,7 @@ class _BarChartState extends State<BarGraph> {
                   axisNameWidget: Text(
                     'Time Saved: ${StatisticsSingleton().statistics?.timeTaken.round()} seconds',
                     style: ParticleFont.button(context,
-                        customization: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                        customization: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
                   ),
                   sideTitles: SideTitles(
                     showTitles: true,
@@ -138,7 +138,7 @@ class _BarChartState extends State<BarGraph> {
                         axisSide: meta.axisSide,
                         child: Text(
                           text,
-                          style: ProductTitleText(),
+                          style: TitleText(),
                         ),
                       );
                     },

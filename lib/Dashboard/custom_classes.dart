@@ -29,7 +29,7 @@ class TitleText extends TextStyle {
   TitleText()
       : super(
     fontFamily: 'Roboto',
-    fontSize: 12,
+    fontSize: 13,
     color: Colors.black,
     fontWeight: FontWeight.bold,
   );
@@ -40,7 +40,7 @@ class PluginsAndMore extends TextStyle {
       : super(
       fontFamily: 'Roboto',
       fontSize: 10,
-      color: Colors.white,
+      color: Colors.grey,
       fontWeight: FontWeight.bold,
       fontStyle: FontStyle.normal
   );
@@ -61,7 +61,7 @@ class CustomIcon extends Icon {
       : super(
     icon,
     size: 18,
-    color: Colors.white,
+    color: Colors.grey,
   );
 }
 

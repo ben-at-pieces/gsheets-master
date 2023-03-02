@@ -25,7 +25,7 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
       height: 50,
       child: BottomAppBar(
         notchMargin: 5,
-        color: Colors.black87,
+        color: Colors.white,
         elevation: 5,
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
@@ -40,7 +40,7 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                     SizedBox(
                       height: 90,
                       width: 90,
-                      child: Image.asset('wordmark_white_filled.png'),
+                      child: Image.asset('APFD.jpeg'),
                     ),
                     Text(
                       '',
@@ -61,12 +61,12 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                 },
               ),
               SizedBox(
-                width: 250,
+                width: 290,
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: ParticleButton(
                     text: '${StatisticsSingleton().statistics?.classifications}',
-                    backgroundColor: Colors.white,
+                    backgroundColor: Colors.black12,
                     overlayColor: Colors.grey,
                     textColor: Colors.black,
                     onPressed: () {
@@ -75,7 +75,7 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                         builder: (BuildContext context) {
                           return Container(
                             height: 500,
-                            width: 300,
+                            width: 330,
                             child: Center(
                               child: BottomPieChart(),
                             ),

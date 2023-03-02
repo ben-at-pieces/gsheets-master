@@ -22,7 +22,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     String userPic = StatisticsSingleton().statistics?.picture.toString() ?? '';
 
     return Container(
-      color: Colors.black87,
+      color: Colors.white,
       child: ListTile(
         leading:CircleAvatar(
           backgroundImage: NetworkImage(
@@ -36,7 +36,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           title,
           style: ParticleFont.micro(
             context,
-            customization: TextStyle(color: Colors.white),
+            customization: TextStyle(color: Colors.black),
           ),
         ),
         trailing:  FloatingActionButton(
@@ -44,11 +44,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           tooltip: 'create',
           hoverColor: Colors.grey,
           elevation: 2,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.white,
           child: Icon(
             Icons.add_box_outlined,
-            size: 20,
-            color: Colors.white,
+            size: 18,
+            color: Colors.black,
           ),
           onPressed: () {
             showDialog(

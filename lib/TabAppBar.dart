@@ -26,17 +26,17 @@ import 'jscon_converter/tree_from_json.dart';
 
 enum LegendShape { circle, rectangle }
 
-String host = 'http://localhost:800';
+String host = 'http://localhost:1000';
 AssetsApi assetsApi = AssetsApi(ApiClient(basePath: host));
 AssetApi assetApi = AssetApi(ApiClient(basePath: host));
-ConnectorApi connectorApi = ConnectorApi(connector.ApiClient(basePath: 'http://localhost:800'));
+ConnectorApi connectorApi = ConnectorApi(connector.ApiClient(basePath: 'http://localhost:1000'));
 UsersApi usersApi = UsersApi(ApiClient(basePath: host));
 UserApi userApi = UserApi(ApiClient(basePath: host));
 // Assets assetsSnapshot = await assetsApi.assetsSnapshot();
 // Asset asset = assetsSnapshot.iterable.elementAt(index);
 // List assetsSnapshot = [];
 late Future<List> assetsSnapshotFuture = Boot().getAssets();
-ApiClient api = ApiClient(basePath: 'http://localhost:800');
+ApiClient api = ApiClient(basePath: 'http://localhost:1000');
 
 class TabAppBar extends StatefulWidget {
   @override
@@ -44,7 +44,7 @@ class TabAppBar extends StatefulWidget {
 }
 
 class HomePageState extends State<TabAppBar> {
-  ApiClient api = ApiClient(basePath: 'http://localhost:800');
+  ApiClient api = ApiClient(basePath: 'http://localhost:1000');
 
   int key = 0;
 
@@ -53,83 +53,83 @@ class HomePageState extends State<TabAppBar> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(
-        length: 8,
+        length: 10,
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.black87,
+            backgroundColor: Colors.white,
             title: TabBar(
-              indicatorColor: Colors.white,
+              indicatorColor: Colors.black,
               tabs: [
                 Text(
                   'Home',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 8,
+                    color: Colors.black,
+                    fontSize: 10,
                   ),
                 ),
                 //   Text(
                 //     'List',
                 // style:  TextStyle(
-                //   color: Colors.white,
-                //   fontSize: 8,
+                //   color: Colors.black,
+                //   fontSize: 10,
                 // ),
                 //     ),
                 Text(
                   'Grid',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 8,
+                    color: Colors.black,
+                    fontSize: 10,
                   ),
                 ),
                 Text(
                   'Chart',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 8,
+                    color: Colors.black,
+                    fontSize: 10,
                   ),
                 ),
 
                 Text(
                   'Origins',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 8,
+                    color: Colors.black,
+                    fontSize: 10,
                   ),
                 ),
                 Text(
                   'Activity',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 8,
+                    color: Colors.black,
+                    fontSize: 10,
                   ),
                 ),
 
                 Text(
                   'Links',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 8,
+                    color: Colors.black,
+                    fontSize: 10,
                   ),
                 ),
                 // Text(
                 //   'People',
                 //   style:  TextStyle(
-                //     color: Colors.white,
-                //     fontSize: 8,
+                //     color: Colors.black,
+                //     fontSize: 10,
                 //   ),
                 // ),
                 Text(
                   'Plugins',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 8,
+                    color: Colors.black,
+                    fontSize: 10,
                   ),
                 ),
                 Text(
-                  'Languages',
+                  'Language',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 8,
+                    color: Colors.black,
+                    fontSize: 10,
                   ),
                 ),
               ],

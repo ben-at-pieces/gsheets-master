@@ -33,45 +33,45 @@ class _DashboardBodyState extends State<DashboardBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black87,
+      backgroundColor: Colors.white,
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
             children: [
               Padding(
-                padding: const EdgeInsets.all(4.0),
+                padding: const EdgeInsets.all(10.0),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(5),
                   child: Container(
                     width: 490,
                     height: 40,
-                    color: Colors.black87,
+                    color: Colors.black12,
                     child: TextField(
                       controller: _textEditController,
                       enableInteractiveSelection: true,
                       cursorHeight: 12,
                       autofocus: true,
-                      showCursor: true,
-                      cursorColor: Colors.white,
+                      // showCursor: true,
+                      cursorColor: Colors.black,
                       toolbarOptions: ToolbarOptions(
                         copy: true,
                         paste: true,
                         selectAll: true,
                         cut: true,
                       ),
-                      style: ProductTitleText(),
+                      style: TitleText(),
                       decoration: InputDecoration(
                         prefixIcon: Icon(
                           Icons.search,
-                          size: 20,
-                          color: Colors.white,
+                          size: 12,
+                          color: Colors.grey,
                         ),
                         suffixIcon: IconButton(
                           icon: Icon(
                             Icons.clear,
-                            color: Colors.grey,
+                            color: Colors.black,
                             size: 12,
                           ),
                           onPressed: () {
@@ -79,9 +79,9 @@ class _DashboardBodyState extends State<DashboardBody> {
                           },
                         ),
                         fillColor: Colors.black87,
-                        labelText: 'Search...',
+                        // labelText: 'Search...',
                         labelStyle: ParticleFont.micro(context,
-                            customization: TextStyle(color: Colors.grey, fontSize: 12)),
+                            customization: TextStyle(color: Colors.black, fontSize: 16)),
                         floatingLabelBehavior: FloatingLabelBehavior.auto,
                       ),
                       onChanged: (value) {
@@ -509,7 +509,7 @@ class _DashboardBodyState extends State<DashboardBody> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(15),
                         child: Container(
-                          color: Colors.black87,
+                          color: Colors.black12,
                           width: 200,
                           height: 145,
                           child: SingleChildScrollView(
@@ -522,9 +522,9 @@ class _DashboardBodyState extends State<DashboardBody> {
                                 style: ParticleFont.micro(
                                   context,
                                   customization: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w200,
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w300,
                                   ),
                                 ),
                               ),
@@ -551,8 +551,8 @@ class _DashboardBodyState extends State<DashboardBody> {
                                 padding: const EdgeInsets.all(2.0),
                                 child: Icon(
                                   Icons.copy_outlined,
-                                  color: Colors.white,
-                                  size: 16,
+                                  color: Colors.black,
+                                  size: 20,
                                 ),
                               ),
                               onPressed: () async {
