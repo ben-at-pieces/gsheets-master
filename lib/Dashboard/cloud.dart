@@ -1,3 +1,4 @@
+// Creates a custom alert dialog with a text field for users to modify and share a code snippet.
 // import 'package:connector_openapi/api_client.dart';
 // ignore_for_file: omit_local_variable_types, prefer_const_constructors, use_key_in_widget_constructors
 import 'dart:html';
@@ -46,7 +47,8 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
               child: TextField(
                 autofocus: true,
                 style: ParticleFont.micro(context,
-                    customization: TextStyle(color: Colors.black, fontSize: 14)),
+                    customization:
+                        TextStyle(color: Colors.black, fontSize: 14)),
                 toolbarOptions: ToolbarOptions(
                   copy: true,
                   paste: true,
@@ -118,7 +120,8 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
                               'share',
                               style: ParticleFont.micro(
                                 context,
-                                customization: TextStyle(color: Colors.white, fontSize: 12),
+                                customization: TextStyle(
+                                    color: Colors.white, fontSize: 12),
                               ),
                             ),
                             onPressed: () {
@@ -148,17 +151,20 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
                             onPressed: () async {
                               String port = '1000';
                               String host = 'http://localhost:$port';
-                              final AssetsApi assetsApi = AssetsApi(ApiClient(basePath: host));
+                              final AssetsApi assetsApi =
+                                  AssetsApi(ApiClient(basePath: host));
 
                               final ApplicationsApi applicationsApi =
-                              await ApplicationsApi(ApiClient(basePath: host));
+                                  await ApplicationsApi(
+                                      ApiClient(basePath: host));
 
                               Applications applicationsSnapshot =
-                              await applicationsApi.applicationsSnapshot();
+                                  await applicationsApi.applicationsSnapshot();
 
                               var first = applicationsSnapshot.iterable.first;
 
-                              final Asset response = await assetsApi.assetsCreateNewAsset(
+                              final Asset response =
+                                  await assetsApi.assetsCreateNewAsset(
                                 seed: Seed(
                                   asset: SeededAsset(
                                     application: Application(
@@ -207,7 +213,8 @@ class _CustomAlertDialogState extends State<CustomAlertDialog> {
                               'close',
                               style: ParticleFont.micro(
                                 context,
-                                customization: TextStyle(color: Colors.white, fontSize: 12),
+                                customization: TextStyle(
+                                    color: Colors.white, fontSize: 12),
                               ),
                             ),
                             onPressed: () {

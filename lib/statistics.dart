@@ -3,6 +3,7 @@
 import 'package:connector_openapi/api.dart';
 import 'package:core_openapi/api.dart';
 import 'package:core_openapi/api_client.dart';
+import 'package:gsheets/Dashboard/Empty%20States/sample2.dart';
 
 import 'api.dart';
 
@@ -43,10 +44,10 @@ Future<Statistics?> getStats() async {
 //   userProfilesList.add(userProfileList);
 //   }
 // print(userProfilesList.length);
-
-  if (picture.isEmpty) {
-    String picture = 'https://code.pieces.app/';
-  }
+//
+//   if (picture.isEmpty) {
+//     String picture = 'https://code.pieces.app/';
+//   }
 
   /// applications
 
@@ -187,6 +188,8 @@ Future<Statistics?> getStats() async {
 
   List<Iterable<Asset>> dartRaw = filteredLanguages.toList();
 
+
+
   // print(dartRaw.elementAt(index).elementAt(index).original.reference?.fragment?.string?.raw);
 
   /// classifications map (String, double)
@@ -200,6 +203,9 @@ Future<Statistics?> getStats() async {
       List<Asset> subAsset = language.toList();
 
       int unique = subAsset.length;
+      // print(unique);
+
+
 
       // print('name: ${subAsset.elementAt(index).name}');
       // print('description: ${subAsset.elementAt(index).description}');
@@ -316,6 +322,8 @@ Future<Statistics?> getStats() async {
       relatedLinks.add(website.url);
     }
   }
+
+
 
   List<String> tags =
       (Map.fromEntries(tagMap.entries.toList()..sort((e1, e2) => e2.value.compareTo(e1.value))))
