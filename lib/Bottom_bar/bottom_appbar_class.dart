@@ -60,29 +60,35 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                   }
                 },
               ),
-              SizedBox(
-                width: 290,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: ParticleButton(
-                    text: '${StatisticsSingleton().statistics?.classifications}',
-                    backgroundColor: Colors.black12,
-                    overlayColor: Colors.grey,
-                    textColor: Colors.black,
-                    onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Container(
-                            height: 500,
-                            width: 330,
-                            child: Center(
-                              child: BottomPieChart(),
-                            ),
-                          );
-                        },
-                      );
-                    },
+              Card(
+                elevation: 2,
+                shadowColor: Colors.black,
+                child: Container(
+                  color: Colors.white,
+                  width: 290,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: ParticleButton(
+                      rounded: false,
+                      text: '${StatisticsSingleton().statistics?.classifications}',
+                      backgroundColor: Colors.white,
+                      // overlayColor: Colors.grey,
+                      textColor: Colors.black,
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Container(
+                              height: 500,
+                              width: 330,
+                              child: Center(
+                                child: BottomPieChart(),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),

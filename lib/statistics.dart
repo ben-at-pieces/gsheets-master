@@ -1,5 +1,8 @@
 // ignore_for_file: omit_local_variable_types
 
+import 'dart:typed_data';
+import 'dart:ui';
+
 import 'package:connector_openapi/api.dart';
 import 'package:core_openapi/api.dart';
 import 'package:core_openapi/api_client.dart';
@@ -21,7 +24,18 @@ Future<Statistics?> getStats() async {
   Assets assetsSnapshot = await assetsApi.assetsSnapshot();
   List<Asset> assetsListed = assetsSnapshot.iterable.toList();
   int count = assetsListed.length;
-  // TransferableBytes? bytes = assetsListed[index].original.reference?.file?.bytes;
+
+
+  List<int>? bytes = assetsListed[index].original.reference?.file?.bytes?.raw.toList();
+
+  List<int> _bytes = bytes?.toList() ?? [0];
+// print(_bytes);
+
+
+
+
+
+
 
 
   /// users & user
@@ -204,6 +218,11 @@ Future<Statistics?> getStats() async {
 
       int unique = subAsset.length;
       // print(unique);
+
+
+      String? namesList = subAsset.elementAt(index).name;
+
+
 
 
 

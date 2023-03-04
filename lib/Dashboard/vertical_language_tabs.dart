@@ -59,6 +59,30 @@ class _MyHomePageState extends State<MyDashBoard> {
 
     List<Asset> list = StatisticsSingleton().statistics?.asset.toList() ?? [];
 
+
+
+
+
+
+    if (list.elementAt(index).original.reference?.classification == ClassificationGenericEnum.IMAGE) {
+   // return bytes();
+      List<int>? bytes = list[index].original.reference?.file?.bytes?.raw.toList();
+
+      List<int> ghj = bytes!;
+
+      Uint8List? uint;
+
+      Image.memory(
+        uint!,
+        // errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+        //   // Catch errors in loading the image, load a widget in place
+        //   return Text('Error loading image: \n${exception.toString()}');
+        // },
+        fit: BoxFit.contain,
+        gaplessPlayback: true,
+      );
+    }
+
     List<Image> images = [];
 
     return Scaffold(
@@ -74,264 +98,268 @@ class _MyHomePageState extends State<MyDashBoard> {
               debugShowCheckedModeBanner: false,
               home: Scaffold(
                 backgroundColor: Colors.white,
-                body: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    // childAspectRatio: 2,
-                    crossAxisCount: 3,
-                    // mainAxisExtent: 260,
-                  ),
-                  itemCount: count,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 10.0, top: 10),
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
+                body:  GridView.builder(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      // childAspectRatio: 2,
+                      crossAxisCount: 3,
+                      // mainAxisExtent: 260,
+                    ),
+                    itemCount: count,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 10.0, top: 10),
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Container(
+                                  width: 200,
+                                  height: 28,
+                                  color: Colors.transparent,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      list.elementAt(index).name ?? '',
+                                      style: TextStyle(color: Colors.black, fontSize: 12),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          // Divider(color: Colors.white, ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Card(
+                              elevation: 4,
+                              shadowColor: Colors.black,
                               child: Container(
+                                color: Colors.black12,
                                 width: 200,
-                                height: 28,
-                                color: Colors.transparent,
+                                height: 120,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    list.elementAt(index).name ?? '',
-                                    style: TextStyle(color: Colors.black, fontSize: 12),
+                                  child: SingleChildScrollView(
+                                    child: Text(
+                                      // StatisticsSingleton()
+                                      //         .statistics
+                                      //         ?.asset
+                                      //         .toList()
+                                      //         .elementAt(index)
+                                      //         .description ??
+                                      StatisticsSingleton()
+                                              .statistics
+                                              ?.asset
+                                              .toList()
+                                              .elementAt(index)
+                                              .original
+                                              .reference
+                                              ?.fragment
+                                              ?.string
+                                              ?.raw ??
+                                          '',
+                                      style: TitleText(),
+                                      softWrap: false,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        // Divider(color: Colors.white, ),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Container(
-                            color: Colors.black12,
+                          SizedBox(
                             width: 200,
-                            height: 125,
-                            child: Padding(
-                              padding: const EdgeInsets.all(14.0),
-                              child: SingleChildScrollView(
-                                child: Text(
-                                  // StatisticsSingleton()
-                                  //         .statistics
-                                  //         ?.asset
-                                  //         .toList()
-                                  //         .elementAt(index)
-                                  //         .description ??
-                                  StatisticsSingleton()
-                                          .statistics
-                                          ?.asset
-                                          .toList()
-                                          .elementAt(index)
-                                          .original
-                                          .reference
-                                          ?.fragment
-                                          ?.string
-                                          ?.raw ??
-                                      '',
-                                  style: TitleText(),
-                                  softWrap: false,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 200,
-                          height: 45,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              IconButton(
-                                tooltip:
-                                    '${StatisticsSingleton().statistics?.asset.toList().elementAt(index).description ?? ''}',
-                                onPressed: () async {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Copied to Clipboard',
-                                      ),
-                                      duration: Duration(
-                                          days: 0,
-                                          hours: 0,
-                                          minutes: 0,
-                                          seconds: 1,
-                                          milliseconds: 30,
-                                          microseconds: 10),
-                                    ),
-                                  );
-                                  ClipboardData data = ClipboardData(
-                                      text:
-                                          ' ${StatisticsSingleton().statistics?.asset.toList().elementAt(index).original.reference?.fragment?.string?.raw}');
-                                  await Clipboard.setData(data);
-                                },
-                                icon: ClipRRect(
-                                  borderRadius: BorderRadius.circular(4),
-                                  child: Container(
-                                    height: 30,
-                                    width: 30,
-                                    child: Icon(
-                                      Icons.copy,
-                                      color: Colors.black,
-                                      size: 20,
-                                    ),
-                                  ),
-                                ),
-                              ),
-
-                              /// teams button
-                              TextButton(
-                                child: SizedBox(
-                                  height: 20,
-                                  width: 20,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(2.0),
-                                    child: Image.asset('teams.png'),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return GPTCustomAlertDialog(
-                                        initialText: StatisticsSingleton()
-                                                .statistics
-                                                ?.asset
-                                                .toList()
-                                                .elementAt(index)
-                                                .original
-                                                .reference
-                                                ?.fragment
-                                                ?.string
-                                                ?.raw ??
-                                            '',
-                                      );
-                                    },
-                                  );
-                                },
-                              ),
-
-                              ///
-                              SizedBox(
-                                height: 50,
-                                width: 50,
-                                child: TextButton(
+                            height: 45,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  tooltip:
+                                      '${StatisticsSingleton().statistics?.asset.toList().elementAt(index).description ?? ''}',
                                   onPressed: () async {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                          'Copied, now paste when redirected!',
+                                          'Copied to Clipboard',
                                         ),
                                         duration: Duration(
                                             days: 0,
                                             hours: 0,
                                             minutes: 0,
-                                            seconds: 5,
+                                            seconds: 1,
                                             milliseconds: 30,
                                             microseconds: 10),
                                       ),
                                     );
-                                    ClipboardData data = ClipboardData(text: '''
-
-
-                    hello, please tell me about this :
-
-
-                    ${StatisticsSingleton().statistics?.asset.toList().elementAt(index).original.reference?.fragment?.string?.raw ?? ''}
-
-                    and show me an example?
-
-                    ''');
+                                    ClipboardData data = ClipboardData(
+                                        text:
+                                            ' ${StatisticsSingleton().statistics?.asset.toList().elementAt(index).original.reference?.fragment?.string?.raw}');
                                     await Clipboard.setData(data);
+                                  },
+                                  icon: ClipRRect(
+                                    borderRadius: BorderRadius.circular(4),
+                                    child: Container(
+                                      height: 30,
+                                      width: 30,
+                                      child: Icon(
+                                        Icons.copy,
+                                        color: Colors.black,
+                                        size: 20,
+                                      ),
+                                    ),
+                                  ),
+                                ),
 
-                                    await Future.delayed(Duration(seconds: 4));
+                                /// teams button
+                                TextButton(
+                                  child: SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(2.0),
+                                      child: Image.asset('teams.png'),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return GPTCustomAlertDialog(
+                                          initialText: StatisticsSingleton()
+                                                  .statistics
+                                                  ?.asset
+                                                  .toList()
+                                                  .elementAt(index)
+                                                  .original
+                                                  .reference
+                                                  ?.fragment
+                                                  ?.string
+                                                  ?.raw ??
+                                              '',
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
 
-                                    String port = '1000';
-                                    String host = 'http://localhost:$port';
-                                    final AssetsApi assetsApi =
-                                        AssetsApi(ApiClient(basePath: host));
-
-                                    final ApplicationsApi applicationsApi =
-                                        await ApplicationsApi(ApiClient(basePath: host));
-
-                                    Applications applicationsSnapshot =
-                                        await applicationsApi.applicationsSnapshot();
-
-                                    var first = applicationsSnapshot.iterable.first;
-
-                                    final Asset response = await assetsApi.assetsCreateNewAsset(
-                                      seed: Seed(
-                                        asset: SeededAsset(
-                                          application: Application(
-                                            privacy: first.privacy,
-                                            name: first.name,
-                                            onboarded: first.onboarded,
-                                            platform: first.platform,
-                                            version: first.version,
-                                            id: first.id,
+                                ///
+                                SizedBox(
+                                  height: 50,
+                                  width: 50,
+                                  child: TextButton(
+                                    onPressed: () async {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Copied, now paste when redirected!',
                                           ),
-                                          format: SeededFormat(
-                                            ///=======
-                                            fragment: SeededFragment(
-                                              string: TransferableString(
-                                                raw:
-                                                    '  ${StatisticsSingleton().statistics?.asset.toList().elementAt(index).original.reference?.fragment?.string?.raw ?? ''}',
+                                          duration: Duration(
+                                              days: 0,
+                                              hours: 0,
+                                              minutes: 0,
+                                              seconds: 5,
+                                              milliseconds: 30,
+                                              microseconds: 10),
+                                        ),
+                                      );
+                                      ClipboardData data = ClipboardData(text: '''
+
+
+                      hello, please tell me about this :
+
+
+                      ${StatisticsSingleton().statistics?.asset.toList().elementAt(index).original.reference?.fragment?.string?.raw ?? ''}
+
+                      and show me an example?
+
+                      ''');
+                                      await Clipboard.setData(data);
+
+                                      await Future.delayed(Duration(seconds: 4));
+
+                                      String port = '1000';
+                                      String host = 'http://localhost:$port';
+                                      final AssetsApi assetsApi =
+                                          AssetsApi(ApiClient(basePath: host));
+
+                                      final ApplicationsApi applicationsApi =
+                                          await ApplicationsApi(ApiClient(basePath: host));
+
+                                      Applications applicationsSnapshot =
+                                          await applicationsApi.applicationsSnapshot();
+
+                                      var first = applicationsSnapshot.iterable.first;
+
+                                      final Asset response = await assetsApi.assetsCreateNewAsset(
+                                        seed: Seed(
+                                          asset: SeededAsset(
+                                            application: Application(
+                                              privacy: first.privacy,
+                                              name: first.name,
+                                              onboarded: first.onboarded,
+                                              platform: first.platform,
+                                              version: first.version,
+                                              id: first.id,
+                                            ),
+                                            format: SeededFormat(
+                                              ///=======
+                                              fragment: SeededFragment(
+                                                string: TransferableString(
+                                                  raw:
+                                                      '  ${StatisticsSingleton().statistics?.asset.toList().elementAt(index).original.reference?.fragment?.string?.raw ?? ''}',
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          type: SeedTypeEnum.ASSET,
+                                        ),
+                                      );
+                                      _textFieldController.clear();
+
+                                      Navigator.of(context).pop;
+
+                                      String linkUrl = 'https://chat.openai.com/chat';
+
+                                      linkUrl = linkUrl; //Twitter's URL
+                                      if (await canLaunch(linkUrl)) {
+                                        await launch(
+                                          linkUrl,
+                                        );
+                                      } else {
+                                        throw 'Could not launch $linkUrl';
+                                      }
+                                    },
+                                    child: Row(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(4),
+                                          child: Container(
+                                            // color: Colors.white,
+                                            height: 30,
+                                            width: 30,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(3.0),
+                                              child: Image.asset(
+                                                'PLogo.jpg',
                                               ),
                                             ),
                                           ),
                                         ),
-                                        type: SeedTypeEnum.ASSET,
-                                      ),
-                                    );
-                                    _textFieldController.clear();
-
-                                    Navigator.of(context).pop;
-
-                                    String linkUrl = 'https://chat.openai.com/chat';
-
-                                    linkUrl = linkUrl; //Twitter's URL
-                                    if (await canLaunch(linkUrl)) {
-                                      await launch(
-                                        linkUrl,
-                                      );
-                                    } else {
-                                      throw 'Could not launch $linkUrl';
-                                    }
-                                  },
-                                  child: Row(
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(4),
-                                        child: Container(
-                                          // color: Colors.white,
-                                          height: 30,
-                                          width: 30,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(3.0),
-                                            child: Image.asset(
-                                              'PLogo.jpg',
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    );
-                  },
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
           ],
         ));
   }

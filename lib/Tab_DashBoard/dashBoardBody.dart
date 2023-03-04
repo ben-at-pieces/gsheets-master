@@ -44,52 +44,56 @@ class _DashboardBodyState extends State<DashboardBody> {
                 padding: const EdgeInsets.all(10.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
-                  child: Container(
-                    width: 490,
-                    height: 40,
-                    color: Colors.black12,
-                    child: TextField(
-                      controller: _textEditController,
-                      enableInteractiveSelection: true,
-                      cursorHeight: 12,
-                      autofocus: true,
-                      // showCursor: true,
-                      cursorColor: Colors.black,
-                      toolbarOptions: ToolbarOptions(
-                        copy: true,
-                        paste: true,
-                        selectAll: true,
-                        cut: true,
-                      ),
-                      style: TitleText(),
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.search,
-                          size: 12,
-                          color: Colors.grey,
+                  child: Card(
+                    elevation: 2,
+                    shadowColor: Colors.black,
+                    child: Container(
+                      width: 490,
+                      height: 40,
+                      color: Colors.white,
+                      child: TextField(
+                        controller: _textEditController,
+                        enableInteractiveSelection: true,
+                        cursorHeight: 12,
+                        autofocus: true,
+                        // showCursor: true,
+                        cursorColor: Colors.black,
+                        toolbarOptions: ToolbarOptions(
+                          copy: true,
+                          paste: true,
+                          selectAll: true,
+                          cut: true,
                         ),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            Icons.clear,
-                            color: Colors.black,
+                        style: TitleText(),
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.search,
                             size: 12,
+                            color: Colors.grey,
                           ),
-                          onPressed: () {
-                            _textEditController.clear();
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              Icons.clear,
+                              color: Colors.black,
+                              size: 12,
+                            ), onPressed: () {
+                            _textFieldController.clear();
                           },
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.grey,
+                            ),
+                          ),
+                          hintText: 'search...',
                         ),
-                        fillColor: Colors.black87,
-                        // labelText: 'Search...',
-                        labelStyle: ParticleFont.micro(context,
-                            customization: TextStyle(color: Colors.black, fontSize: 16)),
-                        floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        onChanged: (value) {
+                          setState(() {
+                            input = value;
+                            related = getRelatedItems(input);
+                          });
+                        },
                       ),
-                      onChanged: (value) {
-                        setState(() {
-                          input = value;
-                          related = getRelatedItems(input);
-                        });
-                      },
                     ),
                   ),
                 ),
@@ -119,7 +123,6 @@ class _DashboardBodyState extends State<DashboardBody> {
                   },
                 ),
               ),
-
             ],
           ),
           Row(
@@ -482,10 +485,9 @@ class _DashboardBodyState extends State<DashboardBody> {
             ],
           ),
 
-
           /// GridView Builder ----------------------------------------------------------------------
           Expanded(
-            flex: 2,
+            flex: 1,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: GridView.builder(
@@ -494,7 +496,7 @@ class _DashboardBodyState extends State<DashboardBody> {
                   mainAxisSpacing: 10,
                   crossAxisCount: 3,
                 ),
-                shrinkWrap: true,
+                // shrinkWrap: true,
                 itemCount: related.length,
                 itemBuilder: (context, index) {
                   return Column(
@@ -503,28 +505,25 @@ class _DashboardBodyState extends State<DashboardBody> {
                     children: [
                       // SizedBox(height: 30, width: 30, child: Image.asset('img_3.png')),
 
-
-
-
                       ClipRRect(
                         borderRadius: BorderRadius.circular(15),
-                        child: Container(
-                          color: Colors.black12,
-                          width: 200,
-                          height: 145,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
+                        child: Card(
+                          elevation: 4,
+                          shadowColor: Colors.black,
+                          child: Container(
+                            color: Colors.white,
+                            width: 200,
+                            height: 150,
                             child: Padding(
-                              padding: const EdgeInsets.all(20),
-                              child: Text(
-                                related[index],
-                                softWrap: true,
-                                style: ParticleFont.micro(
-                                  context,
-                                  customization: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w300,
+                              padding: const EdgeInsets.all(20.0),
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.vertical,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: Text(
+                                    related[index],
+                                    softWrap: true,
+                                    style: TitleText(),
                                   ),
                                 ),
                               ),
@@ -539,21 +538,19 @@ class _DashboardBodyState extends State<DashboardBody> {
                       /// copy button
                       SizedBox(
                         height: 50,
-                        child: Row(
+                        child:
+
+
+                        /// teams
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-
-
-
                             IconButton(
                               // tooltip: 'copy',
-                              icon: Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: Icon(
-                                  Icons.copy_outlined,
-                                  color: Colors.black,
-                                  size: 20,
-                                ),
+                              icon: Icon(
+                                Icons.copy,
+                                color: Colors.black,
+                                size: 20,
                               ),
                               onPressed: () async {
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -576,35 +573,29 @@ class _DashboardBodyState extends State<DashboardBody> {
                             ),
 
                             // /// teams button
-                            // TextButton(
-                            //   child: SizedBox(
-                            //     height: 25,
-                            //     width: 25,
-                            //     child: Padding(
-                            //       padding: const EdgeInsets.all(2.0),
-                            //       child: Image.asset('teams.png'),
-                            //     ),
-                            //   ),
-                            //   onPressed: () {
-                            //     showDialog(
-                            //       context: context,
-                            //       builder: (context) {
-                            //         return GPTCustomAlertDialog(
-                            //           initialText: related[index],
-                            //         );
-                            //       },
-                            //     );
-                            //   },
-                            // ),
+                            /// teams button
+                            TextButton(
+                              child: SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: Icon(Icons.people, size: 20, color: Colors.black,),
+                              ),
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return GPTCustomAlertDialog(
+                                      initialText: related[index],
+                                    );
+                                  },
+                                );
+                              },
+                            ),
 
                             /// copy and reference
                             IconButton(
                               icon: SizedBox(
-                                  height: 45,
-                                  width: 45,
-                                  child: Image.asset('black_gpt.png')),
-
-
+                                  height: 40, width: 40, child: Image.asset('black_gpt.png')),
                               onPressed: () async {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
@@ -698,6 +689,7 @@ hello chat GPT, please give me an explanation and example about the text below:
             color: Colors.white,
             thickness: 1,
           ),
+
           /// ==========================================================
         ],
       ),

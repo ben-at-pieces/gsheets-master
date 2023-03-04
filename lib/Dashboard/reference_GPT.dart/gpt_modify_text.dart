@@ -39,234 +39,189 @@ class _CustomAlertDialogState extends State<GPTCustomAlertDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       content: SizedBox(
-        height: 450,
+        height: 460,
         width: 450,
         child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            // title: Text('Row', style: TextStyle(color: Colors.grey,),),
+          ),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.all(25.0),
-                child: TextField(
-                  autofocus: false,
-                  style: TitleText(),
-                  toolbarOptions: ToolbarOptions(
-                    copy: true,
-                    paste: true,
-                    selectAll: true,
-                  ),
-                  cursorHeight: 12,
-                  cursorColor: Colors.black,
-                  minLines: 15,
-                  maxLines: 15,
-                  autocorrect: true,
-                  controller: _textController,
-                  decoration: InputDecoration(
-                    labelStyle: TextStyle(color: Colors.black, fontSize: 24),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    labelText: 'Need to make update before sending?',
-                    hintStyle: TitleBlackText(),
-                    suffixIcon: IconButton(
-                      iconSize: 15,
-                      icon: Icon(
-                        Icons.clear,
-                        color: Colors.grey,
+                child: Column(
+                  children: [
+                    TextField(
+                      autofocus: false,
+                      style: TitleText(),
+                      toolbarOptions: ToolbarOptions(
+                        copy: true,
+                        paste: true,
+                        selectAll: true,
                       ),
-                      onPressed: () {
-                        _descriptionController.clear();
-                      },
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        style: BorderStyle.solid,
-                        color: Colors.black,
+                      cursorHeight: 12,
+                      cursorColor: Colors.black,
+                      minLines: 15,
+                      maxLines: 15,
+                      autocorrect: true,
+                      controller: _textController,
+                      decoration: InputDecoration(
+                        labelStyle: TextStyle(color: Colors.black, fontSize: 12),
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        labelText: 'Need to make update before sending?',
+                        hintStyle: PluginsAndMore(),
+                        suffixIcon: IconButton(
+                          iconSize: 15,
+                          icon: Icon(
+                            Icons.clear,
+                            color: Colors.grey,
+                          ),
+                          onPressed: () {
+                            _descriptionController.clear();
+                          },
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            style: BorderStyle.solid,
+                            color: Colors.black,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    Container(
+                      height: 50,
+                      width: 450,
+                      color: Colors.white,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ///close button Teams
+
+                        ParticleIconButton(
+                          icon: Icon(
+                            Icons.travel_explore_outlined,
+                            color: Colors.black,
+                          ),
+                          onPressed: () {},
+                          color: Colors.white,
+                          tooltip: 'discover',
+                        ),
+                        ParticleIconButton(
+                          icon: Icon(
+                            Icons.attach_file,
+                            color: Colors.black,
+                          ),
+                          onPressed: () {},
+                          color: Colors.white,
+                          tooltip: 'add a file',
+                        ),
+                        ParticleIconButton(
+                          icon: Icon(
+                            Icons.paste,
+                            color: Colors.black,
+                          ),
+                          onPressed: () {},
+                          color: Colors.white,
+                          tooltip: 'paste your clipboard',
+                        ),
+                        ParticleIconButton(
+                          icon: Icon(
+                            Icons.image,
+                            color: Colors.black,
+                          ),
+                          onPressed: () {},
+                          color: Colors.white,
+                          tooltip: 'add an image',
+                        ),
+                        ParticleIconButton(
+                          icon: Icon(
+                            Icons.link,
+                            color: Colors.black,
+                          ),
+                          onPressed: () {},
+                          color: Colors.white,
+                          tooltip: 'add a link',
+                        ),
+                        ParticleIconButton(
+                          icon: Icon(
+                            Icons.people,
+                            color: Colors.black,
+                          ),
+                          onPressed: () {},
+                          color: Colors.white,
+                          tooltip: 'add people',
+                        ),
+                        ParticleIconButton(
+                          icon: Icon(
+                            Icons.save,
+                            color: Colors.black,
+                          ),
+                          onPressed: () async {
+                            Navigator.of(context).pop;
+                            Navigator.of(context).pop;
+
+                            String port = '1000';
+                            String host = 'http://localhost:$port';
+                            final AssetsApi assetsApi = AssetsApi(ApiClient(basePath: host));
+
+                            final ApplicationsApi applicationsApi =
+                                await ApplicationsApi(ApiClient(basePath: host));
+
+                            Applications applicationsSnapshot =
+                                await applicationsApi.applicationsSnapshot();
+
+                            var first = applicationsSnapshot.iterable.first;
+
+                            final Asset response = await assetsApi.assetsCreateNewAsset(
+                              seed: Seed(
+                                asset: SeededAsset(
+                                  application: Application(
+                                    privacy: first.privacy,
+                                    name: first.name,
+                                    onboarded: first.onboarded,
+                                    platform: first.platform,
+                                    version: first.version,
+                                    id: first.id,
+                                  ),
+                                  format: SeededFormat(
+                                    ///=======
+                                    fragment: SeededFragment(
+                                      string: TransferableString(
+                                        raw: _textController.text,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                type: SeedTypeEnum.ASSET,
+                              ),
+                            );
+                            _textController.clear();
+                          },
+                          color: Colors.white,
+                          tooltip: 'add people',
+                        ),
+                        ParticleIconButton(
+                          icon: Icon(
+                            Icons.close_sharp,
+                            color: Colors.black,
+                          ),
+                          onPressed: () async {
+                            Navigator.of(context).pop();
+                            _textController.clear();
+                          },
+                          color: Colors.white,
+                          tooltip: 'add people',
+                        ),
+
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(height: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      ParticleIconButton(icon: Icon(Icons.attach_file, color: Colors.black,), onPressed: (){},color: Colors.white,tooltip: 'add a file',),
-                      ParticleIconButton(icon: Icon(Icons.image_outlined, color: Colors.black,), onPressed: (){},color: Colors.white,tooltip: 'add an image',),
-                      ParticleIconButton(icon: Icon(Icons.link, color: Colors.black,), onPressed: (){},color: Colors.white,tooltip: 'add a link',),
-                    ],
-                  ),
-
-                  SizedBox(height: 8),
-
-                  /// bottom buttons
-                  Row(
-                    children: [
-
-
-                      ///save button Teams
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Container(
-                            color: Colors.black87,
-                            child: TextButton(
-                              child: Text(
-                                'save',
-                                style: ParticleFont.micro(
-                                  context,
-                                  customization: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                              onPressed: () async {
-                                Navigator.of(context).pop;
-                                Navigator.of(context).pop;
-
-                                String port = '1000';
-                                String host = 'http://localhost:$port';
-                                final AssetsApi assetsApi = AssetsApi(ApiClient(basePath: host));
-
-                                final ApplicationsApi applicationsApi =
-                                await ApplicationsApi(ApiClient(basePath: host));
-
-                                Applications applicationsSnapshot =
-                                await applicationsApi.applicationsSnapshot();
-
-                                var first = applicationsSnapshot.iterable.first;
-
-                                final Asset response = await assetsApi.assetsCreateNewAsset(
-                                  seed: Seed(
-                                    asset: SeededAsset(
-                                      application: Application(
-                                        privacy: first.privacy,
-                                        name: first.name,
-                                        onboarded: first.onboarded,
-                                        platform: first.platform,
-                                        version: first.version,
-                                        id: first.id,
-                                      ),
-                                      format: SeededFormat(
-                                        ///=======
-                                        fragment: SeededFragment(
-                                          string: TransferableString(
-                                            raw: _textController.text,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    type: SeedTypeEnum.ASSET,
-                                  ),
-                                );
-                                _textController.clear();
-
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-
-
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Container(
-                            color: Colors.black87,
-                            child: TextButton(
-                              child: Text(
-                                'Share',
-                                style: ParticleFont.micro(
-                                  context,
-                                  customization: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ),
-                              onPressed: () async {
-                                Navigator.of(context).pop;
-                                String port = '1000';
-                                String host = 'http://localhost:$port';
-                                final AssetsApi assetsApi = AssetsApi(ApiClient(basePath: host));
-
-                                final ApplicationsApi applicationsApi =
-                                await ApplicationsApi(ApiClient(basePath: host));
-
-                                Applications applicationsSnapshot =
-                                await applicationsApi.applicationsSnapshot();
-
-                                var first = applicationsSnapshot.iterable.first;
-
-                                final Asset response = await assetsApi.assetsCreateNewAsset(
-                                  seed: Seed(
-                                    asset: SeededAsset(
-                                      application: Application(
-                                        privacy: first.privacy,
-                                        name: first.name,
-                                        onboarded: first.onboarded,
-                                        platform: first.platform,
-                                        version: first.version,
-                                        id: first.id,
-                                      ),
-                                      format: SeededFormat(
-                                        ///=======
-                                        fragment: SeededFragment(
-                                          string: TransferableString(
-                                            raw: _textController.text,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    type: SeedTypeEnum.ASSET,
-                                  ),
-                                );
-                                _textController.clear();
-
-
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      ///close button Teams
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Container(
-                            color: Colors.black87,
-                            child: TextButton(
-                              child: Text(
-                                'close',
-                                style: ParticleFont.micro(
-                                  context,
-                                  customization: TextStyle(color: Colors.white, fontSize: 12),
-                                ),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                                _textController.clear();
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      /// reference button
-                    ],
-                  ),
-                  // ///Description text field TODO Update description
-                  // CustomDescriptionTextField(
-                  //   controller: _textController,
-                  //   onChanged: (String) {},
-                  // ),
-                ],
-              ),
+              // SizedBox(height: 10),
             ],
           ),
         ),

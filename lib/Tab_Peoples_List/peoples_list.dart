@@ -33,7 +33,8 @@ class PeoplesListWidget extends StatelessWidget {
     return Scaffold(
       // appBar: CustomAppBar(title: 'Related People',),
       body: Container(
-
+height: 50,
+        width: 450,
         color: Colors.black12,
         child: ListView.builder(
             itemCount: StatisticsSingleton().statistics?.persons.length,

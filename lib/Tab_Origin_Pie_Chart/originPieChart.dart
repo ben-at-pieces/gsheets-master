@@ -49,39 +49,43 @@ class OriginChart extends StatelessWidget {
 
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 300,
-                width: 800,
-                child: PieChart(
-                  ringStrokeWidth: 100,
-                  centerText: 'ORIGINS',
-                  chartValuesOptions: const ChartValuesOptions(
-                    showChartValuesOutside: true,
-                    showChartValueBackground: true,
-                    decimalPlaces: 0,
-                    showChartValues: true,
-                    showChartValuesInPercentage: false,
-                  ),
-                  emptyColor: Colors.white,
-                  baseChartColor: Colors.black87,
-                  centerTextStyle:
-                  TitleText(),
-                  key: ValueKey(key),
-                  dataMap: StatisticsSingleton().statistics!.origins,
-                  animationDuration: const Duration(milliseconds: 800),
-                  chartLegendSpacing: 50,
-                  chartRadius: math.min(MediaQuery.of(context).size.width / 1.5, 120),
-                  colorList: originColorList,
-                  chartType: ChartType.ring,
-                  legendOptions: const LegendOptions(
-                    showLegendsInRow: false,
-                    legendPosition: LegendPosition.left,
-                    showLegends: true,
-                    legendShape: true ? BoxShape.circle : BoxShape.rectangle,
-                    legendTextStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: 9,
-                      fontWeight: FontWeight.bold,
+              child: Card(
+                elevation: 4,
+                child: Container(
+                  color: Colors.white38,
+                  height: 300,
+                  width: 800,
+                  child: PieChart(
+                    ringStrokeWidth: 100,
+                    centerText: 'ORIGINS',
+                    chartValuesOptions: const ChartValuesOptions(
+                      showChartValuesOutside: true,
+                      showChartValueBackground: true,
+                      decimalPlaces: 0,
+                      showChartValues: true,
+                      showChartValuesInPercentage: false,
+                    ),
+                    emptyColor: Colors.white,
+                    baseChartColor: Colors.black87,
+                    centerTextStyle:
+                    TitleText(),
+                    key: ValueKey(key),
+                    dataMap: StatisticsSingleton().statistics!.origins,
+                    animationDuration: const Duration(milliseconds: 800),
+                    chartLegendSpacing: 50,
+                    chartRadius: math.min(MediaQuery.of(context).size.width / 1.5, 120),
+                    colorList: originColorList,
+                    chartType: ChartType.ring,
+                    legendOptions: const LegendOptions(
+                      showLegendsInRow: false,
+                      legendPosition: LegendPosition.left,
+                      showLegends: true,
+                      legendShape: true ? BoxShape.circle : BoxShape.rectangle,
+                      legendTextStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: 9,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),

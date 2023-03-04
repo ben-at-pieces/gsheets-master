@@ -1,3 +1,7 @@
+// ignore_for_file: omit_local_variable_types
+
+import 'dart:html';
+
 import 'package:connector_openapi/api.dart';
 
 import '../lists/relatedLists.dart';
@@ -18,10 +22,6 @@ List<String> getRelatedItems(String input) {
 
 
   }
-
-
-
-
 
   if (input.contains('???')) {
     related = explanations.toList();
@@ -49,7 +49,6 @@ List<String> getRelatedItems(String input) {
     related = learn.toList();
   } else if (input.contains('learn')) {
     related = prompts.toList();
-
   } else {
     related = [
       'Sorry, '

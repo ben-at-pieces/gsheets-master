@@ -53,7 +53,7 @@ class HomePageState extends State<TabAppBar> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(
-        length: 10,
+        length: 8,
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
@@ -119,14 +119,14 @@ class HomePageState extends State<TabAppBar> {
                 //   ),
                 // ),
                 Text(
-                  'Plugins',
+                  'Tags',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 10,
                   ),
                 ),
                 Text(
-                  'Language',
+                  'Plugins',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 10,
@@ -138,14 +138,14 @@ class HomePageState extends State<TabAppBar> {
           body: TabBarView(
             children: [
               /// Related TAGS ==========================================================
-              // TagsListWidget(),
+
 
 
               /// Home Dash
               Dashboard(),
 
-
               MyDashBoard(),
+
 
 
 
@@ -163,11 +163,15 @@ class HomePageState extends State<TabAppBar> {
 
               /// Related Links ==========================================================
               // HomeLanguageBuilder(subtitle: 'Home', leading: Image.asset('APFD.jpg'),),
+               TagsListWidget(),
+
+
               /// Plugins & More ==========================================================
+
               Plugins(),
 
               /// json ===================================================================
-              LanguagesGrid(),
+              // LanguagesGrid(),
             ],
           ), // TabBarView
         ), // Scaffold

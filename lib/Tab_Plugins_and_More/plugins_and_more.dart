@@ -650,7 +650,7 @@ class Plugins extends StatelessWidget {
 
 
                 Padding(
-                  padding: const EdgeInsets.only(left: 40.0, top: 15),
+                  padding: const EdgeInsets.only(left: 10.0, top: 15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -767,6 +767,40 @@ class Plugins extends StatelessWidget {
                           onPressed: () async {
                             var linkUrl =
                                 'https://www.facebook.com/520508470288885/posts/559057106234021';
+
+                            linkUrl = linkUrl; //Twitter's URL
+                            if (await canLaunch(linkUrl)) {
+                              await launch(
+                                linkUrl,
+                              );
+                            } else {
+                              throw 'Could not launch $linkUrl';
+                            }
+                          },
+                        ),
+                      ),
+
+
+
+                      /// youtube
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0, top: 5),
+                        child: TextButton(
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                height: 30,
+                                width: 30,
+                                child: Image.asset('youtube.png'),
+                              ),
+                              Text(
+                                '',
+                              ),
+                            ],
+                          ),
+                          onPressed: () async {
+                            var linkUrl =
+                                'https://www.youtube.com/channel/UCD3ZXdxCqTd9mMgQnN1hWbw';
 
                             linkUrl = linkUrl; //Twitter's URL
                             if (await canLaunch(linkUrl)) {

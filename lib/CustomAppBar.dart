@@ -40,7 +40,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
         trailing:  FloatingActionButton(
-          focusColor: Colors.green,
+          focusColor: Colors.grey,
           tooltip: 'create',
           hoverColor: Colors.grey,
           elevation: 2,
