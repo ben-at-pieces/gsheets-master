@@ -57,246 +57,252 @@ class _BarChartState extends State<BarGraph> {
   Widget build(BuildContext context) {
     /// connection to tags pop up ====================================================================
 
+ // This code generates a bar chart with statistics about saved snippets, updated snippets, shared links, persons, tags, and related links. It also includes touch functionality and a custom app bar and bottom navigation bar.
     return Scaffold(
       appBar: CustomAppBar(title: 'Repository Statistics',),
-      body: Container(
-        color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.all(45.0),
-          child: BarChart(
-            BarChartData(
-              gridData: FlGridData(
-                show: true,
-                drawVerticalLine: false,
-                drawHorizontalLine: false,
-              ),
-              maxY: highestCount + 10,
-              alignment: BarChartAlignment.spaceAround,
-              borderData: FlBorderData(
-                show: true,
-              ),
-              titlesData: FlTitlesData(
-                show: true,
-                leftTitles: AxisTitles(
-                  drawBehindEverything: false,
+      body: Padding(
+        padding: const EdgeInsets.all(50.0),
+        child: Card(
+          elevation: 4,
+          child: Container(
+            color: Colors.white38,
+            height: 300,
+            width: 800,
+            child: BarChart(
+              BarChartData(
+                gridData: FlGridData(
+                  show: true,
+                  drawVerticalLine: false,
+                  drawHorizontalLine: false,
+                ),
+                maxY: highestCount + 10,
+                alignment: BarChartAlignment.spaceAround,
+                borderData: FlBorderData(
+                  show: true,
+                ),
+                titlesData: FlTitlesData(
+                  show: true,
+                  leftTitles: AxisTitles(
+                    drawBehindEverything: false,
 
-                  /// TODO this is where we will decide to either show/not show the Y Axis
-                  /// TODO plan to use a stateful pop over to show data cleaner than the Y Axis
-                  sideTitles: SideTitles(
-                    showTitles: false,
-                    reservedSize: 42,
-                    getTitlesWidget: (value, meta) {
-                      return Text(
-                        value.toString(),
-                        style: ProductTitleText(),
-                      );
-                    },
+                    /// TODO this is where we will decide to either show/not show the Y Axis
+                    /// TODO plan to use a stateful pop over to show data cleaner than the Y Axis
+                    sideTitles: SideTitles(
+                      showTitles: false,
+                      reservedSize: 42,
+                      getTitlesWidget: (value, meta) {
+                        return Text(
+                          value.toString(),
+                          style: ProductTitleText(),
+                        );
+                      },
+                    ),
+                  ),
+
+                  /// Bottom titles { meta data :  count} ================================================================
+
+                  bottomTitles: AxisTitles(
+                    axisNameWidget: Text(
+                      'Time Saved: ${StatisticsSingleton().statistics?.timeTaken.round()} seconds',
+                      style: ParticleFont.button(context,
+                          customization: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
+                    ),
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      reservedSize: 50,
+                      getTitlesWidget: (value, meta) {
+                        String text = 'default';
+
+                        switch (value.toString()) {
+                          case '0':
+                            text = 'Saved: ${StatisticsSingleton().statistics?.snippetsSaved}';
+                            break;
+                          case '1':
+                            text = 'Updated: ${StatisticsSingleton().statistics?.updatedSnippets}';
+                            break;
+                          case '2':
+                            text = 'Shared ${StatisticsSingleton().statistics?.shareableLinks}';
+                            break;
+                          case '3':
+                            text =
+                                'People: ${StatisticsSingleton().statistics?.persons.length.toDouble()}';
+                            break;
+                          case '4':
+                            text =
+                                'Tags: ${StatisticsSingleton().statistics?.tags.length.toDouble()}';
+                            break;
+
+                          case '5':
+                            text =
+                                'Links: ${StatisticsSingleton().statistics?.relatedLinks.length.toDouble()}';
+                            break;
+                        }
+
+                        ///
+                        return SideTitleWidget(
+                          axisSide: meta.axisSide,
+                          child: Text(
+                            text,
+                            style: TitleText(),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+
+                  /// No titles to the right ================================================================
+                  rightTitles: AxisTitles(),
+
+                  /// TOP Titles ================================================================
+                  topTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: false,
+                      reservedSize: 40,
+                      getTitlesWidget: (value, meta) {
+                        String text = '';
+
+                        switch (value.toString()) {
+                          case '0':
+                            text = 'Top 5 Tags';
+                            break;
+                        }
+
+                        ///
+                        return SideTitleWidget(
+                          // angle: 18,
+                          axisSide: meta.axisSide,
+                          child: Row(
+                            children: [
+                              // OriginChart(),
+                              Text(
+                                text,
+                                style: ParticleFont.micro(context,
+                                    customization: TextStyle(color: Colors.black, fontSize: 10)),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ),
 
-                /// Bottom titles { meta data :  count} ================================================================
-
-                bottomTitles: AxisTitles(
-                  axisNameWidget: Text(
-                    'Time Saved: ${StatisticsSingleton().statistics?.timeTaken.round()} seconds',
-                    style: ParticleFont.button(context,
-                        customization: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
-                  ),
-                  sideTitles: SideTitles(
-                    showTitles: true,
-                    reservedSize: 50,
-                    getTitlesWidget: (value, meta) {
-                      String text = 'default';
-
-                      switch (value.toString()) {
-                        case '0':
-                          text = 'Saved: ${StatisticsSingleton().statistics?.snippetsSaved}';
-                          break;
-                        case '1':
-                          text = 'Updated: ${StatisticsSingleton().statistics?.updatedSnippets}';
-                          break;
-                        case '2':
-                          text = 'Shared ${StatisticsSingleton().statistics?.shareableLinks}';
-                          break;
-                        case '3':
-                          text =
-                              'People: ${StatisticsSingleton().statistics?.persons.length.toDouble()}';
-                          break;
-                        case '4':
-                          text =
-                              'Tags: ${StatisticsSingleton().statistics?.tags.length.toDouble()}';
-                          break;
-
-                        case '5':
-                          text =
-                              'Links: ${StatisticsSingleton().statistics?.relatedLinks.length.toDouble()}';
-                          break;
-                      }
-
-                      ///
-                      return SideTitleWidget(
-                        axisSide: meta.axisSide,
-                        child: Text(
-                          text,
-                          style: TitleText(),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-
-                /// No titles to the right ================================================================
-                rightTitles: AxisTitles(),
-
-                /// TOP Titles ================================================================
-                topTitles: AxisTitles(
-                  sideTitles: SideTitles(
-                    showTitles: false,
-                    reservedSize: 40,
-                    getTitlesWidget: (value, meta) {
-                      String text = '';
-
-                      switch (value.toString()) {
-                        case '0':
-                          text = 'Top 5 Tags';
-                          break;
-                      }
-
-                      ///
-                      return SideTitleWidget(
-                        // angle: 18,
-                        axisSide: meta.axisSide,
-                        child: Row(
-                          children: [
-                            // OriginChart(),
-                            Text(
-                              text,
-                              style: ParticleFont.micro(context,
-                                  customization: TextStyle(color: Colors.black, fontSize: 10)),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-
-              /// Saved Snippets Count =========================================================
-              barGroups: [
-                /// Total Saved Snippets ================================================================
-                BarChartGroupData(
-                  x: 0,
-                  barRods: [
-                    BarChartRodData(
-                      borderRadius: BorderRadius.zero,
-                      toY: StatisticsSingleton().statistics?.snippetsSaved ?? 0,
-                      width: 50,
-                      color: Colors.black54,
-                    ),
-                  ],
-                ),
-
-                /// Total user Updates ================================================================
-                BarChartGroupData(
-                  x: 1,
-                  barRods: [
-                    BarChartRodData(
-                      borderRadius: BorderRadius.zero,
-                      toY: StatisticsSingleton().statistics?.updatedSnippets ?? 0,
-                      width: 50,
-                      color: Colors.grey,
-                    ),
-                  ],
-                ),
-
-                /// Total Shares ================================================================
-                BarChartGroupData(
-                  x: 2,
-                  barRods: [
-                    BarChartRodData(
-                      borderRadius: BorderRadius.zero,
-                      toY: StatisticsSingleton().statistics?.shareableLinks ?? 0,
-                      width: 50,
-                      color: Colors.deepPurple,
-                    ),
-                  ],
-                ),
-
-                /// Total Persons ====================================================================
-                BarChartGroupData(
-                  x: 3,
-                  barRods: [
-                    BarChartRodData(
-                      borderRadius: BorderRadius.zero,
-                      toY: StatisticsSingleton().statistics?.persons.length.toDouble() ?? 0,
-                      width: 50,
-                      color: Colors.greenAccent,
-                    ),
-                  ],
-                ),
-
-                /// Total Tags ====================================================================
-                BarChartGroupData(
-                  x: 4,
-                  barRods: [
-                    BarChartRodData(
-                      borderRadius: BorderRadius.zero,
-                      toY: StatisticsSingleton().statistics?.tags.length.toDouble() ?? 0,
-                      width: 50,
-                      color: Colors.blueGrey,
-                    ),
-                  ],
-                ),
-
-                /// Total Related Links ====================================================================
-                BarChartGroupData(
-                  x: 5,
-                  barRods: [
-                    BarChartRodData(
-                      borderRadius: BorderRadius.zero,
-                      toY: StatisticsSingleton().statistics?.relatedLinks.length.toDouble() ?? 0,
-                      width: 50,
-                      color: Colors.lightBlueAccent,
-                    ),
-                  ],
-                ),
-              ],
-              barTouchData: BarTouchData(
-                enabled: true,
-                handleBuiltInTouches: true,
-                touchTooltipData: BarTouchTooltipData(
-                  tooltipBgColor: Colors.white,
-                  tooltipMargin: 0,
-                  getTooltipItem: (
-                    BarChartGroupData group,
-                    int groupIndex,
-                    BarChartRodData rod,
-                    int rodIndex,
-                  ) {
-                    return BarTooltipItem(
-                      rod.toY.toString(),
-                      TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: rod.color,
-                        fontSize: 12,
+                /// Saved Snippets Count =========================================================
+                barGroups: [
+                  /// Total Saved Snippets ================================================================
+                  BarChartGroupData(
+                    x: 0,
+                    barRods: [
+                      BarChartRodData(
+                        borderRadius: BorderRadius.zero,
+                        toY: StatisticsSingleton().statistics?.snippetsSaved ?? 0,
+                        width: 50,
+                        color: Colors.black54,
                       ),
-                    );
+                    ],
+                  ),
+
+                  /// Total user Updates ================================================================
+                  BarChartGroupData(
+                    x: 1,
+                    barRods: [
+                      BarChartRodData(
+                        borderRadius: BorderRadius.zero,
+                        toY: StatisticsSingleton().statistics?.updatedSnippets ?? 0,
+                        width: 50,
+                        color: Colors.grey,
+                      ),
+                    ],
+                  ),
+
+                  /// Total Shares ================================================================
+                  BarChartGroupData(
+                    x: 2,
+                    barRods: [
+                      BarChartRodData(
+                        borderRadius: BorderRadius.zero,
+                        toY: StatisticsSingleton().statistics?.shareableLinks ?? 0,
+                        width: 50,
+                        color: Colors.deepPurple,
+                      ),
+                    ],
+                  ),
+
+                  /// Total Persons ====================================================================
+                  BarChartGroupData(
+                    x: 3,
+                    barRods: [
+                      BarChartRodData(
+                        borderRadius: BorderRadius.zero,
+                        toY: StatisticsSingleton().statistics?.persons.length.toDouble() ?? 0,
+                        width: 50,
+                        color: Colors.greenAccent,
+                      ),
+                    ],
+                  ),
+
+                  /// Total Tags ====================================================================
+                  BarChartGroupData(
+                    x: 4,
+                    barRods: [
+                      BarChartRodData(
+                        borderRadius: BorderRadius.zero,
+                        toY: StatisticsSingleton().statistics?.tags.length.toDouble() ?? 0,
+                        width: 50,
+                        color: Colors.blueGrey,
+                      ),
+                    ],
+                  ),
+
+                  /// Total Related Links ====================================================================
+                  BarChartGroupData(
+                    x: 5,
+                    barRods: [
+                      BarChartRodData(
+                        borderRadius: BorderRadius.zero,
+                        toY: StatisticsSingleton().statistics?.relatedLinks.length.toDouble() ?? 0,
+                        width: 50,
+                        color: Colors.lightBlueAccent,
+                      ),
+                    ],
+                  ),
+                ],
+                barTouchData: BarTouchData(
+                  enabled: true,
+                  handleBuiltInTouches: true,
+                  touchTooltipData: BarTouchTooltipData(
+                    tooltipBgColor: Colors.white,
+                    tooltipMargin: 0,
+                    getTooltipItem: (
+                      BarChartGroupData group,
+                      int groupIndex,
+                      BarChartRodData rod,
+                      int rodIndex,
+                    ) {
+                      return BarTooltipItem(
+                        rod.toY.toString(),
+                        TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: rod.color,
+                          fontSize: 12,
+                        ),
+                      );
+                    },
+                  ),
+                  touchCallback: (event, response) {
+                    if (event.isInterestedForInteractions &&
+                        response != null &&
+                        response.spot != null) {
+                      setState(() {
+                        touchedGroupIndex = response.spot!.touchedBarGroupIndex;
+                      });
+                    } else {
+                      setState(() {
+                        touchedGroupIndex = -1;
+                      });
+                    }
                   },
                 ),
-                touchCallback: (event, response) {
-                  if (event.isInterestedForInteractions &&
-                      response != null &&
-                      response.spot != null) {
-                    setState(() {
-                      touchedGroupIndex = response.spot!.touchedBarGroupIndex;
-                    });
-                  } else {
-                    setState(() {
-                      touchedGroupIndex = -1;
-                    });
-                  }
-                },
               ),
             ),
           ),

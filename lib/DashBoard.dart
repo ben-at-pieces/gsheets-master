@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+ // This is a class that extends StatefulWidget and builds a dashboard with a custom app bar and bottom navigation bar. It also has a string input and a list of related items.
 class Dashboard extends StatefulWidget {
   @override
   _RelatedItemsState createState() => _RelatedItemsState();

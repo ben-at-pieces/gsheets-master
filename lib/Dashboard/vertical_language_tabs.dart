@@ -109,20 +109,20 @@ class _MyHomePageState extends State<MyDashBoard> {
                       return Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(bottom: 10.0, top: 10),
+                            padding: const EdgeInsets.only(bottom: 5.0, top: 5),
                             child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(12),
                                 child: Container(
                                   width: 200,
-                                  height: 28,
+                                  height: 35,
                                   color: Colors.transparent,
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
                                       list.elementAt(index).name ?? '',
-                                      style: TextStyle(color: Colors.black, fontSize: 12),
+                                      style: TitleBlackText(),
                                     ),
                                   ),
                                 ),
@@ -136,7 +136,7 @@ class _MyHomePageState extends State<MyDashBoard> {
                               elevation: 4,
                               shadowColor: Colors.black,
                               child: Container(
-                                color: Colors.black12,
+                                color: Colors.white,
                                 width: 200,
                                 height: 120,
                                 child: Padding(
@@ -160,7 +160,7 @@ class _MyHomePageState extends State<MyDashBoard> {
                                               ?.string
                                               ?.raw ??
                                           '',
-                                      style: TitleText(),
+                                      style: PluginsAndMore(),
                                       softWrap: false,
                                     ),
                                   ),
@@ -171,186 +171,89 @@ class _MyHomePageState extends State<MyDashBoard> {
                           SizedBox(
                             width: 200,
                             height: 45,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                            child: /// Creates two buttons: one sends data to an API to create a new asset and clears a text field, while the other displays a confirmation dialog and closes the current screen if "Yes" is pressed.
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                IconButton(
-                                  tooltip:
-                                      '${StatisticsSingleton().statistics?.asset.toList().elementAt(index).description ?? ''}',
-                                  onPressed: () async {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          'Copied to Clipboard',
-                                        ),
-                                        duration: Duration(
-                                            days: 0,
-                                            hours: 0,
-                                            minutes: 0,
-                                            seconds: 1,
-                                            milliseconds: 30,
-                                            microseconds: 10),
-                                      ),
-                                    );
-                                    ClipboardData data = ClipboardData(
-                                        text:
-                                            ' ${StatisticsSingleton().statistics?.asset.toList().elementAt(index).original.reference?.fragment?.string?.raw}');
-                                    await Clipboard.setData(data);
-                                  },
-                                  icon: ClipRRect(
-                                    borderRadius: BorderRadius.circular(4),
-                                    child: Container(
-                                      height: 30,
-                                      width: 30,
-                                      child: Icon(
-                                        Icons.copy,
-                                        color: Colors.black,
-                                        size: 20,
-                                      ),
-                                    ),
-                                  ),
-                                ),
 
-                                /// teams button
+
+
                                 TextButton(
-                                  child: SizedBox(
-                                    height: 20,
-                                    width: 20,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(2.0),
-                                      child: Image.asset('teams.png'),
-                                    ),
+                                  onPressed: () {},
+                                  child: Row(
+                                    children: [
+                                      SizedBox(height: 20, width: 20, child: Image.asset('black_gpt.png')),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          'reference',
+                                          style: TitleText(),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return GPTCustomAlertDialog(
-                                          initialText: StatisticsSingleton()
-                                                  .statistics
-                                                  ?.asset
-                                                  .toList()
-                                                  .elementAt(index)
-                                                  .original
-                                                  .reference
-                                                  ?.fragment
-                                                  ?.string
-                                                  ?.raw ??
-                                              '',
-                                        );
-                                      },
+                                ),
+
+
+
+                                ///close button Teams
+                                /// This code creates a button that, when pressed, sends data to an API to create a new asset and clears a text field.
+                                TextButton(
+                                  onPressed: () async {
+                                    String port = '1000';
+                                    String host = 'http://localhost:$port';
+                                    final AssetsApi assetsApi = AssetsApi(ApiClient(basePath: host));
+
+                                    final ApplicationsApi applicationsApi =
+                                    await ApplicationsApi(ApiClient(basePath: host));
+
+                                    Applications applicationsSnapshot =
+                                    await applicationsApi.applicationsSnapshot();
+
+                                    var first = applicationsSnapshot.iterable.first;
+
+                                    final Asset response = await assetsApi.assetsCreateNewAsset(
+                                      seed: Seed(
+                                        asset: SeededAsset(
+                                          application: Application(
+                                            privacy: first.privacy,
+                                            name: first.name,
+                                            onboarded: first.onboarded,
+                                            platform: first.platform,
+                                            version: first.version,
+                                            id: first.id,
+                                          ),
+                                          format: SeededFormat(
+                                            fragment: SeededFragment(
+                                              string: TransferableString(
+                                                raw: _textFieldController.text,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        type: SeedTypeEnum.ASSET,
+                                      ),
                                     );
+                                    _textFieldController.clear();
+                                    Navigator.of(context).pop();
                                   },
-                                ),
-
-                                ///
-                                SizedBox(
-                                  height: 50,
-                                  width: 50,
-                                  child: TextButton(
-                                    onPressed: () async {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Copied, now paste when redirected!',
-                                          ),
-                                          duration: Duration(
-                                              days: 0,
-                                              hours: 0,
-                                              minutes: 0,
-                                              seconds: 5,
-                                              milliseconds: 30,
-                                              microseconds: 10),
-                                        ),
-                                      );
-                                      ClipboardData data = ClipboardData(text: '''
-
-
-                      hello, please tell me about this :
-
-
-                      ${StatisticsSingleton().statistics?.asset.toList().elementAt(index).original.reference?.fragment?.string?.raw ?? ''}
-
-                      and show me an example?
-
-                      ''');
-                                      await Clipboard.setData(data);
-
-                                      await Future.delayed(Duration(seconds: 4));
-
-                                      String port = '1000';
-                                      String host = 'http://localhost:$port';
-                                      final AssetsApi assetsApi =
-                                          AssetsApi(ApiClient(basePath: host));
-
-                                      final ApplicationsApi applicationsApi =
-                                          await ApplicationsApi(ApiClient(basePath: host));
-
-                                      Applications applicationsSnapshot =
-                                          await applicationsApi.applicationsSnapshot();
-
-                                      var first = applicationsSnapshot.iterable.first;
-
-                                      final Asset response = await assetsApi.assetsCreateNewAsset(
-                                        seed: Seed(
-                                          asset: SeededAsset(
-                                            application: Application(
-                                              privacy: first.privacy,
-                                              name: first.name,
-                                              onboarded: first.onboarded,
-                                              platform: first.platform,
-                                              version: first.version,
-                                              id: first.id,
-                                            ),
-                                            format: SeededFormat(
-                                              ///=======
-                                              fragment: SeededFragment(
-                                                string: TransferableString(
-                                                  raw:
-                                                      '  ${StatisticsSingleton().statistics?.asset.toList().elementAt(index).original.reference?.fragment?.string?.raw ?? ''}',
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          type: SeedTypeEnum.ASSET,
-                                        ),
-                                      );
-                                      _textFieldController.clear();
-
-                                      Navigator.of(context).pop;
-
-                                      String linkUrl = 'https://chat.openai.com/chat';
-
-                                      linkUrl = linkUrl; //Twitter's URL
-                                      if (await canLaunch(linkUrl)) {
-                                        await launch(
-                                          linkUrl,
-                                        );
-                                      } else {
-                                        throw 'Could not launch $linkUrl';
-                                      }
-                                    },
-                                    child: Row(
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius: BorderRadius.circular(4),
-                                          child: Container(
-                                            // color: Colors.white,
-                                            height: 30,
-                                            width: 30,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(3.0),
-                                              child: Image.asset(
-                                                'PLogo.jpg',
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                  child: Row(
+                                    children: [
+                                      Image.asset(
+                                        'img_2.png',
+                                        width: 24,
+                                        height: 24,
+                                      ),
+                                      SizedBox(width: 8),
+                                      Text(
+                                        'save',
+                                        style: TitleText(),
+                                      ),
+                                    ],
                                   ),
                                 ),
+
+
                               ],
                             ),
                           ),

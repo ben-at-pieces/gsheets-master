@@ -6,6 +6,7 @@ void main() {
   runApp(MyApp());
 }
 
+ // This code creates a Flutter app that displays an image preview using a given set of image data bytes.
 class MyApp extends StatelessWidget {
   final Uint8List _bytes = Uint8List.fromList([
     // insert your image data bytes here
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+ // This is a stateful widget that displays an image preview using a byte array as input.
 class ImagePreview extends StatefulWidget {
   final Uint8List bytes;
 

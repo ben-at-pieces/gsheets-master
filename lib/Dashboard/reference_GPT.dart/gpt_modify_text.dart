@@ -37,15 +37,13 @@ class _CustomAlertDialogState extends State<GPTCustomAlertDialog> {
 
   @override
   Widget build(BuildContext context) {
+    /// The code creates an alert dialog with a text field, two buttons ("save & copy" and "close"), and a scrollable list of items with checkboxes. The "save & copy" button sends data to an API to create a new asset
     return AlertDialog(
-      content: SizedBox(
-        height: 460,
+      content: Container(
+        color: Colors.white,
+        height: 450,
         width: 450,
         child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            // title: Text('Row', style: TextStyle(color: Colors.grey,),),
-          ),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -68,7 +66,7 @@ class _CustomAlertDialogState extends State<GPTCustomAlertDialog> {
                       autocorrect: true,
                       controller: _textController,
                       decoration: InputDecoration(
-                        labelStyle: TextStyle(color: Colors.black, fontSize: 12),
+                        labelStyle: TitleText(),
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         labelText: 'Need to make update before sending?',
                         hintStyle: PluginsAndMore(),
@@ -76,10 +74,10 @@ class _CustomAlertDialogState extends State<GPTCustomAlertDialog> {
                           iconSize: 15,
                           icon: Icon(
                             Icons.clear,
-                            color: Colors.grey,
+                            color: Colors.black,
                           ),
                           onPressed: () {
-                            _descriptionController.clear();
+                            _textController.clear();
                           },
                         ),
                         enabledBorder: OutlineInputBorder(
@@ -90,79 +88,23 @@ class _CustomAlertDialogState extends State<GPTCustomAlertDialog> {
                         ),
                       ),
                     ),
-                    Container(
-                      height: 50,
-                      width: 450,
-                      color: Colors.white,
+                    SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: Container(
+                        height: 25,
+                        width: 450,
+                        color: Colors.white,
+                      ),
                     ),
+
+                    /// Creates two buttons: one sends data to an API to create a new asset and clears a text field, while the other displays a confirmation dialog and closes the current screen if "Yes" is pressed.
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ///close button Teams
-
-                        ParticleIconButton(
-                          icon: Icon(
-                            Icons.travel_explore_outlined,
-                            color: Colors.black,
-                          ),
-                          onPressed: () {},
-                          color: Colors.white,
-                          tooltip: 'discover',
-                        ),
-                        ParticleIconButton(
-                          icon: Icon(
-                            Icons.attach_file,
-                            color: Colors.black,
-                          ),
-                          onPressed: () {},
-                          color: Colors.white,
-                          tooltip: 'add a file',
-                        ),
-                        ParticleIconButton(
-                          icon: Icon(
-                            Icons.paste,
-                            color: Colors.black,
-                          ),
-                          onPressed: () {},
-                          color: Colors.white,
-                          tooltip: 'paste your clipboard',
-                        ),
-                        ParticleIconButton(
-                          icon: Icon(
-                            Icons.image,
-                            color: Colors.black,
-                          ),
-                          onPressed: () {},
-                          color: Colors.white,
-                          tooltip: 'add an image',
-                        ),
-                        ParticleIconButton(
-                          icon: Icon(
-                            Icons.link,
-                            color: Colors.black,
-                          ),
-                          onPressed: () {},
-                          color: Colors.white,
-                          tooltip: 'add a link',
-                        ),
-                        ParticleIconButton(
-                          icon: Icon(
-                            Icons.people,
-                            color: Colors.black,
-                          ),
-                          onPressed: () {},
-                          color: Colors.white,
-                          tooltip: 'add people',
-                        ),
-                        ParticleIconButton(
-                          icon: Icon(
-                            Icons.save,
-                            color: Colors.black,
-                          ),
+                        /// This code creates a button that, when pressed, sends data to an API to create a new asset and clears a text field.
+                        TextButton(
                           onPressed: () async {
-                            Navigator.of(context).pop;
-                            Navigator.of(context).pop;
-
                             String port = '1000';
                             String host = 'http://localhost:$port';
                             final AssetsApi assetsApi = AssetsApi(ApiClient(basePath: host));
@@ -187,7 +129,6 @@ class _CustomAlertDialogState extends State<GPTCustomAlertDialog> {
                                     id: first.id,
                                   ),
                                   format: SeededFormat(
-                                    ///=======
                                     fragment: SeededFragment(
                                       string: TransferableString(
                                         raw: _textController.text,
@@ -199,24 +140,108 @@ class _CustomAlertDialogState extends State<GPTCustomAlertDialog> {
                               ),
                             );
                             _textController.clear();
-                          },
-                          color: Colors.white,
-                          tooltip: 'add people',
-                        ),
-                        ParticleIconButton(
-                          icon: Icon(
-                            Icons.close_sharp,
-                            color: Colors.black,
-                          ),
-                          onPressed: () async {
                             Navigator.of(context).pop();
-                            _textController.clear();
                           },
-                          color: Colors.white,
-                          tooltip: 'add people',
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                'img_2.png',
+                                width: 24,
+                                height: 24,
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                'save & copy',
+                                style: TitleText(),
+                              ),
+                            ],
+                          ),
                         ),
 
+                        /// Displays a confirmation dialog with "Yes" and "No" buttons. If "Yes" is pressed, it closes the current screen and clears a text field.
+                        TextButton(
+                          onPressed: () async {
+                            final confirmed = await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                /// Displays an alert dialog with a confirmation message and two buttons, "Yes" and "No". The "Yes" button returns true and the "No" button returns false when pressed.
+                                return AlertDialog(
+                                  // title: Text('Confirm Close'),
+                                  content: Text(
+                                    'Are you sure?',
+                                    style: TitleText(),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.of(context).pop(false),
+                                      child: Text(
+                                        'No',
+                                        style: TitleText(),
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () => Navigator.of(context).pop(true),
+                                      child: Text(
+                                        'Yes',
+                                        style: TitleText(),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                            if (confirmed) {
+                              Navigator.of(context).pop();
+                              _textController.clear();
+                            }
+                          },
+                          style: ButtonStyle(
+                            foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                          ),
+                          child: Row(
+                            children: [
+                              // Icon(
+                              //   Icons.close_sharp,
+                              //   color: Colors.black,
+                              // ),
+                              SizedBox(width: 8),
+                              Text(
+                                'close',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
+                    ),
+
+                    /// This code creates a scrollable list of items with checkboxes, displaying the names of persons stored in a statistics object.
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: Container(
+                        height: 70,
+                        width: 450,
+                        color: Colors.white,
+                        child: ListView.builder(
+                            itemCount: StatisticsSingleton().statistics?.persons.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return ListTile(
+                                tileColor: Colors.white,
+                                // leading: Icon(
+                                //   Icons.account_circle_sharp,
+                                //   color: Colors.black,
+                                // ),
+                                title: Text(
+                                  '${StatisticsSingleton().statistics?.persons.elementAt(index)}  ',
+                                  style: ParticleFont.bodyText1(context,
+                                      customization: TextStyle(color: Colors.black)),
+                                ),
+                                trailing: MyCheckBoxWidgget(),
+                              );
+                              // title: Text('Person: $index'));
+                            }),
+                      ),
                     ),
                   ],
                 ),

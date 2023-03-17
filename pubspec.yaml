@@ -48,6 +48,7 @@ dependencies:
 #      url: git@bitbucket.org:pi3c3s/isomorphic_openapi.git
 #      path: ./core/dart/
   string_stats: ^0.1.0
+  animations: ^2.0.7
 dev_dependencies:
   pedantic: ^1.11.1
   flutter_app_name: ^0.1.1

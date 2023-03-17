@@ -51,7 +51,7 @@ class TitleBlackText extends TextStyle {
       : super(
     fontFamily: 'Roboto',
     fontSize: 16,
-    color: Colors.grey,
+    color: Colors.black,
     fontWeight: FontWeight.bold,
   );
 }

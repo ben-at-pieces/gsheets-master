@@ -8,6 +8,7 @@ import 'TabAppBar.dart';
 import 'create/create_function.dart';
 import 'init/src/gsheets.dart';
 
+ // This code initializes a statistics singleton with data fetched asynchronously, sets up a connection to a Google Sheets spreadsheet using credentials, and runs a Flutter app.
 void main() async {
   StatisticsSingleton().statistics = await getStats();
 
@@ -19,6 +20,7 @@ void main() async {
   );
 }
 
+ // This is a class that returns a MaterialApp widget with a dark theme and a TabAppBar as the home screen. The debug banner is disabled and the app's title is set to "Pieces Pie Chart".
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
