@@ -21,6 +21,7 @@ import 'Tab_Plugins_and_More/plugins_and_more.dart';
 import 'Tab_Related_Links_List/related_links_List.dart';
 import 'Tab_Tags_List/tags_list.dart';
 import 'boot.dart';
+import 'images.dart';
 import 'jscon_converter/tree_from_json.dart';
 
 
@@ -82,7 +83,7 @@ class HomePageState extends State<TabAppBar> {
                   ),
                 ),
                 Text(
-                  'Chart',
+                  'images',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 10,
@@ -139,18 +140,22 @@ class HomePageState extends State<TabAppBar> {
             children: [
               /// Related TAGS ==========================================================
 
-
+              AssetGridPage(),
 
               /// Home Dash
               Dashboard(),
 
+              /// vertical gridview
               MyDashBoard(),
 
 
 
 
+
+
+
               /// Language Pie Chart ==========================================================
-              MyPieChart(),
+              // MyPieChart(),
 
               /// origin classification ==========================================================
               OriginChart(),

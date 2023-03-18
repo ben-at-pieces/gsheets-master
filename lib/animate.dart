@@ -1,91 +1,89 @@
+// ignore_for_file: omit_local_variable_types
+
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart' show timeDilation;
+import 'package:core_openapi/api.dart';
+import 'package:core_openapi/api_client.dart';
 
-void main() => runApp(MyApp());
+class AddPersonButton extends StatelessWidget {
+  final PersonsApi personsApi;
+  final String assetId;
 
-class MyApp extends StatelessWidget {
+  AddPersonButton({required this.personsApi, required this.assetId});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Container Transform Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: ContainerTransformDemo(),
+    return IconButton(
+      onPressed: () {
+        _showAddPersonDialog(context);
+      },
+      icon: Icon(Icons.people_outline),
     );
   }
-}
 
-class ContainerTransformDemo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Container Transform Demo'),
-      ),
-      body: Center(
-        child: GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (_) {
-              return ContainerTransformDetail();
-            }));
-          },
-          child: Container(
-            width: 200,
-            height: 200,
-            decoration: BoxDecoration(
-              color: Colors.blue,
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Center(
-              child: Text(
-                'Tap to view detail',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+  void _showAddPersonDialog(BuildContext context) {
+    String name = '';
+    String email = '';
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+
+        return AlertDialog(
+          title: Text('Add Person'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                onChanged: (value) {
+                  name = value;
+                },
+                decoration: InputDecoration(labelText: 'Name'),
               ),
-            ),
+              TextField(
+                onChanged: (value) {
+                  email = value;
+                },
+                decoration: InputDecoration(labelText: 'Email'),
+              ),
+            ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class ContainerTransformDetail extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    timeDilation = 0.5;
-    return Scaffold(
-      body: GestureDetector(
-        onTap: () {
-          Navigator.of(context).pop();
-        },
-        child: Center(
-          child: Hero(
-            tag: 'container',
-            child: Container(
-              width: 300,
-              height: 300,
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Center(
-                child: Text(
-                  'Detail Screen',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                final Person created = await personsApi.personsCreateNewPerson(
+                  seededPerson: SeededPerson(
+                    access: PersonAccess(),
+                    type: PersonType(
+                      basic: PersonBasicType(
+                        username: '@$name',
+                        name: name,
+                        email: email,
+                        picture: '',
+                        url: '',
+                      ),
+                    ),
+                    asset: assetId,
+                    mechanism: MechanismEnum.MANUAL,
                   ),
-                ),
-              ),
+                );
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Person $name created!'),
+                  ),
+                );
+              },
+              child: Text('Add'),
             ),
-          ),
-        ),
-      ),
+          ],
+        );
+      },
     );
   }
 }

@@ -186,6 +186,7 @@ class _DashboardBodyState extends State<DashboardBody> {
                             Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
+ /// This code creates a button with an icon that, when pressed, shows a brief message and copies some text to the clipboard.
                             IconButton(
                               // tooltip: 'copy',
                               icon: Icon(
