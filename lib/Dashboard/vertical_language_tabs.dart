@@ -61,7 +61,6 @@ class _MyHomePageState extends State<MyDashBoard> {
 
     List<Asset> list = StatisticsSingleton().statistics?.asset.toList() ?? [];
 
-    // var dfd = list.where((element) => element.original.reference?.fragment == FragmentFormat(string: ''))
 
 
     return Scaffold(

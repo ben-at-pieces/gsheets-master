@@ -76,14 +76,14 @@ class HomePageState extends State<TabAppBar> {
                 // ),
                 //     ),
                 Text(
-                  'Grid',
+                  'Materials',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 10,
                   ),
                 ),
                 Text(
-                  'images',
+                  'languages',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 10,
@@ -140,22 +140,22 @@ class HomePageState extends State<TabAppBar> {
             children: [
               /// Related TAGS ==========================================================
 
-              AssetGridPage(),
+
 
               /// Home Dash
               Dashboard(),
 
               /// vertical gridview
-              MyDashBoard(),
+              // MyDashBoard(),
 
 
 
-
+              AssetGridPage(),
 
 
 
               /// Language Pie Chart ==========================================================
-              // MyPieChart(),
+              MyPieChart(),
 
               /// origin classification ==========================================================
               OriginChart(),

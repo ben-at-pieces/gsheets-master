@@ -148,7 +148,7 @@ class _DashboardBodyState extends State<DashboardBody> {
                       // SizedBox(height: 30, width: 30, child: Image.asset('img_3.png')),
 
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(4),
                         child: Card(
                           elevation: 4,
                           shadowColor: Colors.black,
@@ -186,7 +186,7 @@ class _DashboardBodyState extends State<DashboardBody> {
                             Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
- /// This code creates a button with an icon that, when pressed, shows a brief message and copies some text to the clipboard.
+                            /// This code creates a button with an icon that, when pressed, shows a brief message and copies some text to the clipboard.
                             IconButton(
                               // tooltip: 'copy',
                               icon: Icon(

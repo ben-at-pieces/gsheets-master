@@ -65,7 +65,7 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                 },
               ),
               Card(
-                elevation: 2,
+                elevation: 4,
                 shadowColor: Colors.black,
                 child: Container(
                   color: Colors.white,

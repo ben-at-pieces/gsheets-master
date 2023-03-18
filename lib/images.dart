@@ -8,6 +8,7 @@ import 'package:core_openapi/api_client.dart';
 import 'package:gsheets/CustomAppBar.dart';
 import 'Bottom_bar/bottom_appbar_class.dart';
 import 'Dashboard/custom_classes.dart';
+import 'Dashboard/reference_GPT.dart/gpt_modify_text.dart';
 import 'api.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
@@ -69,7 +70,7 @@ class _AssetGridPageState extends State<AssetGridPage> {
       return Center(child: CircularProgressIndicator());
     }
     return Scaffold(
-      appBar: CustomAppBar(title: 'Images'),
+      appBar: CustomAppBar(title: 'Materials'),
       body: Column(
         children: [
           Padding(
@@ -118,7 +119,11 @@ class _AssetGridPageState extends State<AssetGridPage> {
                           asset.name ?? '',
                           style: TextStyle(fontWeight: FontWeight.bold),
                           textAlign: TextAlign.start,
+                        ),     Divider(
+                          color: Colors.black,
+                          thickness: 2,
                         ),
+
                         SizedBox(height: 8.0),
                         if (uint8list != null)
                           Expanded(
@@ -136,9 +141,63 @@ class _AssetGridPageState extends State<AssetGridPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            /// teams button
+                            TextButton(
+                              child: SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: Icon(
+                                  Icons.people,
+                                  size: 20,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return GPTCustomAlertDialog(
+                                      initialText:  '${asset.original.reference?.fragment?.string?.raw}',
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                            /// This code creates a button with an icon that, when pressed, shows a brief message and copies some text to the clipboard.
+                            IconButton(
+                              tooltip: 'copy',
+                              icon: Row(
+                                children: [
+                                  Icon(
+                                    Icons.copy,
+                                    color: Colors.black,
+                                    size: 15,
+                                  ),
+                                ],
+                              ),
+                              onPressed: () async {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Copied to Clipboard',
+                                    ),
+                                    duration: Duration(
+                                        days: 0,
+                                        hours: 0,
+                                        minutes: 0,
+                                        seconds: 1,
+                                        milliseconds: 30,
+                                        microseconds: 10),
+                                  ),
+                                );
+                                ClipboardData data = ClipboardData(text:  '${asset.original.reference?.fragment?.string?.raw}');
+                                await Clipboard.setData(data);
+                              },
+                            ),
+
+
                             /// copy and reference
                             /// Displays an icon button with an image and a tooltip, and performs various actions when pressed, including showing a snackbar, copying data to the clipboard, making API calls, and launching a URL.
-
                             TextButton(
                               onPressed: () async {
                                 ScaffoldMessenger.of(context).showSnackBar(
