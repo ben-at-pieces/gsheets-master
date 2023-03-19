@@ -52,6 +52,7 @@ class _DashboardBodyState extends State<DashboardBody> {
                       height: 40,
                       color: Colors.white,
                       child: TextField(
+
                         controller: _textEditController,
                         enableInteractiveSelection: true,
                         cursorHeight: 12,
@@ -66,6 +67,7 @@ class _DashboardBodyState extends State<DashboardBody> {
                         ),
                         style: TitleText(),
                         decoration: InputDecoration(
+                          // label: Text('profile'),
                           prefixIcon: Icon(
                             Icons.search,
                             size: 12,

@@ -6,10 +6,9 @@ import 'package:connector_openapi/api.dart';
 import 'package:core_openapi/api.dart';
 import 'package:core_openapi/api_client.dart';
 import 'package:gsheets/CustomAppBar.dart';
-import 'Bottom_bar/bottom_appbar_class.dart';
-import 'Dashboard/custom_classes.dart';
-import 'Dashboard/reference_GPT.dart/gpt_modify_text.dart';
-import 'api.dart';
+import '../Bottom_bar/bottom_appbar_class.dart';
+import '../Dashboard/reference_GPT.dart/gpt_modify_text.dart';
+
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
 void main() {
@@ -66,32 +65,29 @@ class _AssetGridPageState extends State<AssetGridPage> {
   }
 
   Widget build(BuildContext context) {
-    if (assets == null) {
-      return Center(child: CircularProgressIndicator());
-    }
+
+
+    CircularProgressIndicator();
+    // if (assets == null) {
+    //   return Center(child: CircularProgressIndicator());
+    // }
     return Scaffold(
       appBar: CustomAppBar(title: 'Materials'),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  'Images/Snippets',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                Switch(
-                  value: showRawStringAssets,
-                  onChanged: (value) {
-                    setState(() {
-                      showRawStringAssets = value;
-                    });
-                  },
-                ),
-              ],
-            ),
+          Text(
+            'Images  /  Snippets',
+            style: TextStyle(fontSize: 16.0),
+          ),
+          Switch(
+            activeColor: Colors.black,
+            value: showRawStringAssets,
+            onChanged: (value) {
+              setState(() {
+                showRawStringAssets = value;
+              });
+            },
           ),
           Expanded(
             child: GridView.builder(
@@ -115,12 +111,15 @@ class _AssetGridPageState extends State<AssetGridPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Text(
-                          asset.name ?? '',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.start,
+                        SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                          child: Text(
+                            asset.name ?? '',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.start,
+                          ),
                         ),     Divider(
-                          color: Colors.black,
+                          color: Colors.grey,
                           thickness: 2,
                         ),
 
@@ -147,7 +146,7 @@ class _AssetGridPageState extends State<AssetGridPage> {
                                 height: 20,
                                 width: 20,
                                 child: Icon(
-                                  Icons.people,
+                                  Icons.people_alt_outlined,
                                   size: 20,
                                   color: Colors.black,
                                 ),
@@ -171,7 +170,7 @@ class _AssetGridPageState extends State<AssetGridPage> {
                                   Icon(
                                     Icons.copy,
                                     color: Colors.black,
-                                    size: 15,
+                                    size: 20,
                                   ),
                                 ],
                               ),
@@ -281,19 +280,90 @@ hello chat GPT, please give me an explanation and example about the text below:
                               child: Row(
                                 children: [
                                   SizedBox(
-                                      height: 15, width: 15, child: Image.asset('black_gpt.png')),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'reference',
-                                      style: TitleText(),
+                                      height: 20, width: 20, child: Image.asset('black_gpt.png')),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.all(8.0),
+                                  //   child: Text(
+                                  //     'reference',
+                                  //     style: TitleText(),
+                                  //   ),
+                                  // ),
+                                ],
+                              ),
+                            ),   /// copy and reference
+
+
+
+
+                            TextButton(
+                              onPressed: () async {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Copied, now paste when redirected!',
                                     ),
+                                    duration: Duration(
+                                        days: 0,
+                                        hours: 0,
+                                        minutes: 0,
+                                        seconds: 5,
+                                        milliseconds: 30,
+                                        microseconds: 10),
                                   ),
+                                );
+                                ClipboardData data = ClipboardData(text: '''
+
+
+Instructions:
+hello chat GPT, please give me an explanation and example about the text below:
+                            
+                            
+                          
+                            
+'  ${asset.original.reference?.fragment?.string?.raw ?? ''}',
+                          
+
+                            ''');
+                                await Clipboard.setData(data);
+                                Navigator.of(context).pop();
+
+
+
+                                String linkUrl = 'https://gist.github.com/';
+
+                                linkUrl = linkUrl; //Twitter's URL
+                                if (await canLaunch(linkUrl)) {
+                                  await launch(
+                                    linkUrl,
+                                  );
+                                } else {
+                                  throw 'Could not launch $linkUrl';
+                                }
+                              },
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                      height: 20, width: 20, child: Image.asset('github.png')),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.all(8.0),
+                                  //   child: Text(
+                                  //     'reference',
+                                  //     style: TitleText(),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),
 
-                            ],
+
+
+
+
+                          ],
+                        ),
+                        Divider(
+                          color: Colors.grey,
+                          thickness: 2,
                         ),
                       ],
                     ),
