@@ -124,10 +124,7 @@ class _AssetGridPageState extends State<AssetGridPage> {
                         ),
 
                         SizedBox(height: 8.0),
-                        if (uint8list != null)
-                          Expanded(
-                            child: Image.memory(uint8list, fit: BoxFit.cover),
-                          ),
+
                         if (asset.original.reference?.fragment?.string?.raw != null &&
                             uint8list == null)
                           Expanded(
@@ -136,7 +133,10 @@ class _AssetGridPageState extends State<AssetGridPage> {
                               textAlign: TextAlign.start,
                             ),
                           ),
-                        SizedBox(height: 8),
+                        if (uint8list != null)
+                          Expanded(
+                            child: Image.memory(uint8list, fit: BoxFit.cover),
+                          ),   SizedBox(height: 8),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

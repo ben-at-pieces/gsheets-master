@@ -73,14 +73,14 @@ class _DashboardBodyState extends State<DashboardBody> {
                             size: 12,
                             color: Colors.grey,
                           ),
-                          suffixIcon: IconButton(
+                          suffixIcon:  IconButton(
+                            iconSize: 15,
                             icon: Icon(
                               Icons.clear,
-                              color: Colors.black,
-                              size: 12,
+                              color: Colors.grey,
                             ),
                             onPressed: () {
-                              _textFieldController.clear();
+                              _textEditController.clear();
                             },
                           ),
                           focusedBorder: OutlineInputBorder(
