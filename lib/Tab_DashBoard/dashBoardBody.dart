@@ -133,10 +133,10 @@ class _DashboardBodyState extends State<DashboardBody> {
           Expanded(
             flex: 1,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(2.0),
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisSpacing: 10,
+                  crossAxisSpacing: 5,
                   mainAxisSpacing: 10,
                   crossAxisCount: 3,
                 ),
@@ -157,9 +157,9 @@ class _DashboardBodyState extends State<DashboardBody> {
                           child: Container(
                             color: Colors.white,
                             width: 200,
-                            height: 150,
+                            height: 130,
                             child: Padding(
-                              padding: const EdgeInsets.all(20.0),
+                              padding: const EdgeInsets.all(10.0),
                               child: SingleChildScrollView(
                                 scrollDirection: Axis.vertical,
                                 child: Padding(

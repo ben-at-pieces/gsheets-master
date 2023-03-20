@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "name": "Satellites",
   "description": "An offline Macro User Flow Tool designed to serve up useful snippets and deeply integrate with your favorite tools!",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["activeTab", "scripting"],
   "action": {
     "default_popup": "index.html",
     "default_icon": {
@@ -14,10 +18,15 @@
   },
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'; script-src-elem 'self' wasm-unsafe-eval https://unpkg.com;"
+  },
+  "commands": {
+    "inject-script": {
+      "suggested_key": {
+        "windows": "Ctrl+Shift+A",
+        "mac": "Command+Shift+A"
+      },
+      "description": "inject-script",
+      "global": true
+    }
   }
-
-
-
 }
-
-

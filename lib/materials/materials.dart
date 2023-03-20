@@ -1,16 +1,19 @@
 // ignore_for_file: omit_local_variable_types
 
 import 'dart:typed_data';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:connector_openapi/api.dart';
 import 'package:core_openapi/api.dart';
 import 'package:core_openapi/api_client.dart';
 import 'package:gsheets/CustomAppBar.dart';
 import '../Bottom_bar/bottom_appbar_class.dart';
+import '../Dashboard/custom_classes.dart';
 import '../Dashboard/reference_GPT.dart/gpt_modify_text.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -48,7 +51,7 @@ class _AssetGridPageState extends State<AssetGridPage> {
   }
 
   Future<void> fetchAssets() async {
-    assets = await assetsApi.assetsSnapshot();
+    assets = await assetsApi.assetsSnapshot(transferables: true);
     setState(() {});
   }
 
@@ -77,7 +80,7 @@ class _AssetGridPageState extends State<AssetGridPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
-            'Images  /  Snippets',
+            'Images  /  Code',
             style: TextStyle(fontSize: 16.0),
           ),
           Switch(
@@ -99,273 +102,214 @@ class _AssetGridPageState extends State<AssetGridPage> {
               itemCount: getAssetsToShow().length,
               itemBuilder: (BuildContext context, int index) {
                 Asset asset = getAssetsToShow()[index];
-                List<int>? bytes = asset.original.reference?.file?.bytes?.raw?.toList();
+                List<int>? bytes = asset.original.reference?.file?.bytes?.raw.toList();
                 Uint8List? uint8list;
                 if (bytes != null) {
                   uint8list = Uint8List.fromList(bytes);
                 }
 
-                return Card(
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                          child: Text(
-                            asset.name ?? '',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                            textAlign: TextAlign.start,
+                return GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return Dialog(
+                          backgroundColor: Colors.transparent,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  blurRadius: 5,
+                                  spreadRadius: 1,
+                                  offset: Offset(0, 2),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(
+                                  width: 400,
+                                  height: 350,
+                                  child: Image.memory(
+                                    uint8list!,
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                                SizedBox(height: 16),
+ /// The code creates a row of buttons and images that allow the user to copy an asset to the clipboard, share it, or close the current view.
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    TextButton(
+                                      onPressed: () {
+                                        // Copy image to clipboard
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Icon(Icons.copy_outlined, color: Colors.black,),
+                                          SizedBox(width: 4),
+                                          Text(
+                                            'copy',
+                                            style: TitleText(),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        // Copy image to clipboard
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Image.asset(
+                                            'img_2.png',
+                                            width: 24,
+                                            height: 24,
+                                          ),
+                                          SizedBox(width: 4),
+                                          Text(
+                                            'share',
+                                            style: TitleText(),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () async {
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Copied to Clipboard',
+                                            ),
+                                            duration: Duration(
+                                                days: 0,
+                                                hours: 0,
+                                                minutes: 0,
+                                                seconds: 1,
+                                                milliseconds: 30,
+                                                microseconds: 10),
+                                          ),
+                                        );
+                                        ClipboardData data = ClipboardData(
+                                            text:
+                                                '${asset.original.reference?.fragment?.string?.raw ?? ''}');
+                                        await Clipboard.setData(data);
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Image.asset(
+                                            'FigmaLogo.png',
+                                            width: 24,
+                                            height: 24,
+                                          ),
+                                          SizedBox(width: 4),
+                                          Text(
+                                            'share',
+                                            style: TitleText(),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.close,
+                                            size: 24,
+                                            color: Colors.black,
+                                          ),
+                                          SizedBox(height: 4),
+                                          Text(
+                                            'Close',
+                                            style: TitleText(),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+
+                                SizedBox(height: 20),
+                              ],
+                            ),
                           ),
-                        ),     Divider(
-                          color: Colors.grey,
-                          thickness: 2,
-                        ),
-
-                        SizedBox(height: 8.0),
-
-                        if (asset.original.reference?.fragment?.string?.raw != null &&
-                            uint8list == null)
-                          Expanded(
+                        );
+                      },
+                    );
+                  },
+                  child: Card(
+                    child: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
                             child: Text(
-                              '${asset.original.reference?.fragment?.string?.raw}',
+                              asset.name ?? '',
+                              style: TextStyle(fontWeight: FontWeight.bold),
                               textAlign: TextAlign.start,
                             ),
                           ),
-                        if (uint8list != null)
-                          Expanded(
-                            child: Image.memory(uint8list, fit: BoxFit.cover),
-                          ),   SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            /// teams button
-                            TextButton(
-                              child: SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: Icon(
-                                  Icons.people_alt_outlined,
-                                  size: 20,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return GPTCustomAlertDialog(
-                                      initialText:  '${asset.original.reference?.fragment?.string?.raw}',
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                            /// This code creates a button with an icon that, when pressed, shows a brief message and copies some text to the clipboard.
-                            IconButton(
-                              tooltip: 'copy',
-                              icon: Row(
-                                children: [
-                                  Icon(
-                                    Icons.copy,
-                                    color: Colors.black,
-                                    size: 20,
-                                  ),
-                                ],
-                              ),
-                              onPressed: () async {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'Copied to Clipboard',
-                                    ),
-                                    duration: Duration(
-                                        days: 0,
-                                        hours: 0,
-                                        minutes: 0,
-                                        seconds: 1,
-                                        milliseconds: 30,
-                                        microseconds: 10),
-                                  ),
-                                );
-                                ClipboardData data = ClipboardData(text:  '${asset.original.reference?.fragment?.string?.raw}');
-                                await Clipboard.setData(data);
-                              },
-                            ),
-
-
-                            /// copy and reference
-                            /// Displays an icon button with an image and a tooltip, and performs various actions when pressed, including showing a snackbar, copying data to the clipboard, making API calls, and launching a URL.
-                            TextButton(
-                              onPressed: () async {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'Copied, now paste when redirected!',
-                                    ),
-                                    duration: Duration(
-                                        days: 0,
-                                        hours: 0,
-                                        minutes: 0,
-                                        seconds: 5,
-                                        milliseconds: 30,
-                                        microseconds: 10),
-                                  ),
-                                );
-                                ClipboardData data = ClipboardData(text: '''
-
-
-Instructions:
-hello chat GPT, please give me an explanation and example about the text below:
-                            
-                            
-                          
-                            
-'  ${asset.original.reference?.fragment?.string?.raw ?? ''}',
-                          
-
-                            ''');
-                                await Clipboard.setData(data);
-                                Navigator.of(context).pop();
-
-                                String port = '1000';
-                                String host = 'http://localhost:$port';
-                                final AssetsApi assetsApi = AssetsApi(ApiClient(basePath: host));
-
-                                final ApplicationsApi applicationsApi =
-                                await ApplicationsApi(ApiClient(basePath: host));
-
-                                Applications applicationsSnapshot =
-                                await applicationsApi.applicationsSnapshot();
-
-                                var first = applicationsSnapshot.iterable.first;
-
-                                final Asset response = await assetsApi.assetsCreateNewAsset(
-                                  seed: Seed(
-                                    asset: SeededAsset(
-                                      application: Application(
-                                        privacy: first.privacy,
-                                        name: first.name,
-                                        onboarded: first.onboarded,
-                                        platform: first.platform,
-                                        version: first.version,
-                                        id: first.id,
-                                      ),
-                                      format: SeededFormat(
-                                        ///=======
-                                        fragment: SeededFragment(
-                                          string: TransferableString(
-                                            raw:
-                                            '  ${asset.original.reference?.fragment?.string?.raw ?? ''}',
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    type: SeedTypeEnum.ASSET,
-                                  ),
-                                );
-
-                                String linkUrl = 'https://chat.openai.com/chat';
-
-                                linkUrl = linkUrl; //Twitter's URL
-                                if (await canLaunch(linkUrl)) {
-                                  await launch(
-                                    linkUrl,
-                                  );
-                                } else {
-                                  throw 'Could not launch $linkUrl';
-                                }
-                              },
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                      height: 20, width: 20, child: Image.asset('black_gpt.png')),
-                                  // Padding(
-                                  //   padding: const EdgeInsets.all(8.0),
-                                  //   child: Text(
-                                  //     'reference',
-                                  //     style: TitleText(),
-                                  //   ),
-                                  // ),
-                                ],
-                              ),
-                            ),   /// copy and reference
-
-
-
-
-                            TextButton(
-                              onPressed: () async {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'Copied, now paste when redirected!',
-                                    ),
-                                    duration: Duration(
-                                        days: 0,
-                                        hours: 0,
-                                        minutes: 0,
-                                        seconds: 5,
-                                        milliseconds: 30,
-                                        microseconds: 10),
-                                  ),
-                                );
-                                ClipboardData data = ClipboardData(text: '''
-
-
-Instructions:
-hello chat GPT, please give me an explanation and example about the text below:
-                            
-                            
-                          
-                            
-'  ${asset.original.reference?.fragment?.string?.raw ?? ''}',
-                          
-
-                            ''');
-                                await Clipboard.setData(data);
-                                Navigator.of(context).pop();
-
-
-
-                                String linkUrl = 'https://gist.github.com/';
-
-                                linkUrl = linkUrl; //Twitter's URL
-                                if (await canLaunch(linkUrl)) {
-                                  await launch(
-                                    linkUrl,
-                                  );
-                                } else {
-                                  throw 'Could not launch $linkUrl';
-                                }
-                              },
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                      height: 20, width: 20, child: Image.asset('github.png')),
-                                  // Padding(
-                                  //   padding: const EdgeInsets.all(8.0),
-                                  //   child: Text(
-                                  //     'reference',
-                                  //     style: TitleText(),
-                                  //   ),
-                                  // ),
-                                ],
+                          Divider(
+                            color: Colors.grey,
+                            thickness: 2,
+                          ),
+                          SizedBox(height: 8.0),
+                          if (asset.original.reference?.fragment?.string?.raw != null &&
+                              uint8list == null)
+                            Expanded(
+                              child: Text(
+                                '${asset.original.reference?.fragment?.string?.raw}',
+                                textAlign: TextAlign.start,
                               ),
                             ),
-
-
-
-
-
-                          ],
-                        ),
-                        Divider(
-                          color: Colors.grey,
-                          thickness: 2,
-                        ),
-                      ],
+                          if (uint8list != null)
+                            Expanded(
+                              child: Image.memory(uint8list, fit: BoxFit.cover),
+                            ),
+                          SizedBox(height: 8),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // TextButton(
+                              //   child: SizedBox(
+                              //     height: 20,
+                              //     width: 20,
+                              //     child: Icon(
+                              //       Icons.people_alt_outlined,
+                              //       size: 20,
+                              //       color: Colors.black,
+                              //     ),
+                              //   ),
+                              //   onPressed: () {
+                              //     showDialog(
+                              //       context: context,
+                              //       builder: (context) {
+                              //         return GPTCustomAlertDialog(
+                              //           initialText:
+                              //               asset.original.reference?.fragment?.string?.raw ?? '',
+                              //         );
+                              //       },
+                              //     );
+                              //   },
+                              // ),
+                            ],
+                          ),
+                          Divider(
+                            color: Colors.grey,
+                            thickness: 2,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );

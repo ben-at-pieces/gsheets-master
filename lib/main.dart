@@ -12,6 +12,8 @@ import 'init/src/gsheets.dart';
 void main() async {
   StatisticsSingleton().statistics = await getStats();
 
+
+
   final gsheets = GSheets(credentials);
   final spreadsheetID = '18IlCBkFo9Y1Q0BshWiHehI0p3zufEImkWqOr23kBMcM';
   final ssheet = await gsheets.spreadsheet(spreadsheetID);

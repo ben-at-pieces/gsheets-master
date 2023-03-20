@@ -13,7 +13,6 @@ import 'package:flutter/services.dart';
 import '../CustomAppBar.dart';
 import '../Tab_Plugins_and_More/plugins_and_more.dart';
 import '../Bottom_bar/bottom_appbar_class.dart';
-import '../animate.dart';
 import '../statistics_singleton.dart';
 import 'custom_classes.dart';
 
