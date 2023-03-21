@@ -7,10 +7,11 @@ import 'package:connector_openapi/api.dart';
 import 'package:core_openapi/api.dart';
 import 'package:core_openapi/api_client.dart';
 import 'package:gsheets/CustomAppBar.dart';
+import 'package:gsheets/materials/zoom.dart';
+import 'package:gsheets/statistics_singleton.dart';
 import '../Bottom_bar/bottom_appbar_class.dart';
 import '../Dashboard/custom_classes.dart';
 import '../Dashboard/reference_GPT.dart/gpt_modify_text.dart';
-
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
 
@@ -70,8 +71,43 @@ class _AssetGridPageState extends State<AssetGridPage> {
   Widget build(BuildContext context) {
 
 
+    Future<Assets> getAssetsSnapshot() async {
+      return await assetsApi.assetsSnapshot(suggested: true, transferables: false);
+    }
+
+    void _showSuggestedSnippets(BuildContext context) {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            height: 300,
+            child: ListView.builder(
+              itemCount: StatisticsSingleton().statistics?.suggestedCount ?? 0,
+              itemBuilder: (context, index) {
+                String suggestedDesc =
+                    StatisticsSingleton().statistics?.suggestedDesc
+                        ?.elementAt(index) ?? '';
+                String suggestedNames =
+                    StatisticsSingleton().statistics?.suggestedNames
+                        ?.elementAt(index) ?? '';
+                return ListTile(
+                  leading: Text('Snippet ${index + 1}'),
+                  subtitle: Container(
+                    height: 30,
+                      child: Text('${suggestedDesc}')),
+                  title: Text('${suggestedNames}'),
+                );
+              },
+            ),
+          );
+        },
+      );
+    }
+
+
     CircularProgressIndicator();
     // if (assets == null) {
+ /// This code fetches a snapshot of assets and displays a modal bottom sheet with a list of suggested snippets.
     //   return Center(child: CircularProgressIndicator());
     // }
     return Scaffold(
@@ -79,18 +115,47 @@ class _AssetGridPageState extends State<AssetGridPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(
-            'Images  /  Code',
-            style: TextStyle(fontSize: 16.0),
-          ),
-          Switch(
-            activeColor: Colors.black,
-            value: showRawStringAssets,
-            onChanged: (value) {
-              setState(() {
-                showRawStringAssets = value;
-              });
-            },
+          Row(
+            children: [
+
+              FutureBuilder<Assets>(
+                future: getAssetsSnapshot(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Text('Loading...');
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else if (snapshot.hasData) {
+                    final assets = snapshot.data?.iterable?.toList() ?? [];
+                    return TextButton(
+                      child: Text('View Suggested: (${assets.length})', style: TitleText(),),
+                      onPressed: () => _showSuggestedSnippets(context),
+                    );
+                  } else {
+                    return const Text('No data found.');
+                  }
+                },
+              ),
+
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Images  /  Code',
+                    style: TitleText(),
+                  ),
+                  Switch(
+                    activeColor: Colors.black,
+                    value: showRawStringAssets,
+                    onChanged: (value) {
+                      setState(() {
+                        showRawStringAssets = value;
+                      });
+                    },
+                  ), ],
+              ),
+
+            ],
           ),
           Expanded(
             child: GridView.builder(
@@ -140,7 +205,10 @@ class _AssetGridPageState extends State<AssetGridPage> {
                                   ),
                                 ),
                                 SizedBox(height: 16),
- /// The code creates a row of buttons and images that allow the user to copy an asset to the clipboard, share it, or close the current view.
+
+                                /// The code creates a row of buttons and images that
+                                /// allow the user to
+                                /// copy an asset to the clipboard, share it, or close the current view.
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -150,7 +218,10 @@ class _AssetGridPageState extends State<AssetGridPage> {
                                       },
                                       child: Row(
                                         children: [
-                                          Icon(Icons.copy_outlined, color: Colors.black,),
+                                          Icon(
+                                            Icons.copy_outlined,
+                                            color: Colors.black,
+                                          ),
                                           SizedBox(width: 4),
                                           Text(
                                             'copy',
@@ -159,6 +230,9 @@ class _AssetGridPageState extends State<AssetGridPage> {
                                         ],
                                       ),
                                     ),
+
+                                    /// A button with an image and text that allows
+                                    /// the user to copy an image to the clipboard when pressed.
                                     TextButton(
                                       onPressed: () {
                                         // Copy image to clipboard
@@ -178,6 +252,9 @@ class _AssetGridPageState extends State<AssetGridPage> {
                                         ],
                                       ),
                                     ),
+
+                                    /// Displays a button with an image and text that when pressed,
+                                    /// copies a string to the clipboard and displays a brief notification.
                                     TextButton(
                                       onPressed: () async {
                                         ScaffoldMessenger.of(context).showSnackBar(
@@ -214,6 +291,9 @@ class _AssetGridPageState extends State<AssetGridPage> {
                                         ],
                                       ),
                                     ),
+
+                                    /// Creates a button with an icon and text that,
+                                    /// when pressed, closes the current screen and returns to the previous one.
                                     TextButton(
                                       onPressed: () {
                                         Navigator.pop(context);
@@ -236,7 +316,6 @@ class _AssetGridPageState extends State<AssetGridPage> {
                                   ],
                                 ),
 
-
                                 SizedBox(height: 20),
                               ],
                             ),
@@ -245,6 +324,8 @@ class _AssetGridPageState extends State<AssetGridPage> {
                       },
                     );
                   },
+
+                  /// Displays an asset's name, original reference, and image (if available) in a card format, with an option to view more details in a dialog box.
                   child: Card(
                     child: Padding(
                       padding: EdgeInsets.all(8.0),

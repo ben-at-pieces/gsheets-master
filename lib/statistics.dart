@@ -25,18 +25,52 @@ Future<Statistics?> getStats() async {
   List<Asset> assetsListed = assetsSnapshot.iterable.toList();
   int count = assetsListed.length;
 
-
   List<int>? bytes = assetsListed[index].original.reference?.file?.bytes?.raw.toList();
 
   List<int> _bytes = bytes?.toList() ?? [0];
 // print(_bytes);
 
+  /// Suggested
+  Assets suggestedSnapshot = await assetsApi.assetsSnapshot(suggested: true, transferables: false);
+  List<Asset> suggestionsListed = suggestedSnapshot.iterable.toList();
+  int suggestedCount = suggestionsListed.length;
 
+  String? suggestedName = suggestionsListed.elementAt(index).name ?? '';
+  String? suggestedDescription = suggestionsListed.elementAt(index).description;
 
+  /// Iterates through a list of suggestions and
+  /// prints their names, or an empty string if the name is null.
 
+  List <String> suggestedNamesList = [];
+  for (int i = 0; i < suggestedCount; i++) {
+    String? suggestedName = suggestionsListed.elementAt(i).name ?? '';
 
+    if(suggestedName != Null) {
+      suggestedNamesList.add(suggestedName);
+    }
+  }
+List<String> suggestedNames = suggestedNamesList;
+  // print(suggestedNames);
 
+  /// This code prints the description of suggested items from a list.
+  List<String> suggestedDescriptions = [];
+  for (int i = 0; i < suggestedCount; i++) {
+    String? suggestedDescription = suggestionsListed.elementAt(i).description;
 
+    if (suggestedDescription != Null) {
+      suggestedDescriptions.add(suggestedDescription!);
+    }
+  }
+  // print(suggestedDescriptions);
+  List<String> suggestedDesc = suggestedDescriptions;
+
+  // for (int i = 0; i < suggestedCount; i++) {
+  //   String rawSnippet = suggestionsListed.elementAt(i). ?? '';
+  //   print(' hello $rawSnippet');
+  // }
+
+  ///
+  /// =================================================================
 
   /// users & user
 
@@ -202,8 +236,6 @@ Future<Statistics?> getStats() async {
 
   List<Iterable<Asset>> dartRaw = filteredLanguages.toList();
 
-
-
   // print(dartRaw.elementAt(index).elementAt(index).original.reference?.fragment?.string?.raw);
 
   /// classifications map (String, double)
@@ -219,12 +251,7 @@ Future<Statistics?> getStats() async {
       int unique = subAsset.length;
       // print(unique);
 
-
       String? namesList = subAsset.elementAt(index).name;
-
-
-
-
 
       // print('name: ${subAsset.elementAt(index).name}');
       // print('description: ${subAsset.elementAt(index).description}');
@@ -342,8 +369,6 @@ Future<Statistics?> getStats() async {
     }
   }
 
-
-
   List<String> tags =
       (Map.fromEntries(tagMap.entries.toList()..sort((e1, e2) => e2.value.compareTo(e1.value))))
           .keys
@@ -362,6 +387,7 @@ Future<Statistics?> getStats() async {
 
   List<Iterable<Asset>> nestedList = [];
   Statistics statistics = Statistics(
+    suggestedCount: suggestedCount,
     filteredList: filteredList,
     filteredLanguages: filteredLanguages,
     classifications: classifications,
@@ -421,6 +447,9 @@ Future<Statistics?> getStats() async {
     versionProfile: versionProfile,
     snippetsListRaw: [],
     picture: picture,
+    suggestedDesc: suggestedDescriptions,
+    suggestedNames: suggestedNames,
+    suggestionsListed: suggestionsListed,
     // bytes: bytes,
     // snippetNames: snippetNames,
   );
@@ -430,6 +459,9 @@ Future<Statistics?> getStats() async {
 /// Statistics class ================================================================
 class Statistics {
   final List<Asset> asset;
+  final List<Asset> suggestionsListed;
+  final List<String> suggestedDesc;
+  final List<String> suggestedNames;
   final List<Iterable<Asset>> filteredLanguages;
   final Map<String, double> classifications;
   final Map<String, double> origins;
@@ -483,11 +515,12 @@ class Statistics {
   final PlatformEnum platform;
   final List<Iterable<Asset>> filteredList;
   final List<Iterable<Asset>> nestedList;
-
+final int suggestedCount;
   final String? userPicture;
   final String? email;
 
   final String? vanityName;
+
   // final TransferableBytes? bytes;
   final String? versionProfile;
 
@@ -499,7 +532,8 @@ class Statistics {
 
   /// Statistics class constructors ================================================================
   Statistics({
-    // required this.bytes,
+    required this.suggestedDesc,
+    required this.suggestionsListed ,
     required this.snippetsListRaw,
     required this.version,
     required this.name,
@@ -559,6 +593,9 @@ class Statistics {
     required this.vanityName,
     required this.versionProfile,
     required this.picture,
+    required this.suggestedCount,
+    required this.suggestedNames,
+
     // required this.snippetNames,
   });
 }
