@@ -1,6 +1,9 @@
 import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/services.dart';
 
 import '../Dashboard/custom_classes.dart';
 
@@ -17,7 +20,7 @@ class FilePickerWidget extends StatefulWidget {
 }
 
 class _FilePickerWidgetState extends State<FilePickerWidget> {
-  File? _pickedFile;
+  Uint8List? _fileBytes;
 
   @override
   Widget build(BuildContext context) {
@@ -31,25 +34,50 @@ class _FilePickerWidgetState extends State<FilePickerWidget> {
             );
             if (result != null) {
               setState(() {
-                _pickedFile = File(result.files.single.path!);
-                widget.textEditingController.text = _pickedFile!.absolute.path;
+                _fileBytes = result.files.single.bytes;
+                widget.textEditingController.text = result.files.single.name;
               });
             }
           },
           child: Row(
             children: [
-              Icon(Icons.attach_file,color: Colors.black,),
-              Text('attach', style: TitleText(),),
-
+              Icon(Icons.attach_file, color: Colors.black),
+              Text(
+                'attach',
+                style: TitleText(),
+              ),
             ],
           ),
         ),
-        if (_pickedFile != null)
+        if (_fileBytes != null)
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(
-              _pickedFile!.path,
-              style: TextStyle(fontSize: 18),
+            child: Column(
+              children: [
+                if (_fileBytes != null && (_fileBytes!.lengthInBytes < 10000000))
+                  Image.memory(
+                    _fileBytes!,
+                    width: 150,
+                    height: 150,
+                    fit: BoxFit.cover,
+                  ),
+                SizedBox(height: 10),
+                // TextButton(
+                //   onPressed: () async {
+                //     if (_fileBytes != null) {
+                //       await Clipboard.setData(ClipboardData(
+                //           text: String.fromCharCodes(_fileBytes!)));
+                //       ScaffoldMessenger.of(context).showSnackBar(
+                //         SnackBar(content: Text('Copied to clipboard')),
+                //       );
+                //     }
+                //   },
+                //   child: Text(
+                //     'Copy file contents',
+                //     style: TextStyle(color: Colors.blue),
+                //   ),
+                // ),
+              ],
             ),
           ),
       ],

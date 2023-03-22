@@ -383,11 +383,11 @@ class _AssetGridPageState extends State<AssetGridPage> {
                   }
                 },
               ),
-              Column(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Images  /  Code',
+                    '${StatisticsSingleton().statistics?.image.length ?? ''} Images ',
                     style: TitleText(),
                   ),
                   Switch(
@@ -398,6 +398,11 @@ class _AssetGridPageState extends State<AssetGridPage> {
                         showRawStringAssets = value;
                       });
                     },
+                  ),
+
+                  Text(
+                    'Snippets ${StatisticsSingleton().statistics?.discoveredAssetsList.length ?? ''}',
+                    style: TitleText(),
                   ),
                 ],
               ),

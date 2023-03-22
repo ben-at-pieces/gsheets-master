@@ -40,3 +40,29 @@ class CustomTextButton extends StatelessWidget {
     );
   }
 }
+class CustomIconButton extends StatelessWidget {
+  final String imageAssetPath;
+  final String tooltip;
+  final String url;
+
+  CustomIconButton({
+    required this.imageAssetPath,
+    required this.tooltip,
+    required this.url,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () async {
+        await launch(url);
+      },
+      icon: Image.asset(
+        imageAssetPath,
+        width: 50,
+        height: 50,
+      ),
+      tooltip: tooltip,
+    );
+  }
+}

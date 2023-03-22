@@ -98,6 +98,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                             autocorrect: true,
                             controller: _textFieldController,
                             decoration: InputDecoration(
+                              prefixIcon: FilePickerWidget(
+                                textEditingController: _textFieldController,
+                              ),
                               labelStyle: ParticleFont.micro(
                                 context,
                                 customization: TextStyle(color: Colors.black, fontSize: 16),
@@ -128,7 +131,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                               ),
                             ),
                           ),
+
+
+
                         ),
+
                       ],
                     ),
                   ),
@@ -138,7 +145,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       children: [
 
 
-                        FilePickerWidget(textEditingController: _textFieldController,),
 
                         ///close button Teams
                         /// This code creates a button that, when pressed, sends data to an API to create a new asset and clears a text field.
