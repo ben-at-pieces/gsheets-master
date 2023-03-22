@@ -56,6 +56,7 @@ class MyPieChart extends StatelessWidget {
           elevation: 4,
           child: Container(
             height: 450,
+
             color: Colors.white,
             child: Column(
               children: [
@@ -98,7 +99,6 @@ class MyPieChart extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 // Container(
                 //   color: Colors.white,
                 //   child: MyAppSnippets(),
@@ -108,6 +108,7 @@ class MyPieChart extends StatelessWidget {
           ),
         ),
       ),
+
     );
   }
 }
@@ -195,129 +196,4 @@ List imgList4 = [
   Image.asset('yaml-black.jpg'),
 ];
 
-class BottomPieChart extends StatelessWidget {
-  const BottomPieChart({super.key});
 
-  get index => imgList1.length;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      // backgroundColor: Colors.black87,
-      // appBar: CustomAppBar(title: 'Snippet Classifications',),
-      body: Container(
-        color: Colors.white,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                height: 15,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    FittedBox(
-                      child: Container(
-                        color: Colors.black54,
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text('esc', style: TextStyle(color: Colors.white, fontSize: 34),),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  height: 225,
-                  width: 200,
-                  child: PieChart(
-                    centerText: 'TOTAL: ${StatisticsSingleton().statistics?.snippetsSaved}',
-                    ringStrokeWidth: 60,
-                    chartValuesOptions: const ChartValuesOptions(
-                      showChartValuesOutside: true,
-                      showChartValueBackground: true,
-                      decimalPlaces: 0,
-                      showChartValues: true,
-                      showChartValuesInPercentage: false,
-                    ),
-                    emptyColor: Colors.grey,
-                    baseChartColor: Colors.black12,
-                    centerTextStyle: TitleText(),
-                    key: ValueKey(key),
-                    dataMap: StatisticsSingleton().statistics!.classifications,
-                    animationDuration: const Duration(milliseconds: 800),
-                    chartLegendSpacing: 15,
-                    // chartRadius: math.min(MediaQuery.of(context).size.width / 1.5, 150),
-                    chartRadius: math.min(MediaQuery.of(context).size.width / 1.5, 150),
-                    colorList: colorList,
-                    chartType: ChartType.ring,
-                    legendOptions: const LegendOptions(
-                      showLegendsInRow: false,
-                      legendPosition: LegendPosition.left,
-                      showLegends: true,
-                      legendShape: true ? BoxShape.circle : BoxShape.rectangle,
-                      legendTextStyle: TextStyle(
-                        color: Colors.black,
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 250,
-                  width: 400,
-                  child: PieChart(
-                    ringStrokeWidth: 60,
-                    centerText: 'ORIGINS',
-                    chartValuesOptions: const ChartValuesOptions(
-                      showChartValuesOutside: false,
-                      showChartValueBackground: true,
-                      decimalPlaces: 0,
-                      showChartValues: true,
-                      showChartValuesInPercentage: false,
-                    ),
-                    emptyColor: Colors.white,
-                    baseChartColor: Colors.black87,
-                    centerTextStyle: TitleText(),
-                    key: ValueKey(key),
-                    dataMap: StatisticsSingleton().statistics!.origins,
-                    animationDuration: const Duration(milliseconds: 800),
-                    chartLegendSpacing: 25,
-                    chartRadius: math.min(MediaQuery.of(context).size.width / 1.5, 120),
-                    colorList: originColorList,
-                    chartType: ChartType.ring,
-                    legendOptions: const LegendOptions(
-                      showLegendsInRow: false,
-                      legendPosition: LegendPosition.left,
-                      showLegends: true,
-                      legendShape: true ? BoxShape.circle : BoxShape.rectangle,
-                      legendTextStyle: TextStyle(
-                        color: Colors.black,
-                        fontSize: 9,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-
-                // Container(
-                //   color: Colors.white,
-                //   child: MyAppSnippets(),
-                // ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

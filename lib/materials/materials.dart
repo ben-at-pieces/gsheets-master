@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Asset Grid Sample',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -68,46 +69,271 @@ class _AssetGridPageState extends State<AssetGridPage> {
     }
   }
 
+  ///===============================================================================
   Widget build(BuildContext context) {
-
-
     Future<Assets> getAssetsSnapshot() async {
       return await assetsApi.assetsSnapshot(suggested: true, transferables: false);
+    }
+
+    Future<List<Asset>> getDiscoveredAssetsList() async {
+      Assets assets = await assetsApi.assetsSnapshot(suggested: true, transferables: false);
+      return assets.iterable?.where((asset) => asset.discovered == true).toList() ?? [];
+    }
+
+    void _showAssetDetails(BuildContext context, String name, String description) {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 8),
+              Text(description),
+            ],
+          );
+        },
+      );
     }
 
     void _showSuggestedSnippets(BuildContext context) {
       showModalBottomSheet(
         context: context,
         builder: (context) {
-          return Container(
-            height: 300,
-            child: ListView.builder(
-              itemCount: StatisticsSingleton().statistics?.suggestedCount ?? 0,
-              itemBuilder: (context, index) {
-                String suggestedDesc =
-                    StatisticsSingleton().statistics?.suggestedDesc
-                        ?.elementAt(index) ?? '';
-                String suggestedNames =
-                    StatisticsSingleton().statistics?.suggestedNames
-                        ?.elementAt(index) ?? '';
-                return ListTile(
-                  leading: Text('Snippet ${index + 1}'),
-                  subtitle: Container(
-                    height: 30,
-                      child: Text('${suggestedDesc}')),
-                  title: Text('${suggestedNames}'),
-                );
-              },
-            ),
+          return Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  // color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                ),
+                height: 56,
+                child: Container(
+                  color: Colors.grey,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(width: 16),
+                      Text(
+                        'Suggested (${StatisticsSingleton().statistics?.suggestedCount ?? 0})',
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.close),
+                        color: Colors.white,
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: StatisticsSingleton().statistics?.suggestedCount ?? 0,
+                  itemBuilder: (context, index) {
+                    String rawSnippet = StatisticsSingleton()
+                            .statistics
+                            ?.suggestionsListed
+                            .elementAt(index)
+                            .original
+                            .reference
+                            ?.fragment
+                            ?.string
+                            ?.raw ??
+                        '';
+
+                    return Card(
+                      shadowColor: Colors.black,
+                      elevation: 4,
+                      child: ListTile(
+                        trailing: Text(
+                            '${StatisticsSingleton().statistics?.suggestionsListed.elementAt(index).original.reference?.classification.specific.value}'),
+                        subtitle: Container(
+                          // height: 30,
+                          child: Text(
+                              StatisticsSingleton().statistics?.suggestedDesc.elementAt(index) ??
+                                  ''),
+                        ),
+                        title: Text(
+                            StatisticsSingleton().statistics?.suggestedNames.elementAt(index) ??
+                                ''),
+                        leading: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text('${index + 1}'),
+                            IconButton(
+                              icon: Icon(Icons.more_vert),
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text('snippet place holder'),
+                                      content: TextField(
+                                        readOnly: false,
+                                        controller: _textEditController,
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text('Close'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () async {
+                                            await Clipboard.setData(ClipboardData(
+                                                text:
+                                                    '${StatisticsSingleton().statistics?.suggestionsListed ?? ''}'));
+                                            Navigator.of(context).pop();
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(content: Text('Copied to clipboard')),
+                                            );
+                                          },
+                                          child: Text('Copy'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.copy),
+                              onPressed: () async {
+                                await Clipboard.setData(ClipboardData(text: rawSnippet));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Copied to clipboard')),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
           );
         },
       );
     }
 
+    void _showDiscoveredAssets(BuildContext context, List<Asset> discoveredAssetsList) {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  // color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+                ),
+                height: 56,
+                child: Container(
+                  color: Colors.grey,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(width: 16),
+                      Text(
+                        'Discovered (${discoveredAssetsList.length})',
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.close),
+                        color: Colors.white,
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: discoveredAssetsList.length,
+                  itemBuilder: (context, index) {
+                    final discoveredAsset = discoveredAssetsList[index];
+                    return Card(
+                      shadowColor: Colors.black,
+                      elevation: 4,
+                      child: ListTile(
+                        leading: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text('${index + 1}'),
+                            IconButton(
+                              icon: Icon(Icons.more_vert),
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title: Text('snippet place holder'),
+                                      content: TextField(
+                                        readOnly: false,
+                                        controller: _textEditController,
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text('Close'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () async {
+                                            await Clipboard.setData(ClipboardData(
+                                                text:
+                                                    '${StatisticsSingleton().statistics?.suggestionsListed ?? ''}'));
+                                            Navigator.of(context).pop();
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(content: Text('Copied to clipboard')),
+                                            );
+                                          },
+                                          child: Text('Copy'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.copy),
+                              onPressed: () async {
+                                await Clipboard.setData(ClipboardData(text: 'rawSnippet'));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Copied to clipboard')),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                        title: Text(discoveredAsset.name ?? ''),
+                        subtitle: Text(discoveredAsset.description ?? ''),
+                        onTap: () => _showAssetDetails(
+                            context, discoveredAsset.name ?? '', discoveredAsset.description ?? ''),
+                        trailing: Text(StatisticsSingleton().statistics?.discoveredAssetsList.elementAt(index).original.reference?.classification.specific.value ?? ''),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    }
 
     CircularProgressIndicator();
     // if (assets == null) {
- /// This code fetches a snapshot of assets and displays a modal bottom sheet with a list of suggested snippets.
+    /// This code fetches a snapshot of assets and displays a modal bottom sheet with a list of suggested snippets.
     //   return Center(child: CircularProgressIndicator());
     // }
     return Scaffold(
@@ -116,8 +342,8 @@ class _AssetGridPageState extends State<AssetGridPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-
               FutureBuilder<Assets>(
                 future: getAssetsSnapshot(),
                 builder: (context, snapshot) {
@@ -126,9 +352,12 @@ class _AssetGridPageState extends State<AssetGridPage> {
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else if (snapshot.hasData) {
-                    final assets = snapshot.data?.iterable?.toList() ?? [];
+                    final assets = snapshot.data?.iterable.toList() ?? [];
                     return TextButton(
-                      child: Text('View Suggested: (${assets.length})', style: TitleText(),),
+                      child: Text(
+                        'Suggested: (${assets.length})',
+                        style: TitleText(),
+                      ),
                       onPressed: () => _showSuggestedSnippets(context),
                     );
                   } else {
@@ -136,7 +365,24 @@ class _AssetGridPageState extends State<AssetGridPage> {
                   }
                 },
               ),
-
+              FutureBuilder<List<Asset>>(
+                future: getDiscoveredAssetsList(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Text('Loading...');
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else if (snapshot.hasData) {
+                    final assets = snapshot.data ?? [];
+                    return TextButton(
+                      child: Text('Discovered: (${assets.length})', style: TitleText()),
+                      onPressed: () => _showDiscoveredAssets(context, assets),
+                    );
+                  } else {
+                    return const Text('No data found.');
+                  }
+                },
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -152,9 +398,9 @@ class _AssetGridPageState extends State<AssetGridPage> {
                         showRawStringAssets = value;
                       });
                     },
-                  ), ],
+                  ),
+                ],
               ),
-
             ],
           ),
           Expanded(
@@ -402,4 +648,8 @@ class _AssetGridPageState extends State<AssetGridPage> {
       bottomNavigationBar: CustomBottomAppBar(),
     );
   }
+
+  ///===============================================================================
 }
+
+final TextEditingController _textEditController = TextEditingController();

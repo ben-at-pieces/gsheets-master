@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gsheets/Tab_Plugins_and_More/pluginButton.dart';
 import 'package:runtime_client/particle.dart';
 import 'package:runtime_client/utils.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -54,7 +55,7 @@ class Plugins extends StatelessWidget {
                 children: [
                   SizedBox(
                     height: 200,
-                    width: 120,
+                    width: 170,
                     child: ListView(
                       padding: const EdgeInsets.all(10),
                       children: <Widget>[
@@ -63,15 +64,15 @@ class Plugins extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                CustomIcon(Icons.auto_awesome),
+                                CustomIcon(Icons.auto_fix_high),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
                                     'Pieces',
-                                       style: ParticleFont.micro(
-                                    context,
-                                    customization: TextStyle(color: Colors.black, fontSize: 20),
-                                  ),
+                                    style: ParticleFont.micro(
+                                      context,
+                                      customization: TextStyle(color: Colors.black, fontSize: 20),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -79,36 +80,22 @@ class Plugins extends StatelessWidget {
                           ],
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 15.0),
+                          padding: const EdgeInsets.only(top: 15.0, right: 5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              TextButton(
-                                child: Text(
-                                  'Desktop App',
-                                  style: PluginsAndMore(),
-                                ),
-                                onPressed: () async {
-                                  var linkUrl = 'https://code.pieces.app/install';
-
-                                  linkUrl = linkUrl; //Twitter's URL
-                                  if (await canLaunch(linkUrl)) {
-                                    await launch(
-                                      linkUrl,
-                                    );
-                                  } else {
-                                    throw 'Could not launch $linkUrl';
-                                  }
-                                },
-                              ),
-                              SizedBox(height: 25, width: 25, child: Image.asset('roundedpfd.png')),
-                            ],
+                              CustomTextButton(
+                                imageAssetPath: 'roundedpfd.png',
+                                text: 'Desktop App',
+                                url: 'https://code.pieces.app/install',
+                              ),                            ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(
+                  Container(
+                    // color: Colors.grey,
                     height: 200,
                     width: 165,
                     child: ListView(
@@ -122,10 +109,10 @@ class Plugins extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 'Develop',
-                                  style: ParticleFont.micro(
-                                context,
-                                customization: TextStyle(color: Colors.black, fontSize: 20),
-                              ),
+                                style: ParticleFont.micro(
+                                  context,
+                                  customization: TextStyle(color: Colors.black, fontSize: 20),
+                                ),
                               ),
                             ),
                           ],
@@ -135,52 +122,24 @@ class Plugins extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              TextButton(
-                                child: Text(
-                                  'Pieces for VS Code',
-                                  style: PluginsAndMore(),
-                                ),
-                                onPressed: () async {
-                                  var linkUrl =
-                                      'https://marketplace.visualstudio.com/items?itemName=MeshIntelligentTechnologiesInc.pieces-vscode';
-
-                                  linkUrl = linkUrl; //Twitter's URL
-                                  if (await canLaunch(linkUrl)) {
-                                    await launch(
-                                      linkUrl,
-                                    );
-                                  } else {
-                                    throw 'Could not launch $linkUrl';
-                                  }
-                                },
+                              CustomTextButton(
+                                imageAssetPath: 'vscode.png',
+                                text: 'Pieces for VS Code',
+                                url:
+                                    'https://marketplace.visualstudio.com/items?itemName=MeshIntelligentTechnologiesInc.pieces-vscode',
                               ),
-                              SizedBox(height: 20, width: 20, child: Image.asset('vscode.png')),
                             ],
                           ),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            TextButton(
-                              child: Text(
-                                'Pieces for JetBrains',
-                                style: PluginsAndMore(),
-                              ),
-                              onPressed: () async {
-                                var linkUrl =
-                                    'https://plugins.jetbrains.com/plugin/17328-pieces--save-search-share--reuse-code-snippets';
-
-                                linkUrl = linkUrl; //Twitter's URL
-                                if (await canLaunch(linkUrl)) {
-                                  await launch(
-                                    linkUrl,
-                                  );
-                                } else {
-                                  throw 'Could not launch $linkUrl';
-                                }
-                              },
+                            CustomTextButton(
+                              imageAssetPath: 'jetbrains.png',
+                              text: 'Pieces for JetBrains',
+                              url:
+                                  'https://plugins.jetbrains.com/plugin/17328-pieces--save-search-share--reuse-code-snippets',
                             ),
-                            SizedBox(height: 20, width: 20, child: Image.asset('jetbrains.png')),
                           ],
                         ),
                       ],
@@ -217,74 +176,32 @@ class Plugins extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              TextButton(
-                                child: Text(
-                                  'Code From Screenshot',
-                                  style: PluginsAndMore(),
-                                ),
-                                onPressed: () async {
-                                  var linkUrl = 'https://www.codefromscreenshot.com/';
-
-                                  linkUrl = linkUrl; //Twitter's URL
-                                  if (await canLaunch(linkUrl)) {
-                                    await launch(
-                                      linkUrl,
-                                    );
-                                  } else {
-                                    throw 'Could not launch $linkUrl';
-                                  }
-                                },
+                              CustomTextButton(
+                                imageAssetPath: 'screenshot.png',
+                                text: 'Code From Screenshot',
+                                url: 'https://www.codefromscreenshot.com/',
                               ),
-                              CustomIcon(Icons.screenshot_monitor_outlined),
                             ],
                           ),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            TextButton(
-                              child: Text(
-                                'Text From Screenshot',
-                                style: PluginsAndMore(),
-                              ),
-                              onPressed: () async {
-                                var linkUrl = 'https://www.textfromscreenshot.com/';
-
-                                linkUrl = linkUrl; //Twitter's URL
-                                if (await canLaunch(linkUrl)) {
-                                  await launch(
-                                    linkUrl,
-                                  );
-                                } else {
-                                  throw 'Could not launch $linkUrl';
-                                }
-                              },
+                            CustomTextButton(
+                              imageAssetPath: 'codeScreenshot.png',
+                              text: 'Text From Screenshot',
+                              url: 'https://www.textfromscreenshot.com/',
                             ),
-                            CustomIcon(Icons.screenshot_monitor_outlined),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            TextButton(
-                              child: Text(
-                                'Code Plus Plus',
-                                style: PluginsAndMore(),
-                              ),
-                              onPressed: () async {
-                                var linkUrl = 'https://www.codeplusplus.app/';
-
-                                linkUrl = linkUrl; //Twitter's URL
-                                if (await canLaunch(linkUrl)) {
-                                  await launch(
-                                    linkUrl,
-                                  );
-                                } else {
-                                  throw 'Could not launch $linkUrl';
-                                }
-                              },
+                            CustomTextButton(
+                              imageAssetPath: 'slackNew.png',
+                              text: 'Code Plus Plus',
+                              url: 'https://www.codeplusplus.app/',
                             ),
-                            CustomIcon(Icons.developer_mode_sharp),
                           ],
                         ),
                       ],
@@ -321,29 +238,11 @@ class Plugins extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              TextButton(
-                                child: Text(
-                                  'Pieces for Chrome',
-                                  style: PluginsAndMore(),
-                                ),
-                                onPressed: () async {
-                                  var linkUrl =
-                                      'https://chrome.google.com/webstore/detail/pieces-save-code-snippets/igbgibhbfonhmjlechmeefimncpekepm';
-
-                                  linkUrl = linkUrl; //Twitter's URL
-                                  if (await canLaunch(linkUrl)) {
-                                    await launch(
-                                      linkUrl,
-                                    );
-                                  } else {
-                                    throw 'Could not launch $linkUrl';
-                                  }
-                                },
-                              ),
-                              SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: Image.asset('Chrome.png'),
+                              CustomTextButton(
+                                imageAssetPath: 'Chrome.png',
+                                text: 'Pieces for Chrome',
+                                url:
+                                    'https://chrome.google.com/webstore/detail/pieces-save-code-snippets/igbgibhbfonhmjlechmeefimncpekepm',
                               ),
                             ],
                           ),
@@ -351,84 +250,30 @@ class Plugins extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            TextButton(
-                              child: Text(
-                                'Pieces for Safari',
-                                style: PluginsAndMore(),
-                              ),
-                              onPressed: () async {
-                                var linkUrl = '';
-
-                                linkUrl = linkUrl; //Twitter's URL
-                                if (await canLaunch(linkUrl)) {
-                                  await launch(
-                                    linkUrl,
-                                  );
-                                } else {
-                                  throw 'Could not launch $linkUrl';
-                                }
-                              },
-                            ),
-                            SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: Image.asset('Safari.png'),
+                            CustomTextButton(
+                              imageAssetPath: 'Safari.png',
+                              text: 'Pieces for Safari',
+                              url: '',
                             ),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            TextButton(
-                              child: Text(
-                                'Pieces for FireFox',
-                                style: PluginsAndMore(),
-                              ),
-                              onPressed: () async {
-                                var linkUrl = '';
-
-                                linkUrl = linkUrl; //Twitter's URL
-                                if (await canLaunch(linkUrl)) {
-                                  await launch(
-                                    linkUrl,
-                                  );
-                                } else {
-                                  throw 'Could not launch $linkUrl';
-                                }
-                              },
-                            ),
-                            SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: Image.asset('Firefox.png'),
+                            CustomTextButton(
+                              imageAssetPath: 'Firefox.png',
+                              text: 'Pieces for FireFox',
+                              url: '',
                             ),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            TextButton(
-                              child: Text(
-                                'Pieces for Brave',
-                                style: PluginsAndMore(),
-                              ),
-                              onPressed: () async {
-                                var linkUrl = '';
-
-                                linkUrl = linkUrl; //Twitter's URL
-                                if (await canLaunch(linkUrl)) {
-                                  await launch(
-                                    linkUrl,
-                                  );
-                                } else {
-                                  throw 'Could not launch $linkUrl';
-                                }
-                              },
-                            ),
-                            SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: Image.asset('brave.png'),
+                            CustomTextButton(
+                              imageAssetPath: 'brave.png',
+                              text: 'Pieces for Brave',
+                              url: '',
                             ),
                           ],
                         ),
@@ -438,421 +283,258 @@ class Plugins extends StatelessWidget {
                 ],
               ),
             ),
-            Column(
-              children: [
 
-                /// docs
-                Padding(
-                  padding: const EdgeInsets.only(left: 20.0, top: 15),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          height: 30,
-                          width: 30,
-                          child: TextButton(
-
-                            onPressed: () async {
-
-                              /// redirect to docs in browser
-                              String linkUrl = 'https://docs.google.com/document/u/0/?tgif=d';
-
-                              linkUrl = linkUrl; //Twitter's URL
-                              if (await canLaunch(linkUrl)) {
-                                await launch(
-                                  linkUrl,
-                                );
-                              } else {
-                                throw 'Could not launch $linkUrl';
-                              }
-
-                            },
-                            child: Image.asset('docs.png'),),
-                        ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0, top: 15),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomTextButton(
+                        imageAssetPath: 'docs.png',
+                        text: '',
+                        url: 'https://docs.google.com/document/u/0/?tgif=d',
                       ),
-
-
-                      /// sheets
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          height: 30,
-                          width: 30,
-                          child: TextButton(
-
-                            onPressed: () async {
-
-
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'hold tight while we gather your snapshot!',
-                                  ),
-                                  duration: Duration(
-                                      days: 0,
-                                      hours: 0,
-                                      minutes: 0,
-                                      seconds: 4,
-                                      milliseconds: 30,
-                                      microseconds: 10),
-                                ),
-                              );
-
-
-
-                              final gsheets = GSheets(credentials);
-
-                              final spreadsheetID = '18IlCBkFo9Y1Q0BshWiHehI0p3zufEImkWqOr23kBMcM';
-
-                              final ssheet = await gsheets.spreadsheet(spreadsheetID);
-
-                              Worksheet? ws = await ssheet.worksheetByTitle('Indy');
-
-
-                              await ws?.values
-                                  .insertRow(1, ['Languages', 'Count', '', 'People', 'Links', 'Tags'], fromColumn: 1);
-
-                              /// Languages Column
-                              await ws?.values.insertColumn(1, languages, fromRow: 2);
-
-
-                              /// count Column
-                              await ws?.values.insertColumn(2, languageCounts, fromRow: 2);
-
-
-                              /// added a blank placeholder
-                              List<String> people =  StatisticsSingleton().statistics?.persons.toList() ?? [];
-                              people.add('');
-
-                              /// people Column
-                              await ws?.values.insertColumn(4, people, fromRow: 2);
-                              /// added a blank placeholder
-                              List<String> links =  StatisticsSingleton().statistics?.relatedLinks.toList() ?? [];
-                              links.add('');
-
-                              /// Tags Column
-                              await ws?.values.insertColumn(5, links , fromRow: 2);
-
-                              /// added a blank placeholder
-                              List<String> tagsList =  StatisticsSingleton().statistics?.tags.toList() ?? [];
-                              tagsList.add('');
-                              /// tags Column
-                              await ws?.values.insertColumn(6, tagsList, fromRow: 2);
-
-
-
-
-
-                              /// redirect to gsheets in browser
-                              String linkUrl = 'https://docs.google.com/spreadsheets/d/18IlCBkFo9Y1Q0BshWiHehI0p3zufEImkWqOr23kBMcM/edit#gid=1601436512';
-
-                              linkUrl = linkUrl; //Twitter's URL
-                              if (await canLaunch(linkUrl)) {
-                                await launch(
-                                  linkUrl,
-                                );
-                              } else {
-                                throw 'Could not launch $linkUrl';
-                              }
-
-                            },
-                            child: Image.asset('gsheets.png'),),
-                        ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomTextButton(
+                        imageAssetPath: 'gsheets.png',
+                        text: '',
+                        url:
+                            'https://docs.google.com/spreadsheets/d/18IlCBkFo9Y1Q0BshWiHehI0p3zufEImkWqOr23kBMcM/edit#gid=1601436512',
                       ),
-
-                      /// calendar
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          height: 40,
-                          width: 40,
-                          child: TextButton(
-
-                            onPressed: () async {
-
-
-
-                              /// redirect to gsheets in browser
-                              String linkUrl = 'https://calendar.google.com/calendar/u/0/r';
-
-                              linkUrl = linkUrl; //Twitter's URL
-                              if (await canLaunch(linkUrl)) {
-                                await launch(
-                                  linkUrl,
-                                );
-                              } else {
-                                throw 'Could not launch $linkUrl';
-                              }
-
-                            },
-                            child: Image.asset('calendar.png'),),
-                        ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomTextButton(
+                        imageAssetPath: 'calendar.png',
+                        text: '',
+                        url: 'https://calendar.google.com/calendar/u/0/r',
                       ),
-
-                      /// teams
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          height: 40,
-                          width: 40,
-                          child: TextButton(
-
-                            onPressed: () async {
-
-                              /// redirect to gsheets in browser
-                              String linkUrl = '';
-
-                              linkUrl = linkUrl; //Twitter's URL
-                              if (await canLaunch(linkUrl)) {
-                                await launch(
-                                  linkUrl,
-                                );
-                              } else {
-                                throw 'Could not launch $linkUrl';
-                              }
-
-                            },
-                            child: Image.asset('teams.png'),),
-                        ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomTextButton(
+                        imageAssetPath: 'teams.png',
+                        text: '',
+                        url: '',
                       ),
-
-                      /// drive
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          height: 40,
-                          width: 40,
-                          child: TextButton(
-
-                            onPressed: () async {
-
-                              /// redirect to gsheets in browser
-                              String linkUrl = 'https://drive.google.com/drive/u/0/my-drive';
-
-                              linkUrl = linkUrl; //Twitter's URL
-                              if (await canLaunch(linkUrl)) {
-                                await launch(
-                                  linkUrl,
-                                );
-                              } else {
-                                throw 'Could not launch $linkUrl';
-                              }
-
-                            },
-                            child: Image.asset('drive.png'),),
-                        ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomTextButton(
+                        imageAssetPath: 'drive.png',
+                        text: '',
+                        url: 'https://drive.google.com/drive/u/0/my-drive',
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-
-
-
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0, top: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Padding(
-                      //   padding: const EdgeInsets.only(left: 10.0, top: 5),
-                      //   child: TextButton(
-                      //     child: Row(
-                      //       children: [
-                      //         SizedBox(
-                      //           height: 40,
-                      //           width: 40,
-                      //           child: Image.asset('pfd.png'),
-                      //         ),
-                      //         Text(
-                      //           '',
-                      //         ),
-                      //       ],
-                      //     ),
-                      //     onPressed: () async {
-                      //       String linkUrl = 'https://code.pieces.app/install';
-                      //
-                      //       linkUrl = linkUrl; //Twitter's URL
-                      //       if (await canLaunch(linkUrl)) {
-                      //         await launch(
-                      //           linkUrl,
-                      //         );
-                      //       } else {
-                      //         throw 'Could not launch $linkUrl';
-                      //       }
-                      //     },
-                      //   ),
-                      // ),
-
-                      /// linkedin
-
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0, top: 5),
-                        child: TextButton(
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: Image.asset('linkedin.png'),
-                              ),
-                              Text(
-                                '',
-                              ),
-                            ],
-                          ),
-                          onPressed: () async {
-                            var linkUrl = 'https://www.linkedin.com/company/getpieces/mycompany/';
-
-                            linkUrl = linkUrl; //Twitter's URL
-                            if (await canLaunch(linkUrl)) {
-                              await launch(
-                                linkUrl,
-                              );
-                            } else {
-                              throw 'Could not launch $linkUrl';
-                            }
-                          },
-                        ),
-                      ),
-
-                      /// twitter
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0, top: 5),
-                        child: TextButton(
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: Image.asset('twitter.png'),
-                              ),
-                              Text(
-                                '',
-                              ),
-                            ],
-                          ),
-                          onPressed: () async {
-                            var linkUrl = 'https://twitter.com/getpieces';
-
-                            linkUrl = linkUrl; //Twitter's URL
-                            if (await canLaunch(linkUrl)) {
-                              await launch(
-                                linkUrl,
-                              );
-                            } else {
-                              throw 'Could not launch $linkUrl';
-                            }
-                          },
-                        ),
-                      ),
-
-                      /// facebook
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0, top: 5),
-                        child: TextButton(
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: Image.asset('facebook.png'),
-                              ),
-                              Text(
-                                '',
-                              ),
-                            ],
-                          ),
-                          onPressed: () async {
-                            var linkUrl =
-                                'https://www.facebook.com/520508470288885/posts/559057106234021';
-
-                            linkUrl = linkUrl; //Twitter's URL
-                            if (await canLaunch(linkUrl)) {
-                              await launch(
-                                linkUrl,
-                              );
-                            } else {
-                              throw 'Could not launch $linkUrl';
-                            }
-                          },
-                        ),
-                      ),
-
-
-
-                      /// youtube
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0, top: 5),
-                        child: TextButton(
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                height: 30,
-                                width: 30,
-                                child: Image.asset('youtube.png'),
-                              ),
-                              Text(
-                                '',
-                              ),
-                            ],
-                          ),
-                          onPressed: () async {
-                            var linkUrl =
-                                'https://www.youtube.com/channel/UCD3ZXdxCqTd9mMgQnN1hWbw';
-
-                            linkUrl = linkUrl; //Twitter's URL
-                            if (await canLaunch(linkUrl)) {
-                              await launch(
-                                linkUrl,
-                              );
-                            } else {
-                              throw 'Could not launch $linkUrl';
-                            }
-                          },
-                        ),
-                      ),
-
-                      // /// github
-                      // Padding(
-                      //   padding: const EdgeInsets.only(left: 10.0, top: 5),
-                      //   child: TextButton(
-                      //
-                      //     child: Row(
-                      //       children: [
-                      //         SizedBox(
-                      //           height: 30,
-                      //           width: 30,
-                      //           child: Image.asset('GPT.png'),
-                      //         ),
-                      //         Text(
-                      //           '',
-                      //         ),
-                      //       ],
-                      //     ),
-                      //     onPressed: () async {
-                      //       String linkUrl = '';
-                      //
-                      //       linkUrl = linkUrl; //Twitter's URL
-                      //       if (await canLaunch(linkUrl)) {
-                      //         await launch(
-                      //           linkUrl,
-                      //         );
-                      //       } else {
-                      //         throw 'Could not launch $linkUrl';
-                      //       }
-                      //     },
-                      //   ),
-                      // ),
-                    ],
-                  ),
-                ),
-
-
-
-              ],
+              ),
             ),
+
+            // Padding(
+            //   padding: const EdgeInsets.only(left: 10.0, top: 15),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       // Padding(
+            //       //   padding: const EdgeInsets.only(left: 10.0, top: 5),
+            //       //   child: TextButton(
+            //       //     child: Row(
+            //       //       children: [
+            //       //         SizedBox(
+            //       //           height: 40,
+            //       //           width: 40,
+            //       //           child: Image.asset('pfd.png'),
+            //       //         ),
+            //       //         Text(
+            //       //           '',
+            //       //         ),
+            //       //       ],
+            //       //     ),
+            //       //     onPressed: () async {
+            //       //       String linkUrl = 'https://code.pieces.app/install';
+            //       //
+            //       //       linkUrl = linkUrl; //Twitter's URL
+            //       //       if (await canLaunch(linkUrl)) {
+            //       //         await launch(
+            //       //           linkUrl,
+            //       //         );
+            //       //       } else {
+            //       //         throw 'Could not launch $linkUrl';
+            //       //       }
+            //       //     },
+            //       //   ),
+            //       // ),
+            //
+            //       /// linkedin
+            //
+            //       Padding(
+            //         padding: const EdgeInsets.only(left: 10.0, top: 5),
+            //         child: TextButton(
+            //           child: Row(
+            //             children: [
+            //               SizedBox(
+            //                 height: 20,
+            //                 width: 20,
+            //                 child: Image.asset('linkedin.png'),
+            //               ),
+            //               Text(
+            //                 '',
+            //               ),
+            //             ],
+            //           ),
+            //           onPressed: () async {
+            //             var linkUrl = 'https://www.linkedin.com/company/getpieces/mycompany/';
+            //
+            //             linkUrl = linkUrl; //Twitter's URL
+            //             if (await canLaunch(linkUrl)) {
+            //               await launch(
+            //                 linkUrl,
+            //               );
+            //             } else {
+            //               throw 'Could not launch $linkUrl';
+            //             }
+            //           },
+            //         ),
+            //       ),
+            //
+            //       /// twitter
+            //       Padding(
+            //         padding: const EdgeInsets.only(left: 10.0, top: 5),
+            //         child: TextButton(
+            //           child: Row(
+            //             children: [
+            //               SizedBox(
+            //                 height: 20,
+            //                 width: 20,
+            //                 child: Image.asset('twitter.png'),
+            //               ),
+            //               Text(
+            //                 '',
+            //               ),
+            //             ],
+            //           ),
+            //           onPressed: () async {
+            //             var linkUrl = 'https://twitter.com/getpieces';
+            //
+            //             linkUrl = linkUrl; //Twitter's URL
+            //             if (await canLaunch(linkUrl)) {
+            //               await launch(
+            //                 linkUrl,
+            //               );
+            //             } else {
+            //               throw 'Could not launch $linkUrl';
+            //             }
+            //           },
+            //         ),
+            //       ),
+            //
+            //       /// facebook
+            //       Padding(
+            //         padding: const EdgeInsets.only(left: 10.0, top: 5),
+            //         child: TextButton(
+            //           child: Row(
+            //             children: [
+            //               SizedBox(
+            //                 height: 20,
+            //                 width: 20,
+            //                 child: Image.asset('facebook.png'),
+            //               ),
+            //               Text(
+            //                 '',
+            //               ),
+            //             ],
+            //           ),
+            //           onPressed: () async {
+            //             var linkUrl =
+            //                 'https://www.facebook.com/520508470288885/posts/559057106234021';
+            //
+            //             linkUrl = linkUrl; //Twitter's URL
+            //             if (await canLaunch(linkUrl)) {
+            //               await launch(
+            //                 linkUrl,
+            //               );
+            //             } else {
+            //               throw 'Could not launch $linkUrl';
+            //             }
+            //           },
+            //         ),
+            //       ),
+            //
+            //
+            //
+            //       /// youtube
+            //       Padding(
+            //         padding: const EdgeInsets.only(left: 10.0, top: 5),
+            //         child: TextButton(
+            //           child: Row(
+            //             children: [
+            //               SizedBox(
+            //                 height: 30,
+            //                 width: 30,
+            //                 child: Image.asset('youtube.png'),
+            //               ),
+            //               Text(
+            //                 '',
+            //               ),
+            //             ],
+            //           ),
+            //           onPressed: () async {
+            //             var linkUrl =
+            //                 'https://www.youtube.com/channel/UCD3ZXdxCqTd9mMgQnN1hWbw';
+            //
+            //             linkUrl = linkUrl; //Twitter's URL
+            //             if (await canLaunch(linkUrl)) {
+            //               await launch(
+            //                 linkUrl,
+            //               );
+            //             } else {
+            //               throw 'Could not launch $linkUrl';
+            //             }
+            //           },
+            //         ),
+            //       ),
+            //
+            //       // /// github
+            //       // Padding(
+            //       //   padding: const EdgeInsets.only(left: 10.0, top: 5),
+            //       //   child: TextButton(
+            //       //
+            //       //     child: Row(
+            //       //       children: [
+            //       //         SizedBox(
+            //       //           height: 30,
+            //       //           width: 30,
+            //       //           child: Image.asset('GPT.png'),
+            //       //         ),
+            //       //         Text(
+            //       //           '',
+            //       //         ),
+            //       //       ],
+            //       //     ),
+            //       //     onPressed: () async {
+            //       //       String linkUrl = '';
+            //       //
+            //       //       linkUrl = linkUrl; //Twitter's URL
+            //       //       if (await canLaunch(linkUrl)) {
+            //       //         await launch(
+            //       //           linkUrl,
+            //       //         );
+            //       //       } else {
+            //       //         throw 'Could not launch $linkUrl';
+            //       //       }
+            //       //     },
+            //       //   ),
+            //       // ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -899,6 +581,3 @@ class Language {
     'yaml',
   ];
 }
-
-
-

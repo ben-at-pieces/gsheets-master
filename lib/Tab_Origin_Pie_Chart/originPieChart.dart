@@ -40,23 +40,24 @@ class OriginChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      appBar: CustomAppBar(title: 'Pieces Suite',),
-      body: Container(
-        color: Colors.white,
-        child: Column(
-          children: [
-
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(
-                elevation: 4,
-                child: Container(
-                  color: Colors.white38,
-                  height: 300,
-                  width: 800,
+      appBar: CustomAppBar(
+        title: 'Pieces Suite',
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              elevation: 4,
+              child: Container(
+                color: Colors.white38,
+                height: 300,
+                width: 800,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
                   child: PieChart(
-                    ringStrokeWidth: 100,
+                    ringStrokeWidth: 80,
                     centerText: 'ORIGINS',
                     chartValuesOptions: const ChartValuesOptions(
                       showChartValuesOutside: true,
@@ -67,13 +68,12 @@ class OriginChart extends StatelessWidget {
                     ),
                     emptyColor: Colors.white,
                     baseChartColor: Colors.black87,
-                    centerTextStyle:
-                    TitleText(),
+                    centerTextStyle: TitleText(),
                     key: ValueKey(key),
                     dataMap: StatisticsSingleton().statistics!.origins,
                     animationDuration: const Duration(milliseconds: 800),
-                    chartLegendSpacing: 50,
-                    chartRadius: math.min(MediaQuery.of(context).size.width / 1.5, 120),
+                    chartLegendSpacing: 100,
+                    chartRadius: math.min(MediaQuery.of(context).size.width / 1.5, 150),
                     colorList: originColorList,
                     chartType: ChartType.ring,
                     legendOptions: const LegendOptions(
@@ -91,266 +91,268 @@ class OriginChart extends StatelessWidget {
                 ),
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.all(15.0),
-            //   child: Row(
-            //       children: [
-            //         Column(
-            //           mainAxisAlignment: MainAxisAlignment.end,
-            //           children: [
-            //             SizedBox(
-            //               height: 18,
-            //               width: 18,
-            //               child: Image.asset('Chrome.png'),
-            //             ),
-            //             TextButton(
-            //               child: Text(
-            //                 'Chrome',
-            //                 style: ParticleFont.micro(
-            //                   context,
-            //                   customization: TextStyle(
-            //                     color: Colors.white,
-            //                     fontSize: 10,
-            //                     fontWeight: FontWeight.bold,
-            //                   ),
-            //                 ),
-            //               ),
-            //               onPressed: () async {
-            //                 String linkUrl =
-            //                     'https://chrome.google.com/webstore/detail/pieces-save-code-snippets/igbgibhbfonhmjlechmeefimncpekepm';
-            //
-            //                 linkUrl = linkUrl; //Twitter's URL
-            //                 if (await canLaunch(linkUrl)) {
-            //                   await launch(
-            //                     linkUrl,
-            //                   );
-            //                 } else {
-            //                   throw 'Could not launch $linkUrl';
-            //                 }
-            //               },
-            //             ),
-            //                   ],
-            //         ),
-            //         Column(
-            //           mainAxisAlignment: MainAxisAlignment.end,
-            //           children: [
-            //             SizedBox(
-            //               height: 18,
-            //               width: 18,
-            //               child: Image.asset('Safari.png'),
-            //             ),
-            //
-            //             TextButton(
-            //               child: Text(
-            //                 'Safari',
-            //                 style: ParticleFont.micro(
-            //                   context,
-            //                   customization: TextStyle(
-            //                     color: Colors.white,
-            //                     fontSize: 10,
-            //                     fontWeight: FontWeight.bold,
-            //                   ),
-            //                 ),
-            //               ),
-            //               onPressed: () async {
-            //                 String linkUrl = '';
-            //
-            //                 linkUrl = linkUrl; //Twitter's URL
-            //                 if (await canLaunch(linkUrl)) {
-            //                   await launch(
-            //                     linkUrl,
-            //                   );
-            //                 } else {
-            //                   throw 'Could not launch $linkUrl';
-            //                 }
-            //               },
-            //             ),
-            //                 ],
-            //         ),
-            //         Column(
-            //           mainAxisAlignment: MainAxisAlignment.end,
-            //           children: [
-            //             SizedBox(
-            //               height: 18,
-            //               width: 18,
-            //               child: Image.asset('Firefox.png'),
-            //             ),
-            //
-            //             TextButton(
-            //               child: Text(
-            //                 'FireFox',
-            //                 style: ParticleFont.micro(
-            //                   context,
-            //                   customization: TextStyle(
-            //                     color: Colors.white,
-            //                     fontSize: 10,
-            //                     fontWeight: FontWeight.bold,
-            //                   ),
-            //                 ),
-            //               ),
-            //               onPressed: () async {
-            //                 String linkUrl = '';
-            //
-            //                 linkUrl = linkUrl; //Twitter's URL
-            //                 if (await canLaunch(linkUrl)) {
-            //                   await launch(
-            //                     linkUrl,
-            //                   );
-            //                 } else {
-            //                   throw 'Could not launch $linkUrl';
-            //                 }
-            //               },
-            //             ),
-            //              ],
-            //         ),
-            //         Column(
-            //           mainAxisAlignment: MainAxisAlignment.end,
-            //           children: [
-            //
-            //             SizedBox(
-            //               height: 18,
-            //               width: 18,
-            //               child: Image.asset('jetbrains.png'),
-            //             ),
-            //             TextButton(
-            //               child: Text(
-            //                 'JetBrains',
-            //                 style: ParticleFont.micro(
-            //                   context,
-            //                   customization: TextStyle(
-            //                     color: Colors.white,
-            //                     fontSize: 10,
-            //                     fontWeight: FontWeight.bold,
-            //                   ),
-            //                 ),
-            //               ),
-            //               onPressed: () async {
-            //                 String linkUrl = '';
-            //
-            //                 linkUrl = linkUrl; //Twitter's URL
-            //                 if (await canLaunch(linkUrl)) {
-            //                   await launch(
-            //                     linkUrl,
-            //                   );
-            //                 } else {
-            //                   throw 'Could not launch $linkUrl';
-            //                 }
-            //               },
-            //             ),
-            //                ],
-            //         ),
-            //         Column(
-            //           mainAxisAlignment: MainAxisAlignment.end,
-            //           children: [
-            //             SizedBox(
-            //               height: 18,
-            //               width: 18,
-            //               child: Image.asset('vscode.png'),
-            //             ),
-            //
-            //             TextButton(
-            //               child: Text(
-            //                 'VS Code',
-            //                 style: ParticleFont.micro(
-            //                   context,
-            //                   customization: TextStyle(
-            //                     color: Colors.white,
-            //                     fontSize: 10,
-            //                     fontWeight: FontWeight.bold,
-            //                   ),
-            //                 ),
-            //               ),
-            //               onPressed: () async {
-            //                 String linkUrl = '';
-            //
-            //                 linkUrl = linkUrl; //Twitter's URL
-            //                 if (await canLaunch(linkUrl)) {
-            //                   await launch(
-            //                     linkUrl,
-            //                   );
-            //                 } else {
-            //                   throw 'Could not launch $linkUrl';
-            //                 }
-            //               },
-            //             ),
-            //              ],
-            //         ),
-            //         Column(
-            //           mainAxisAlignment: MainAxisAlignment.end,
-            //           children: [
-            //             SizedBox(
-            //                 height: 25,
-            //                 width: 25,
-            //                 child: Image.asset('roundedpfd.png')),  TextButton(
-            //               child: Text(
-            //                 'Pieces',
-            //                 style: ParticleFont.micro(
-            //                   context,
-            //                   customization: TextStyle(
-            //                     color: Colors.white,
-            //                     fontSize: 10,
-            //                     fontWeight: FontWeight.bold,
-            //                   ),
-            //                 ),
-            //               ),
-            //               onPressed: () async {
-            //                 String linkUrl = '';
-            //
-            //                 linkUrl = linkUrl; //Twitter's URL
-            //                 if (await canLaunch(linkUrl)) {
-            //                   await launch(
-            //                     linkUrl,
-            //                   );
-            //                 } else {
-            //                   throw 'Could not launch $linkUrl';
-            //                 }
-            //               },
-            //             ),
-            //
-            //           ],
-            //         ),
-            //         Column(
-            //           mainAxisAlignment: MainAxisAlignment.end,
-            //           children: [
-            //             SizedBox(
-            //                 height: 25,
-            //                 width: 25,
-            //                 child: Image.asset('terminal.png')),    TextButton(
-            //               child: Text(
-            //                 'CLI',
-            //                 style: ParticleFont.micro(
-            //                   context,
-            //                   customization: TextStyle(
-            //                     color: Colors.white,
-            //                     fontSize: 10,
-            //                     fontWeight: FontWeight.bold,
-            //                   ),
-            //                 ),
-            //               ),
-            //               onPressed: () async {
-            //                 String linkUrl = '';
-            //
-            //                 linkUrl = linkUrl; //Twitter's URL
-            //                 if (await canLaunch(linkUrl)) {
-            //                   await launch(
-            //                     linkUrl,
-            //                   );
-            //                 } else {
-            //                   throw 'Could not launch $linkUrl';
-            //                 }
-            //               },
-            //             ),
-            //
-            //           ],
-            //         ),
-            //       ]),
-            // ),
-          ],
-        ),
+          ),
+
+        ],
       ),
       bottomNavigationBar: CustomBottomAppBar(),
     );
   }
 }
+
 final TextEditingController _textFieldController = TextEditingController();
 
+// Padding(
+//   padding: const EdgeInsets.all(15.0),
+//   child: Row(
+//       children: [
+//         Column(
+//           mainAxisAlignment: MainAxisAlignment.end,
+//           children: [
+//             SizedBox(
+//               height: 18,
+//               width: 18,
+//               child: Image.asset('Chrome.png'),
+//             ),
+//             TextButton(
+//               child: Text(
+//                 'Chrome',
+//                 style: ParticleFont.micro(
+//                   context,
+//                   customization: TextStyle(
+//                     color: Colors.white,
+//                     fontSize: 10,
+//                     fontWeight: FontWeight.bold,
+//                   ),
+//                 ),
+//               ),
+//               onPressed: () async {
+//                 String linkUrl =
+//                     'https://chrome.google.com/webstore/detail/pieces-save-code-snippets/igbgibhbfonhmjlechmeefimncpekepm';
+//
+//                 linkUrl = linkUrl; //Twitter's URL
+//                 if (await canLaunch(linkUrl)) {
+//                   await launch(
+//                     linkUrl,
+//                   );
+//                 } else {
+//                   throw 'Could not launch $linkUrl';
+//                 }
+//               },
+//             ),
+//                   ],
+//         ),
+//         Column(
+//           mainAxisAlignment: MainAxisAlignment.end,
+//           children: [
+//             SizedBox(
+//               height: 18,
+//               width: 18,
+//               child: Image.asset('Safari.png'),
+//             ),
+//
+//             TextButton(
+//               child: Text(
+//                 'Safari',
+//                 style: ParticleFont.micro(
+//                   context,
+//                   customization: TextStyle(
+//                     color: Colors.white,
+//                     fontSize: 10,
+//                     fontWeight: FontWeight.bold,
+//                   ),
+//                 ),
+//               ),
+//               onPressed: () async {
+//                 String linkUrl = '';
+//
+//                 linkUrl = linkUrl; //Twitter's URL
+//                 if (await canLaunch(linkUrl)) {
+//                   await launch(
+//                     linkUrl,
+//                   );
+//                 } else {
+//                   throw 'Could not launch $linkUrl';
+//                 }
+//               },
+//             ),
+//                 ],
+//         ),
+//         Column(
+//           mainAxisAlignment: MainAxisAlignment.end,
+//           children: [
+//             SizedBox(
+//               height: 18,
+//               width: 18,
+//               child: Image.asset('Firefox.png'),
+//             ),
+//
+//             TextButton(
+//               child: Text(
+//                 'FireFox',
+//                 style: ParticleFont.micro(
+//                   context,
+//                   customization: TextStyle(
+//                     color: Colors.white,
+//                     fontSize: 10,
+//                     fontWeight: FontWeight.bold,
+//                   ),
+//                 ),
+//               ),
+//               onPressed: () async {
+//                 String linkUrl = '';
+//
+//                 linkUrl = linkUrl; //Twitter's URL
+//                 if (await canLaunch(linkUrl)) {
+//                   await launch(
+//                     linkUrl,
+//                   );
+//                 } else {
+//                   throw 'Could not launch $linkUrl';
+//                 }
+//               },
+//             ),
+//              ],
+//         ),
+//         Column(
+//           mainAxisAlignment: MainAxisAlignment.end,
+//           children: [
+//
+//             SizedBox(
+//               height: 18,
+//               width: 18,
+//               child: Image.asset('jetbrains.png'),
+//             ),
+//             TextButton(
+//               child: Text(
+//                 'JetBrains',
+//                 style: ParticleFont.micro(
+//                   context,
+//                   customization: TextStyle(
+//                     color: Colors.white,
+//                     fontSize: 10,
+//                     fontWeight: FontWeight.bold,
+//                   ),
+//                 ),
+//               ),
+//               onPressed: () async {
+//                 String linkUrl = '';
+//
+//                 linkUrl = linkUrl; //Twitter's URL
+//                 if (await canLaunch(linkUrl)) {
+//                   await launch(
+//                     linkUrl,
+//                   );
+//                 } else {
+//                   throw 'Could not launch $linkUrl';
+//                 }
+//               },
+//             ),
+//                ],
+//         ),
+//         Column(
+//           mainAxisAlignment: MainAxisAlignment.end,
+//           children: [
+//             SizedBox(
+//               height: 18,
+//               width: 18,
+//               child: Image.asset('vscode.png'),
+//             ),
+//
+//             TextButton(
+//               child: Text(
+//                 'VS Code',
+//                 style: ParticleFont.micro(
+//                   context,
+//                   customization: TextStyle(
+//                     color: Colors.white,
+//                     fontSize: 10,
+//                     fontWeight: FontWeight.bold,
+//                   ),
+//                 ),
+//               ),
+//               onPressed: () async {
+//                 String linkUrl = '';
+//
+//                 linkUrl = linkUrl; //Twitter's URL
+//                 if (await canLaunch(linkUrl)) {
+//                   await launch(
+//                     linkUrl,
+//                   );
+//                 } else {
+//                   throw 'Could not launch $linkUrl';
+//                 }
+//               },
+//             ),
+//              ],
+//         ),
+//         Column(
+//           mainAxisAlignment: MainAxisAlignment.end,
+//           children: [
+//             SizedBox(
+//                 height: 25,
+//                 width: 25,
+//                 child: Image.asset('roundedpfd.png')),  TextButton(
+//               child: Text(
+//                 'Pieces',
+//                 style: ParticleFont.micro(
+//                   context,
+//                   customization: TextStyle(
+//                     color: Colors.white,
+//                     fontSize: 10,
+//                     fontWeight: FontWeight.bold,
+//                   ),
+//                 ),
+//               ),
+//               onPressed: () async {
+//                 String linkUrl = '';
+//
+//                 linkUrl = linkUrl; //Twitter's URL
+//                 if (await canLaunch(linkUrl)) {
+//                   await launch(
+//                     linkUrl,
+//                   );
+//                 } else {
+//                   throw 'Could not launch $linkUrl';
+//                 }
+//               },
+//             ),
+//
+//           ],
+//         ),
+//         Column(
+//           mainAxisAlignment: MainAxisAlignment.end,
+//           children: [
+//             SizedBox(
+//                 height: 25,
+//                 width: 25,
+//                 child: Image.asset('terminal.png')),    TextButton(
+//               child: Text(
+//                 'CLI',
+//                 style: ParticleFont.micro(
+//                   context,
+//                   customization: TextStyle(
+//                     color: Colors.white,
+//                     fontSize: 10,
+//                     fontWeight: FontWeight.bold,
+//                   ),
+//                 ),
+//               ),
+//               onPressed: () async {
+//                 String linkUrl = '';
+//
+//                 linkUrl = linkUrl; //Twitter's URL
+//                 if (await canLaunch(linkUrl)) {
+//                   await launch(
+//                     linkUrl,
+//                   );
+//                 } else {
+//                   throw 'Could not launch $linkUrl';
+//                 }
+//               },
+//             ),
+//
+//           ],
+//         ),
+//       ]),
+// ),

@@ -25,6 +25,41 @@ Future<Statistics?> getStats() async {
   List<Asset> assetsListed = assetsSnapshot.iterable.toList();
   int count = assetsListed.length;
 
+  /// Discovered Snippets
+
+  List<Asset> discoveredAssetsList = [];
+
+  for (int index = 0; index < count; index++) {
+    if (assetsListed.elementAt(index).discovered == true) {
+      discoveredAssetsList.add(assetsListed.elementAt(index));
+    }
+  }
+
+  List<String> discoveredNames = [];
+
+  for (int i = 0; i < discoveredAssetsList.length; i++) {
+    if (discoveredAssetsList.elementAt(i).discovered == true) {
+      String? assetName = discoveredAssetsList.elementAt(i).name;
+      if (assetName != null) {
+        discoveredNames.add(assetName);
+      }
+    }
+  }
+
+ /// This code creates an empty list of strings and then loops through a list of discovered assets, adding their descriptions to the list if they exist.
+  List<String> DiscoveredDesc = [];
+
+  for (int index = 0; index < discoveredAssetsList.length; index++) {
+    String? discoveredDescription = discoveredAssetsList.elementAt(index).description;
+    if (discoveredDescription != null) {
+      DiscoveredDesc.add(discoveredDescription);
+    }
+  }
+
+
+  // print(suggestedAssetDescriptions);
+
+  /// Bytes Raw
   List<int>? bytes = assetsListed[index].original.reference?.file?.bytes?.raw.toList();
 
   List<int> _bytes = bytes?.toList() ?? [0];
@@ -35,8 +70,8 @@ Future<Statistics?> getStats() async {
   List<Asset> suggestionsListed = suggestedSnapshot.iterable.toList();
   int suggestedCount = suggestionsListed.length;
 
-  String? suggestedName = suggestionsListed.elementAt(index).name ?? '';
-  String? suggestedDescription = suggestionsListed.elementAt(index).description;
+  // String? suggestedName = suggestionsListed.elementAt(index).name ?? '';
+  // String? suggestedDescription = suggestionsListed.elementAt(index).description;
 
   /// Iterates through a list of suggestions and
   /// prints their names, or an empty string if the name is null.
@@ -388,6 +423,8 @@ List<String> suggestedNames = suggestedNamesList;
   List<Iterable<Asset>> nestedList = [];
   Statistics statistics = Statistics(
     suggestedCount: suggestedCount,
+    discoveredAssetsList: discoveredAssetsList,
+    discoveredNames: discoveredNames,
     filteredList: filteredList,
     filteredLanguages: filteredLanguages,
     classifications: classifications,
@@ -450,6 +487,7 @@ List<String> suggestedNames = suggestedNamesList;
     suggestedDesc: suggestedDescriptions,
     suggestedNames: suggestedNames,
     suggestionsListed: suggestionsListed,
+    DiscoveredDesc: DiscoveredDesc,
     // bytes: bytes,
     // snippetNames: snippetNames,
   );
@@ -460,6 +498,9 @@ List<String> suggestedNames = suggestedNamesList;
 class Statistics {
   final List<Asset> asset;
   final List<Asset> suggestionsListed;
+  final List<Asset>   discoveredAssetsList;
+  final List<String> DiscoveredDesc;
+  final List<String> discoveredNames;
   final List<String> suggestedDesc;
   final List<String> suggestedNames;
   final List<Iterable<Asset>> filteredLanguages;
@@ -528,6 +569,7 @@ final int suggestedCount;
 
   final String picture;
 
+
   // final List<String> snippetNames;
 
   /// Statistics class constructors ================================================================
@@ -595,6 +637,9 @@ final int suggestedCount;
     required this.picture,
     required this.suggestedCount,
     required this.suggestedNames,
+    required this.discoveredAssetsList,
+    required this.DiscoveredDesc,
+    required this.discoveredNames,
 
     // required this.snippetNames,
   });

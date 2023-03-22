@@ -12,6 +12,8 @@ import 'package:url_launcher/url_launcher.dart';
 import '../Dashboard/custom_classes.dart';
 import '../Dashboard/faqs.dart';
 import '../Language_Pie_List/pieChartWidget.dart';
+import '../Tab_Origin_Pie_Chart/BottomPieChartPopUp.dart';
+import '../Tab_Plugins_and_More/pluginButton.dart';
 import '../Tab_Plugins_and_More/plugins_and_more.dart';
 import '../create/create_function.dart';
 import '../init/src/gsheets.dart';
@@ -69,7 +71,7 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                 shadowColor: Colors.black,
                 child: Container(
                   color: Colors.white,
-                  width: 290,
+                  width: 310,
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: ParticleButton(
@@ -97,221 +99,282 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                 ),
               ),
 
-              /// docs
-              Card(
-                elevation: 2,
-                shadowColor: Colors.black,
+
+              Padding(
+                padding: const EdgeInsets.only(top: 15.0, right: 5),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: TextButton(
-                          onPressed: () async {
-                            /// redirect to docs in browser
-                            String linkUrl = 'https://docs.google.com/document/u/0/?tgif=d';
+                    CustomTextButton(
+                      imageAssetPath: 'roundedpfd.png',
+                      text: 'Desktop',
+                      url: 'https://code.pieces.app/install',
+                    ),                            ],
+                ),
+              ),
 
-                            linkUrl = linkUrl; //Twitter's URL
-                            if (await canLaunch(linkUrl)) {
-                              await launch(
-                                linkUrl,
-                              );
-                            } else {
-                              throw 'Could not launch $linkUrl';
-                            }
-                          },
-                          child: Image.asset('docs.png'),
-                        ),
-                      ),
-                    ),
 
-                    /// sheets
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: TextButton(
-                          onPressed: () async {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  'hold tight while we gather your snapshot!',
-                                ),
-                                duration: Duration(
-                                    days: 0,
-                                    hours: 0,
-                                    minutes: 0,
-                                    seconds: 4,
-                                    milliseconds: 30,
-                                    microseconds: 10),
-                              ),
-                            );
-
-                            final gsheets = GSheets(credentials);
-
-                            final spreadsheetID = '18IlCBkFo9Y1Q0BshWiHehI0p3zufEImkWqOr23kBMcM';
-
-                            /// get the spreadsheet
-                            final ssheet = await gsheets.spreadsheet(spreadsheetID);
-
-                            Worksheet? ws = await ssheet.worksheetByTitle('Indy');
-
-                            // Clear the sheet data
-
-                            await ws?.values.insertRow(
-                                1,
-                                [
-                                  'Languages',
-                                  'Count',
-                                  '',
-                                  'People',
-                                  'Links',
-                                  'Tags',
-                                ],
-                                fromColumn: 1);
-
-                            await ws?.values.insertColumn(1, [0, 0, 0, 0, 0], fromRow: 1);
-
-                            /// Languages Column
-                            await ws?.values.insertColumn(1, languages, fromRow: 2);
-
-                            /// count Column
-                            await ws?.values.insertColumn(2, languageCounts, fromRow: 2);
-
-                            /// added a blank placeholder
-                            List<String> people =
-                                StatisticsSingleton().statistics?.persons.toList() ?? [];
-                            people.add('');
-
-                            /// people Column
-                            await ws?.values.insertColumn(4, people, fromRow: 2);
-
-                            /// added a blank placeholder
-                            List<String> links =
-                                StatisticsSingleton().statistics?.relatedLinks.toList() ?? [];
-                            links.add('');
-
-                            /// Tags Column
-                            await ws?.values.insertColumn(5, links, fromRow: 2);
-
-                            /// added a blank placeholder
-                            List<String> tagsList =
-                                StatisticsSingleton().statistics?.tags.toList() ?? [];
-                            tagsList.add('');
-
-                            /// tags Column
-                            await ws?.values.insertColumn(6, tagsList, fromRow: 2);
-
-                            List<String> assetsList = [];
-                            int index1 = assetsList.length;
-                            List<Asset> assets = StatisticsSingleton().statistics?.asset ?? [];
-                            var name = assets.elementAt(index1).name;
-                            for (Asset name in assets) {
-                              name.name;
-                            }
-                            assetsList.add(name.toString());
-
-                            /// names Column
-                            await ws?.values.insertColumn(7, assetsList.toList(), fromRow: 2);
-
-                            /// redirect to gsheets in browser
-                            String linkUrl =
-                                'https://docs.google.com/spreadsheets/d/18IlCBkFo9Y1Q0BshWiHehI0p3zufEImkWqOr23kBMcM/edit#gid=1601436512';
-
-                            linkUrl = linkUrl; //Twitter's URL
-                            if (await canLaunch(linkUrl)) {
-                              await launch(
-                                linkUrl,
-                              );
-                            } else {
-                              throw 'Could not launch $linkUrl';
-                            }
-                          },
-                          child: Image.asset('gsheets.png'),
-                        ),
-                      ),
-                    ),
-
-                    /// calendar
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        height: 35,
-                        width: 35,
-                        child: TextButton(
-                          onPressed: () async {
-                            /// redirect to gsheets in browser
-                            String linkUrl = 'https://calendar.google.com/calendar/u/0/r';
-
-                            linkUrl = linkUrl; //Twitter's URL
-                            if (await canLaunch(linkUrl)) {
-                              await launch(
-                                linkUrl,
-                              );
-                            } else {
-                              throw 'Could not launch $linkUrl';
-                            }
-                          },
-                          child: Image.asset('calendar.png'),
-                        ),
-                      ),
-                    ),
-
-                    /// teams
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        height: 35,
-                        width: 35,
-                        child: TextButton(
-                          onPressed: () async {
-                            /// redirect to gsheets in browser
-                            String linkUrl = '';
-
-                            linkUrl = linkUrl; //Twitter's URL
-                            if (await canLaunch(linkUrl)) {
-                              await launch(
-                                linkUrl,
-                              );
-                            } else {
-                              throw 'Could not launch $linkUrl';
-                            }
-                          },
-                          child: Image.asset('teams.png'),
-                        ),
-                      ),
-                    ),
-
-                    /// drive
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        height: 35,
-                        width: 35,
-                        child: TextButton(
-                          onPressed: () async {
-                            /// redirect to gsheets in browser
-                            String linkUrl = 'https://drive.google.com/drive/u/0/my-drive';
-
-                            linkUrl = linkUrl; //Twitter's URL
-                            if (await canLaunch(linkUrl)) {
-                              await launch(
-                                linkUrl,
-                              );
-                            } else {
-                              throw 'Could not launch $linkUrl';
-                            }
-                          },
-                          child: Image.asset('drive.png'),
-                        ),
-                      ),
+              Padding(
+                padding: const EdgeInsets.only(top: 15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    CustomTextButton(
+                      imageAssetPath: 'vscode.png',
+                      text: 'VS Code',
+                      url:
+                      'https://marketplace.visualstudio.com/items?itemName=MeshIntelligentTechnologiesInc.pieces-vscode',
                     ),
                   ],
                 ),
               ),
+
+
+
+
+              Padding(
+                padding: const EdgeInsets.only(top: 15.0),
+                child: CustomTextButton(
+                  imageAssetPath: 'jetbrains.png',
+                  text: 'JetBrains',
+                  url:
+                  'https://plugins.jetbrains.com/plugin/17328-pieces--save-search-share--reuse-code-snippets',
+                ),
+              ),
+
+
+
+              Padding(
+                padding: const EdgeInsets.only(top: 15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    CustomTextButton(
+                      imageAssetPath: 'Chrome.png',
+                      text: 'Chrome',
+                      url:
+                      'https://chrome.google.com/webstore/detail/pieces-save-code-snippets/igbgibhbfonhmjlechmeefimncpekepm',
+                    ),
+                  ],
+                ),
+              ),
+
+
+              /// docs
+              // Card(
+              //   elevation: 2,
+              //   shadowColor: Colors.black,
+              //   child: Row(
+              //     children: [
+              //       Padding(
+              //         padding: const EdgeInsets.all(8.0),
+              //         child: SizedBox(
+              //           height: 30,
+              //           width: 30,
+              //           child: TextButton(
+              //             onPressed: () async {
+              //               /// redirect to docs in browser
+              //               String linkUrl = 'https://docs.google.com/document/u/0/?tgif=d';
+              //
+              //               linkUrl = linkUrl; //Twitter's URL
+              //               if (await canLaunch(linkUrl)) {
+              //                 await launch(
+              //                   linkUrl,
+              //                 );
+              //               } else {
+              //                 throw 'Could not launch $linkUrl';
+              //               }
+              //             },
+              //             child: Image.asset('docs.png'),
+              //           ),
+              //         ),
+              //       ),
+              //
+              //       /// sheets
+              //       Padding(
+              //         padding: const EdgeInsets.all(8.0),
+              //         child: SizedBox(
+              //           height: 30,
+              //           width: 30,
+              //           child: TextButton(
+              //             onPressed: () async {
+              //               ScaffoldMessenger.of(context).showSnackBar(
+              //                 SnackBar(
+              //                   content: Text(
+              //                     'hold tight while we gather your snapshot!',
+              //                   ),
+              //                   duration: Duration(
+              //                       days: 0,
+              //                       hours: 0,
+              //                       minutes: 0,
+              //                       seconds: 4,
+              //                       milliseconds: 30,
+              //                       microseconds: 10),
+              //                 ),
+              //               );
+              //
+              //               final gsheets = GSheets(credentials);
+              //
+              //               final spreadsheetID = '18IlCBkFo9Y1Q0BshWiHehI0p3zufEImkWqOr23kBMcM';
+              //
+              //               /// get the spreadsheet
+              //               final ssheet = await gsheets.spreadsheet(spreadsheetID);
+              //
+              //               Worksheet? ws = await ssheet.worksheetByTitle('Indy');
+              //
+              //               // Clear the sheet data
+              //
+              //               await ws?.values.insertRow(
+              //                   1,
+              //                   [
+              //                     'Languages',
+              //                     'Count',
+              //                     '',
+              //                     'People',
+              //                     'Links',
+              //                     'Tags',
+              //                   ],
+              //                   fromColumn: 1);
+              //
+              //               await ws?.values.insertColumn(1, [0, 0, 0, 0, 0], fromRow: 1);
+              //
+              //               /// Languages Column
+              //               await ws?.values.insertColumn(1, languages, fromRow: 2);
+              //
+              //               /// count Column
+              //               await ws?.values.insertColumn(2, languageCounts, fromRow: 2);
+              //
+              //               /// added a blank placeholder
+              //               List<String> people =
+              //                   StatisticsSingleton().statistics?.persons.toList() ?? [];
+              //               people.add('');
+              //
+              //               /// people Column
+              //               await ws?.values.insertColumn(4, people, fromRow: 2);
+              //
+              //               /// added a blank placeholder
+              //               List<String> links =
+              //                   StatisticsSingleton().statistics?.relatedLinks.toList() ?? [];
+              //               links.add('');
+              //
+              //               /// Tags Column
+              //               await ws?.values.insertColumn(5, links, fromRow: 2);
+              //
+              //               /// added a blank placeholder
+              //               List<String> tagsList =
+              //                   StatisticsSingleton().statistics?.tags.toList() ?? [];
+              //               tagsList.add('');
+              //
+              //               /// tags Column
+              //               await ws?.values.insertColumn(6, tagsList, fromRow: 2);
+              //
+              //               List<String> assetsList = [];
+              //               int index1 = assetsList.length;
+              //               List<Asset> assets = StatisticsSingleton().statistics?.asset ?? [];
+              //               var name = assets.elementAt(index1).name;
+              //               for (Asset name in assets) {
+              //                 name.name;
+              //               }
+              //               assetsList.add(name.toString());
+              //
+              //               /// names Column
+              //               await ws?.values.insertColumn(7, assetsList.toList(), fromRow: 2);
+              //
+              //               /// redirect to gsheets in browser
+              //               String linkUrl =
+              //                   'https://docs.google.com/spreadsheets/d/18IlCBkFo9Y1Q0BshWiHehI0p3zufEImkWqOr23kBMcM/edit#gid=1601436512';
+              //
+              //               linkUrl = linkUrl; //Twitter's URL
+              //               if (await canLaunch(linkUrl)) {
+              //                 await launch(
+              //                   linkUrl,
+              //                 );
+              //               } else {
+              //                 throw 'Could not launch $linkUrl';
+              //               }
+              //             },
+              //             child: Image.asset('gsheets.png'),
+              //           ),
+              //         ),
+              //       ),
+              //
+              //       /// calendar
+              //       Padding(
+              //         padding: const EdgeInsets.all(8.0),
+              //         child: SizedBox(
+              //           height: 35,
+              //           width: 35,
+              //           child: TextButton(
+              //             onPressed: () async {
+              //               /// redirect to gsheets in browser
+              //               String linkUrl = 'https://calendar.google.com/calendar/u/0/r';
+              //
+              //               linkUrl = linkUrl; //Twitter's URL
+              //               if (await canLaunch(linkUrl)) {
+              //                 await launch(
+              //                   linkUrl,
+              //                 );
+              //               } else {
+              //                 throw 'Could not launch $linkUrl';
+              //               }
+              //             },
+              //             child: Image.asset('calendar.png'),
+              //           ),
+              //         ),
+              //       ),
+              //
+              //       /// teams
+              //       Padding(
+              //         padding: const EdgeInsets.all(8.0),
+              //         child: SizedBox(
+              //           height: 35,
+              //           width: 35,
+              //           child: TextButton(
+              //             onPressed: () async {
+              //               /// redirect to gsheets in browser
+              //               String linkUrl = '';
+              //
+              //               linkUrl = linkUrl; //Twitter's URL
+              //               if (await canLaunch(linkUrl)) {
+              //                 await launch(
+              //                   linkUrl,
+              //                 );
+              //               } else {
+              //                 throw 'Could not launch $linkUrl';
+              //               }
+              //             },
+              //             child: Image.asset('teams.png'),
+              //           ),
+              //         ),
+              //       ),
+              //
+              //       /// drive
+              //       Padding(
+              //         padding: const EdgeInsets.all(8.0),
+              //         child: SizedBox(
+              //           height: 35,
+              //           width: 35,
+              //           child: TextButton(
+              //             onPressed: () async {
+              //               /// redirect to gsheets in browser
+              //               String linkUrl = 'https://drive.google.com/drive/u/0/my-drive';
+              //
+              //               linkUrl = linkUrl; //Twitter's URL
+              //               if (await canLaunch(linkUrl)) {
+              //                 await launch(
+              //                   linkUrl,
+              //                 );
+              //               } else {
+              //                 throw 'Could not launch $linkUrl';
+              //               }
+              //             },
+              //             child: Image.asset('drive.png'),
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),
