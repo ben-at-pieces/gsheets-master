@@ -1,5 +1,6 @@
 // ignore_for_file: omit_local_variable_types
 
+import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -14,6 +15,8 @@ import '../Dashboard/custom_classes.dart';
 import '../Dashboard/reference_GPT.dart/gpt_modify_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_highlight/flutter_highlight.dart';
+import 'package:flutter_highlight/themes/github.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,17 +31,17 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: AssetGridPage(),
+      home: MaterialsPage(),
     );
   }
 }
 
-class AssetGridPage extends StatefulWidget {
+class MaterialsPage extends StatefulWidget {
   @override
   _AssetGridPageState createState() => _AssetGridPageState();
 }
 
-class _AssetGridPageState extends State<AssetGridPage> {
+class _AssetGridPageState extends State<MaterialsPage> {
   late final Assets assets;
   late final AssetApi assetApi;
   late final AssetsApi assetsApi;
@@ -77,9 +80,10 @@ class _AssetGridPageState extends State<AssetGridPage> {
 
     Future<List<Asset>> getDiscoveredAssetsList() async {
       Assets assets = await assetsApi.assetsSnapshot(suggested: true, transferables: false);
-      return assets.iterable?.where((asset) => asset.discovered == true).toList() ?? [];
+      return assets.iterable.where((asset) => asset.discovered == true).toList() ?? [];
     }
-
+    /// Displays a modal bottom sheet with
+    /// the name and description of an asset in a column format.
     void _showAssetDetails(BuildContext context, String name, String description) {
       showModalBottomSheet(
         context: context,
@@ -99,6 +103,9 @@ class _AssetGridPageState extends State<AssetGridPage> {
       );
     }
 
+    /// This code displays a modal bottom sheet with a list of suggested snippets,
+    /// including their names, descriptions, and classifications.
+    /// The user can copy the snippet to the clipboard or view more details.
     void _showSuggestedSnippets(BuildContext context) {
       showModalBottomSheet(
         context: context,
@@ -130,6 +137,7 @@ class _AssetGridPageState extends State<AssetGridPage> {
                   ),
                 ),
               ),
+
               Expanded(
                 child: ListView.builder(
                   itemCount: StatisticsSingleton().statistics?.suggestedCount ?? 0,
@@ -223,6 +231,10 @@ class _AssetGridPageState extends State<AssetGridPage> {
       );
     }
 
+ /// This code displays a modal bottom sheet in a Flutter app that shows a list of discovered assets.
+    /// Each asset in the list is displayed as a card with its
+    /// name, description, and other details.
+    /// The user can interact with each asset by tapping on
     void _showDiscoveredAssets(BuildContext context, List<Asset> discoveredAssetsList) {
       showModalBottomSheet(
         context: context,
@@ -336,6 +348,8 @@ class _AssetGridPageState extends State<AssetGridPage> {
     /// This code fetches a snapshot of assets and displays a modal bottom sheet with a list of suggested snippets.
     //   return Center(child: CircularProgressIndicator());
     // }
+
+ /// UI for the main menu for Materials Page.
     return Scaffold(
       appBar: CustomAppBar(title: 'Materials'),
       body: Column(
@@ -344,6 +358,8 @@ class _AssetGridPageState extends State<AssetGridPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+
+
               FutureBuilder<Assets>(
                 future: getAssetsSnapshot(),
                 builder: (context, snapshot) {
@@ -401,13 +417,18 @@ class _AssetGridPageState extends State<AssetGridPage> {
                   ),
 
                   Text(
-                    'Snippets ${StatisticsSingleton().statistics?.discoveredAssetsList.length ?? ''}',
+                    'Snippets ${StatisticsSingleton().statistics?.classifications.length ?? ''}',
                     style: TitleText(),
                   ),
                 ],
               ),
             ],
           ),
+ /// The code displays a grid of assets with their
+          /// names, original references, and images (if available).
+          /// When an asset is tapped,
+          /// a dialog box appears with options to copy the asset to the clipboard,
+          /// share it, or close the view.
           Expanded(
             child: GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -420,9 +441,14 @@ class _AssetGridPageState extends State<AssetGridPage> {
                 Asset asset = getAssetsToShow()[index];
                 List<int>? bytes = asset.original.reference?.file?.bytes?.raw.toList();
                 Uint8List? uint8list;
+                String? rawString;
+
                 if (bytes != null) {
                   uint8list = Uint8List.fromList(bytes);
+                } else {
+                  rawString = asset.original.reference?.fragment?.string?.raw;
                 }
+
 
                 return GestureDetector(
                   onTap: () {
@@ -450,22 +476,50 @@ class _AssetGridPageState extends State<AssetGridPage> {
                                 SizedBox(
                                   width: 400,
                                   height: 350,
-                                  child: Image.memory(
-                                    uint8list!,
+                                  child: uint8list != null
+                                      ? Image.memory(
+                                    uint8list,
                                     fit: BoxFit.contain,
+                                  )
+                                      : Center(
+                                    child: SingleChildScrollView(
+                                      child: HighlightView(
+                                        rawString ?? '',
+                                        language: 'dart', // Change this to the language of the code
+                                        theme: githubTheme,
+                                        textStyle: TextStyle(fontSize: 18), // Increase font size for better readability
+                                        padding: EdgeInsets.all(16),
+                                      ),
+                                    ),
                                   ),
                                 ),
                                 SizedBox(height: 16),
 
-                                /// The code creates a row of buttons and images that
-                                /// allow the user to
-                                /// copy an asset to the clipboard, share it, or close the current view.
+                                // The code creates a row of buttons and images that
+                                // allow the user to copy an asset to the clipboard, share it, or close the current view.
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     TextButton(
-                                      onPressed: () {
-                                        // Copy image to clipboard
+                                      onPressed: () async {
+                                        if (uint8list != null) {
+                                          final byteData = uint8list.buffer.asByteData();
+                                          final base64Image = base64.encode(Uint8List.view(byteData.buffer));
+                                          await Clipboard.setData(ClipboardData(text: base64Image));
+                                        } else if (rawString != null) {
+                                          await Clipboard.setData(ClipboardData(text: rawString));
+                                        }
+
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Copied to Clipboard',
+                                              style: TextStyle(color: Colors.white),
+                                            ),
+                                            backgroundColor: Colors.black54,
+                                            duration: Duration(milliseconds: 1030),
+                                          ),
+                                        );
                                       },
                                       child: Row(
                                         children: [
@@ -482,8 +536,6 @@ class _AssetGridPageState extends State<AssetGridPage> {
                                       ),
                                     ),
 
-                                    /// A button with an image and text that allows
-                                    /// the user to copy an image to the clipboard when pressed.
                                     TextButton(
                                       onPressed: () {
                                         // Copy image to clipboard
@@ -504,8 +556,6 @@ class _AssetGridPageState extends State<AssetGridPage> {
                                       ),
                                     ),
 
-                                    /// Displays a button with an image and text that when pressed,
-                                    /// copies a string to the clipboard and displays a brief notification.
                                     TextButton(
                                       onPressed: () async {
                                         ScaffoldMessenger.of(context).showSnackBar(
@@ -524,7 +574,7 @@ class _AssetGridPageState extends State<AssetGridPage> {
                                         );
                                         ClipboardData data = ClipboardData(
                                             text:
-                                                '${asset.original.reference?.fragment?.string?.raw ?? ''}');
+                                            '${asset.original.reference?.fragment?.string?.raw ?? ''}');
                                         await Clipboard.setData(data);
                                       },
                                       child: Row(
@@ -543,8 +593,6 @@ class _AssetGridPageState extends State<AssetGridPage> {
                                       ),
                                     ),
 
-                                    /// Creates a button with an icon and text that,
-                                    /// when pressed, closes the current screen and returns to the previous one.
                                     TextButton(
                                       onPressed: () {
                                         Navigator.pop(context);
@@ -570,8 +618,11 @@ class _AssetGridPageState extends State<AssetGridPage> {
                                 SizedBox(height: 20),
                               ],
                             ),
+
+
                           ),
                         );
+
                       },
                     );
                   },

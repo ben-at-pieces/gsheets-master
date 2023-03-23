@@ -140,8 +140,8 @@ class HomePageState extends State<TabAppBar> {
             children: [
               /// Related TAGS ==========================================================
 
-              AssetGridPage(),
 
+              MaterialsPage(),
 
               /// Home Dash
               Dashboard(),

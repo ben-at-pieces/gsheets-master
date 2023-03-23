@@ -1,5 +1,7 @@
 // ignore_for_file: omit_local_variable_types
 
+// import 'dart:html';
+import 'dart:io';
 import 'package:core_openapi/api.dart';
 import 'package:core_openapi/api_client.dart';
 import 'package:test/test.dart';
@@ -28,6 +30,39 @@ void main () async {
 
     /// (3) expect assetsSearchAssets to be of type --> SearchedAssets
     // expect(assetsSearchAssets.runtimeType, SearchedAssets);
+  });
+
+
+  test('image: PNG', () async {
+    File imageFile = File('test/data/png/white.png');
+    List<int> bytes = imageFile.readAsBytesSync().cast();
+
+    ///call the endpoint -->assetsCreate
+    Asset response = await assetsApi.assetsCreateNewAsset(
+      seed: Seed(
+        asset: SeededAsset(
+          application: Application(
+            privacy: PrivacyEnum.OPEN,
+            name: ApplicationNameEnum.VS_CODE,
+            onboarded: true,
+            platform: PlatformEnum.MACOS,
+            version: '1.5.7',
+            id: '6a9e37e1-e49c-4985-ab56-480f67f05a64',
+          ),
+          format: SeededFormat(
+            ///=======
+            file: SeededFile(
+              bytes: TransferableBytes(raw: bytes),
+            ),
+          ),
+        ),
+        type: SeedTypeEnum.ASSET,
+      ),
+    );
+    // expect(response.name?.contains('jpeg'), true);
+    // expect(response.description?.contains('jpeg'), true);
+    expect(response.runtimeType, Asset);
+    // print(response);
   });
 
 

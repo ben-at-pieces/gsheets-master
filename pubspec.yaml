@@ -11,6 +11,7 @@ environment:
     sdk: '>=2.18.0 <3.0.0'
 
 dependencies:
+  flutter_highlight:
   runtime_client:
     git:
       url: git@github.com:open-runtime/runtime_client.git
