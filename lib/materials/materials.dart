@@ -8,6 +8,7 @@ import 'package:connector_openapi/api.dart';
 import 'package:core_openapi/api.dart';
 import 'package:core_openapi/api_client.dart';
 import 'package:gsheets/CustomAppBar.dart';
+import 'package:gsheets/materials/textPreview.dart';
 import 'package:gsheets/materials/zoom.dart';
 import 'package:gsheets/statistics_singleton.dart';
 import '../Bottom_bar/bottom_appbar_class.dart';
@@ -125,7 +126,7 @@ class _AssetGridPageState extends State<MaterialsPage> {
                     children: [
                       SizedBox(width: 16),
                       Text(
-                        'Suggested (${StatisticsSingleton().statistics?.suggestedCount ?? 0})',
+                        'Suggested (${StatisticsSingleton().statistics?.suggestedCount ?? 1})',
                         style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
                       IconButton(
@@ -417,7 +418,8 @@ class _AssetGridPageState extends State<MaterialsPage> {
                   ),
 
                   Text(
-                    'Snippets ${StatisticsSingleton().statistics?.classifications.length ?? ''}',
+                    'Snippets',
+                        // ' ${StatisticsSingleton().statistics?.classifications.length ?? ''}',
                     style: TitleText(),
                   ),
                 ],
@@ -473,9 +475,39 @@ class _AssetGridPageState extends State<MaterialsPage> {
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
+
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    // crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Text(
+                                          asset.name ?? '',
+                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ),
+                                      SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Text(
+                                          asset.original.reference?.classification.specific.value ?? '',
+                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                                          textAlign: TextAlign.start,
+                                        ),
+                                      ),
+
+
+
+                                    ],
+                                  ),
+                                ),
+
                                 SizedBox(
                                   width: 400,
-                                  height: 350,
+                                  height: 250,
                                   child: uint8list != null
                                       ? Image.memory(
                                     uint8list,
@@ -493,13 +525,16 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                     ),
                                   ),
                                 ),
+                                // ToggleableWidget(),
                                 SizedBox(height: 16),
 
-                                // The code creates a row of buttons and images that
-                                // allow the user to copy an asset to the clipboard, share it, or close the current view.
+                                /// The code creates a row of buttons and images that
+                                /// allow the user to copy an asset to the clipboard, share it, or close the current view.
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
+
+
                                     TextButton(
                                       onPressed: () async {
                                         if (uint8list != null) {
@@ -629,6 +664,8 @@ class _AssetGridPageState extends State<MaterialsPage> {
 
                   /// Displays an asset's name, original reference, and image (if available) in a card format, with an option to view more details in a dialog box.
                   child: Card(
+                    elevation: 4,
+                    shadowColor: Colors.grey,
                     child: Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Column(
@@ -642,6 +679,16 @@ class _AssetGridPageState extends State<MaterialsPage> {
                               textAlign: TextAlign.start,
                             ),
                           ),
+
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Text(
+                              asset.original.reference?.classification.specific.value ?? '',
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                              textAlign: TextAlign.start,
+                            ),
+                          ),
+
                           Divider(
                             color: Colors.grey,
                             thickness: 2,
@@ -650,41 +697,86 @@ class _AssetGridPageState extends State<MaterialsPage> {
                           if (asset.original.reference?.fragment?.string?.raw != null &&
                               uint8list == null)
                             Expanded(
-                              child: Text(
-                                '${asset.original.reference?.fragment?.string?.raw}',
-                                textAlign: TextAlign.start,
+                              child: SingleChildScrollView(
+                                child: HighlightView(
+                                  asset.original.reference?.fragment?.string?.raw ?? '',
+                                  language: 'dart',
+                                  theme: githubTheme,
+                                  padding: EdgeInsets.all(16),
+                                  textStyle: TextStyle(fontSize: 18),
+                                ),
                               ),
                             ),
+
                           if (uint8list != null)
                             Expanded(
                               child: Image.memory(uint8list, fit: BoxFit.cover),
                             ),
                           SizedBox(height: 8),
+                          /// The code creates a row of buttons and images that
+                          /// allow the user to copy an asset to the clipboard, share it, or close the current view.
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              // TextButton(
-                              //   child: SizedBox(
-                              //     height: 20,
-                              //     width: 20,
-                              //     child: Icon(
-                              //       Icons.people_alt_outlined,
-                              //       size: 20,
-                              //       color: Colors.black,
-                              //     ),
-                              //   ),
-                              //   onPressed: () {
-                              //     showDialog(
-                              //       context: context,
-                              //       builder: (context) {
-                              //         return GPTCustomAlertDialog(
-                              //           initialText:
-                              //               asset.original.reference?.fragment?.string?.raw ?? '',
-                              //         );
-                              //       },
-                              //     );
-                              //   },
-                              // ),
+
+
+                              TextButton(
+                                onPressed: () async {
+                                  if (uint8list != null) {
+                                    final byteData = uint8list.buffer.asByteData();
+                                    final base64Image = base64.encode(Uint8List.view(byteData.buffer));
+                                    await Clipboard.setData(ClipboardData(text: base64Image));
+                                  } else if (rawString != null) {
+                                    await Clipboard.setData(ClipboardData(text: rawString));
+                                  }
+
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'Copied to Clipboard',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      backgroundColor: Colors.black54,
+                                      duration: Duration(milliseconds: 1030),
+                                    ),
+                                  );
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.copy_outlined,
+                                      color: Colors.black,
+                                    ),
+                                    SizedBox(width: 4),
+                                    Text(
+                                      'copy',
+                                      style: TitleText(),
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              TextButton(
+                                onPressed: () {
+                                  // Copy image to clipboard
+                                },
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      'img_2.png',
+                                      width: 24,
+                                      height: 24,
+                                    ),
+                                    SizedBox(width: 4),
+                                    Text(
+                                      'share',
+                                      style: TitleText(),
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+
                             ],
                           ),
                           Divider(
