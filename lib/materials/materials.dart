@@ -47,6 +47,8 @@ class _AssetGridPageState extends State<MaterialsPage> {
   late final AssetApi assetApi;
   late final AssetsApi assetsApi;
   bool showRawStringAssets = false;
+  bool showCodeEditor = false;
+  TextEditingController codeEditorController = TextEditingController();
 
   @override
   void initState() {
@@ -83,6 +85,7 @@ class _AssetGridPageState extends State<MaterialsPage> {
       Assets assets = await assetsApi.assetsSnapshot(suggested: true, transferables: false);
       return assets.iterable.where((asset) => asset.discovered == true).toList() ?? [];
     }
+
     /// Displays a modal bottom sheet with
     /// the name and description of an asset in a column format.
     void _showAssetDetails(BuildContext context, String name, String description) {
@@ -138,7 +141,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
                   ),
                 ),
               ),
-
               Expanded(
                 child: ListView.builder(
                   itemCount: StatisticsSingleton().statistics?.suggestedCount ?? 0,
@@ -232,7 +234,7 @@ class _AssetGridPageState extends State<MaterialsPage> {
       );
     }
 
- /// This code displays a modal bottom sheet in a Flutter app that shows a list of discovered assets.
+    /// This code displays a modal bottom sheet in a Flutter app that shows a list of discovered assets.
     /// Each asset in the list is displayed as a card with its
     /// name, description, and other details.
     /// The user can interact with each asset by tapping on
@@ -332,7 +334,16 @@ class _AssetGridPageState extends State<MaterialsPage> {
                         subtitle: Text(discoveredAsset.description ?? ''),
                         onTap: () => _showAssetDetails(
                             context, discoveredAsset.name ?? '', discoveredAsset.description ?? ''),
-                        trailing: Text(StatisticsSingleton().statistics?.discoveredAssetsList.elementAt(index).original.reference?.classification.specific.value ?? ''),
+                        trailing: Text(StatisticsSingleton()
+                                .statistics
+                                ?.discoveredAssetsList
+                                .elementAt(index)
+                                .original
+                                .reference
+                                ?.classification
+                                .specific
+                                .value ??
+                            ''),
                       ),
                     );
                   },
@@ -350,7 +361,7 @@ class _AssetGridPageState extends State<MaterialsPage> {
     //   return Center(child: CircularProgressIndicator());
     // }
 
- /// UI for the main menu for Materials Page.
+    /// UI for the main menu for Materials Page.
     return Scaffold(
       appBar: CustomAppBar(title: 'Materials'),
       body: Column(
@@ -359,8 +370,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-
-
               FutureBuilder<Assets>(
                 future: getAssetsSnapshot(),
                 builder: (context, snapshot) {
@@ -416,17 +425,17 @@ class _AssetGridPageState extends State<MaterialsPage> {
                       });
                     },
                   ),
-
                   Text(
                     'Snippets',
-                        // ' ${StatisticsSingleton().statistics?.classifications.length ?? ''}',
+                    // ' ${StatisticsSingleton().statistics?.classifications.length ?? ''}',
                     style: TitleText(),
                   ),
                 ],
               ),
             ],
           ),
- /// The code displays a grid of assets with their
+
+          /// The code displays a grid of assets with their
           /// names, original references, and images (if available).
           /// When an asset is tapped,
           /// a dialog box appears with options to copy the asset to the clipboard,
@@ -451,7 +460,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
                   rawString = asset.original.reference?.fragment?.string?.raw;
                 }
 
-
                 return GestureDetector(
                   onTap: () {
                     showDialog(
@@ -475,7 +483,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
@@ -486,21 +493,21 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                         scrollDirection: Axis.horizontal,
                                         child: Text(
                                           asset.name ?? '',
-                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                                          style:
+                                              TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                                           textAlign: TextAlign.start,
                                         ),
                                       ),
                                       SingleChildScrollView(
                                         scrollDirection: Axis.horizontal,
                                         child: Text(
-                                          asset.original.reference?.classification.specific.value ?? '',
-                                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                                          asset.original.reference?.classification.specific.value ??
+                                              '',
+                                          style:
+                                              TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                                           textAlign: TextAlign.start,
                                         ),
                                       ),
-
-
-
                                     ],
                                   ),
                                 ),
@@ -510,20 +517,56 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                   height: 250,
                                   child: uint8list != null
                                       ? Image.memory(
-                                    uint8list,
-                                    fit: BoxFit.contain,
-                                  )
-                                      : Center(
-                                    child: SingleChildScrollView(
-                                      child: HighlightView(
-                                        rawString ?? '',
-                                        language: 'dart', // Change this to the language of the code
-                                        theme: githubTheme,
-                                        textStyle: TextStyle(fontSize: 18), // Increase font size for better readability
-                                        padding: EdgeInsets.all(16),
-                                      ),
-                                    ),
-                                  ),
+                                          uint8list,
+                                          fit: BoxFit.contain,
+                                        )
+                                      : Column(
+                                          children: [
+                                            Visibility(
+                                              visible: !showCodeEditor,
+                                              child: SingleChildScrollView(
+                                                child: HighlightView(
+                                                  rawString ?? '',
+                                                  language: 'dart',
+                                                  // Change this to the language of the code
+                                                  theme: githubTheme,
+                                                  textStyle: TextStyle(
+                                                    fontSize: 18,
+                                                  ),
+                                                  // Increase font size for better readability
+                                                  padding: EdgeInsets.all(16),
+                                                ),
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible: showCodeEditor,
+                                              child: TextField(
+                                                controller: codeEditorController,
+                                                maxLines: null,
+                                                keyboardType: TextInputType.multiline,
+                                                decoration: InputDecoration(
+                                                  hintText: 'Enter code snippet...',
+                                                  contentPadding: EdgeInsets.all(16),
+                                                  border: OutlineInputBorder(),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(height: 16),
+                                            ToggleableWidget(
+                                              value: showCodeEditor,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  showCodeEditor = value;
+                                                  if (showCodeEditor) {
+                                                    codeEditorController.text = rawString!;
+                                                  } else {
+                                                    rawString = codeEditorController.text;
+                                                  }
+                                                });
+                                              },
+                                            ),
+                                          ],
+                                        ),
                                 ),
                                 // ToggleableWidget(),
                                 SizedBox(height: 16),
@@ -533,13 +576,12 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-
-
                                     TextButton(
                                       onPressed: () async {
                                         if (uint8list != null) {
                                           final byteData = uint8list.buffer.asByteData();
-                                          final base64Image = base64.encode(Uint8List.view(byteData.buffer));
+                                          final base64Image =
+                                              base64.encode(Uint8List.view(byteData.buffer));
                                           await Clipboard.setData(ClipboardData(text: base64Image));
                                         } else if (rawString != null) {
                                           await Clipboard.setData(ClipboardData(text: rawString));
@@ -570,7 +612,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                         ],
                                       ),
                                     ),
-
                                     TextButton(
                                       onPressed: () {
                                         // Copy image to clipboard
@@ -590,7 +631,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                         ],
                                       ),
                                     ),
-
                                     TextButton(
                                       onPressed: () async {
                                         ScaffoldMessenger.of(context).showSnackBar(
@@ -609,7 +649,7 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                         );
                                         ClipboardData data = ClipboardData(
                                             text:
-                                            '${asset.original.reference?.fragment?.string?.raw ?? ''}');
+                                                '${asset.original.reference?.fragment?.string?.raw ?? ''}');
                                         await Clipboard.setData(data);
                                       },
                                       child: Row(
@@ -627,7 +667,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                         ],
                                       ),
                                     ),
-
                                     TextButton(
                                       onPressed: () {
                                         Navigator.pop(context);
@@ -653,11 +692,8 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                 SizedBox(height: 20),
                               ],
                             ),
-
-
                           ),
                         );
-
                       },
                     );
                   },
@@ -693,18 +729,18 @@ class _AssetGridPageState extends State<MaterialsPage> {
                             color: Colors.grey,
                             thickness: 2,
                           ),
-                          SizedBox(height: 8.0),
+                          SizedBox(
+                            height: 8.0,
+                          ),
                           if (asset.original.reference?.fragment?.string?.raw != null &&
                               uint8list == null)
-                            Expanded(
-                              child: SingleChildScrollView(
-                                child: HighlightView(
-                                  asset.original.reference?.fragment?.string?.raw ?? '',
-                                  language: 'dart',
-                                  theme: githubTheme,
-                                  padding: EdgeInsets.all(16),
-                                  textStyle: TextStyle(fontSize: 18),
-                                ),
+                            SingleChildScrollView(
+                              child: HighlightView(
+                                asset.original.reference?.fragment?.string?.raw ?? '',
+                                language: 'dart',
+                                theme: githubTheme,
+                                padding: EdgeInsets.all(16),
+                                textStyle: TextStyle(fontSize: 18),
                               ),
                             ),
 
@@ -713,18 +749,18 @@ class _AssetGridPageState extends State<MaterialsPage> {
                               child: Image.memory(uint8list, fit: BoxFit.cover),
                             ),
                           SizedBox(height: 8),
+
                           /// The code creates a row of buttons and images that
                           /// allow the user to copy an asset to the clipboard, share it, or close the current view.
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-
-
                               TextButton(
                                 onPressed: () async {
                                   if (uint8list != null) {
                                     final byteData = uint8list.buffer.asByteData();
-                                    final base64Image = base64.encode(Uint8List.view(byteData.buffer));
+                                    final base64Image =
+                                        base64.encode(Uint8List.view(byteData.buffer));
                                     await Clipboard.setData(ClipboardData(text: base64Image));
                                   } else if (rawString != null) {
                                     await Clipboard.setData(ClipboardData(text: rawString));
@@ -755,7 +791,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                   ],
                                 ),
                               ),
-
                               TextButton(
                                 onPressed: () {
                                   // Copy image to clipboard
@@ -775,8 +810,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                   ],
                                 ),
                               ),
-
-
                             ],
                           ),
                           Divider(

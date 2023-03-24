@@ -8,7 +8,7 @@ class ToggleableWidget extends StatefulWidget {
   final Uint8List? uint8list;
   final String? rawString;
 
-  ToggleableWidget({this.uint8list, this.rawString});
+  ToggleableWidget({this.uint8list, this.rawString, required bool value, required  Function(dynamic value) onChanged});
 
   @override
   _ToggleableWidgetState createState() => _ToggleableWidgetState();

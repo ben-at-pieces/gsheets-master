@@ -154,7 +154,7 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                       await ws?.values.insertColumn(1, languages, fromRow: 2);
 
                       /// count Column
-                      await ws?.values.insertColumn(2, languageCounts, fromRow: 2);
+                      // await ws?.values.insertColumn(2, languageCounts, fromRow: 2);
 
                       /// added a blank placeholder
                       List<String> people =
@@ -292,43 +292,43 @@ List<String> collection = [
   'Image',
 ];
 
-List<String> languageCounts = [
-  '${StatisticsSingleton().statistics?.batch.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.c.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.cSharp.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.coffee.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.cPlus.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.css.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.dart.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.erlang.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.go.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.haskell.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.html.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.java.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.javascript.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.json.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.lua.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.markdown.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.matLab.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.objectiveC.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.php.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.perl.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.powershell.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.python.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.r.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.ruby.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.rust.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.scala.toList().length ?? 0}',
-  // '${StatisticsSingleton().statistics?.shell.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.sql.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.swift.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.typescript.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.tex.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.text.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.toml.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.yaml.toList().length ?? 0}',
-  '${StatisticsSingleton().statistics?.image.toList().length ?? 0}'
-];
+// List<String> languageCounts = [
+//   '${StatisticsSingleton().statistics?.batch.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.c.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.cSharp.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.coffee.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.cPlus.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.css.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.dart.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.erlang.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.go.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.haskell.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.html.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.java.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.javascript.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.json.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.lua.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.markdown.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.matLab.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.objectiveC.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.php.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.perl.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.powershell.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.python.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.r.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.ruby.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.rust.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.scala.toList().length ?? 0}',
+//   // '${StatisticsSingleton().statistics?.shell.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.sql.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.swift.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.typescript.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.tex.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.text.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.toml.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.yaml.toList().length ?? 0}',
+//   '${StatisticsSingleton().statistics?.image.toList().length ?? 0}'
+// ];
 
 List<String> languages = [
   'Batchfile',

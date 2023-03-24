@@ -1,6 +1,7 @@
 {
   "manifest_version": 3,
   "version": "0.1.0",
+  "version_name": "Version 1.0.0",
   "name": "Satellites",
   "description": "An offline Macro User Flow Tool designed to serve up useful snippets and deeply integrate with your favorite tools!",
   "background": {
@@ -16,6 +17,7 @@
       "128": "icons/33.png"
     }
   },
+
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'; script-src-elem 'self' wasm-unsafe-eval https://unpkg.com;"
   },
