@@ -12,6 +12,7 @@ import 'package:gsheets/materials/textPreview.dart';
 import 'package:gsheets/materials/zoom.dart';
 import 'package:gsheets/statistics_singleton.dart';
 import '../Bottom_bar/bottom_appbar_class.dart';
+import '../Dashboard/Language_Logic/batch_language.dart';
 import '../Dashboard/custom_classes.dart';
 import '../Dashboard/reference_GPT.dart/gpt_modify_text.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -209,7 +210,12 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                               SnackBar(content: Text('Copied to clipboard')),
                                             );
                                           },
-                                          child: Text('Copy'),
+                                          child: Row(
+                                            children: [
+                                              Text('Copy'),
+                                              Icon(Icons.copy),
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     );
@@ -417,6 +423,8 @@ class _AssetGridPageState extends State<MaterialsPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+
+
                   Text(
                     '${StatisticsSingleton().statistics?.image.length ?? ''} Images ',
                     style: TitleText(),
@@ -485,218 +493,66 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                 ),
                               ],
                             ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    // crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      SingleChildScrollView(
-                                        scrollDirection: Axis.horizontal,
-                                        child: Text(
-                                          asset.name ?? '',
-                                          style:
-                                              TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ),
-                                      SingleChildScrollView(
-                                        scrollDirection: Axis.horizontal,
-                                        child: Text(
-                                          asset.original.reference?.classification.specific.value ??
-                                              '',
-                                          style:
-                                              TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-
-                                SizedBox(
-                                  width: 400,
-                                  height: 250,
-                                  child: uint8list != null
-                                      ? Image.memory(
-                                          uint8list,
-                                          fit: BoxFit.contain,
-                                        )
-                                      : Column(
-                                          children: [
-                                            Visibility(
-                                              visible: !showCodeEditor,
-                                              child: SingleChildScrollView(
-                                                child: HighlightView(
-                                                  rawString ?? '',
-                                                  language: 'dart',
-                                                  // Change this to the language of the code
-                                                  theme: githubTheme,
-                                                  textStyle: TextStyle(
-                                                    fontSize: 18,
-                                                  ),
-                                                  // Increase font size for better readability
-                                                  padding: EdgeInsets.all(16),
-                                                ),
-                                              ),
-                                            ),
-                                            Visibility(
-                                              visible: showCodeEditor,
-                                              child: TextField(
-                                                controller: codeEditorController,
-                                                maxLines: null,
-                                                keyboardType: TextInputType.multiline,
-                                                decoration: InputDecoration(
-                                                  hintText: 'Enter code snippet...',
-                                                  contentPadding: EdgeInsets.all(16),
-                                                  border: OutlineInputBorder(),
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(height: 16),
-                                            ToggleableWidget(
-                                              value: showCodeEditor,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  showCodeEditor = value;
-                                                  if (showCodeEditor) {
-                                                    codeEditorController.text = rawString!;
-                                                  } else {
-                                                    rawString = codeEditorController.text;
-                                                  }
-                                                });
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                ),
-                                // ToggleableWidget(),
-                                SizedBox(height: 16),
-
-                                /// The code creates a row of buttons and images that
-                                /// allow the user to copy an asset to the clipboard, share it, or close the current view.
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                            child: SizedBox(
+                              width: 400,
+                              height: 250,
+                              child: uint8list != null
+                                  ? Image.memory(
+                                uint8list,
+                                fit: BoxFit.contain,
+                              )
+                                  : SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Column(
                                   children: [
-                                    TextButton(
-                                      onPressed: () async {
-                                        if (uint8list != null) {
-                                          final byteData = uint8list.buffer.asByteData();
-                                          final base64Image =
-                                              base64.encode(Uint8List.view(byteData.buffer));
-                                          await Clipboard.setData(ClipboardData(text: base64Image));
-                                        } else if (rawString != null) {
-                                          await Clipboard.setData(ClipboardData(text: rawString));
-                                        }
-
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              'Copied to Clipboard',
-                                              style: TextStyle(color: Colors.white),
-                                            ),
-                                            backgroundColor: Colors.black54,
-                                            duration: Duration(milliseconds: 1030),
+                                    Visibility(
+                                      visible: !showCodeEditor,
+                                      child: Container(
+                                        child: HighlightView(
+                                          rawString ?? '',
+                                          language: 'dart',
+                                          // Change this to the language of the code
+                                          theme: githubTheme,
+                                          textStyle: TextStyle(
+                                            fontSize: 18,
                                           ),
-                                        );
-                                      },
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.copy_outlined,
-                                            color: Colors.black,
-                                          ),
-                                          SizedBox(width: 4),
-                                          Text(
-                                            'copy',
-                                            style: TitleText(),
-                                          ),
-                                        ],
+                                          // Increase font size for better readability
+                                          padding: EdgeInsets.all(16),
+                                        ),
                                       ),
                                     ),
-                                    TextButton(
-                                      onPressed: () {
-                                        // Copy image to clipboard
-                                      },
-                                      child: Row(
-                                        children: [
-                                          Image.asset(
-                                            'img_2.png',
-                                            width: 24,
-                                            height: 24,
-                                          ),
-                                          SizedBox(width: 4),
-                                          Text(
-                                            'share',
-                                            style: TitleText(),
-                                          ),
-                                        ],
+                                    Visibility(
+                                      visible: showCodeEditor,
+                                      child: TextField(
+                                        controller: codeEditorController,
+                                        maxLines: null,
+                                        keyboardType: TextInputType.multiline,
+                                        decoration: InputDecoration(
+                                          hintText: 'Enter code snippet...',
+                                          contentPadding: EdgeInsets.all(16),
+                                          border: OutlineInputBorder(),
+                                        ),
                                       ),
                                     ),
-                                    TextButton(
-                                      onPressed: () async {
-                                        ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              'Copied to Clipboard',
-                                            ),
-                                            duration: Duration(
-                                                days: 0,
-                                                hours: 0,
-                                                minutes: 0,
-                                                seconds: 1,
-                                                milliseconds: 30,
-                                                microseconds: 10),
-                                          ),
-                                        );
-                                        ClipboardData data = ClipboardData(
-                                            text:
-                                                '${asset.original.reference?.fragment?.string?.raw ?? ''}');
-                                        await Clipboard.setData(data);
+                                    SizedBox(height: 16),
+                                    ToggleableWidget(
+                                      value: showCodeEditor,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          showCodeEditor = value;
+                                          if (showCodeEditor) {
+                                            codeEditorController.text = StatisticsSingleton().statistics?.snippetsListRaw.toList().elementAt(index) ?? '';
+                                          } else {
+                                            rawString = codeEditorController.text;
+                                          }
+                                        });
                                       },
-                                      child: Row(
-                                        children: [
-                                          Image.asset(
-                                            'FigmaLogo.png',
-                                            width: 24,
-                                            height: 24,
-                                          ),
-                                          SizedBox(width: 4),
-                                          Text(
-                                            'share',
-                                            style: TitleText(),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.close,
-                                            size: 24,
-                                            color: Colors.black,
-                                          ),
-                                          SizedBox(height: 4),
-                                          Text(
-                                            'Close',
-                                            style: TitleText(),
-                                          ),
-                                        ],
-                                      ),
                                     ),
                                   ],
                                 ),
-
-                                SizedBox(height: 20),
-                              ],
+                              ),
                             ),
+
                           ),
                         );
                       },
@@ -709,7 +565,7 @@ class _AssetGridPageState extends State<MaterialsPage> {
                     shadowColor: Colors.grey,
                     child: Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Column(
+                      child:Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           SingleChildScrollView(
@@ -720,7 +576,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
                               textAlign: TextAlign.start,
                             ),
                           ),
-
                           SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: Text(
@@ -729,7 +584,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
                               textAlign: TextAlign.start,
                             ),
                           ),
-
                           Divider(
                             color: Colors.grey,
                             thickness: 2,
@@ -737,26 +591,26 @@ class _AssetGridPageState extends State<MaterialsPage> {
                           SizedBox(
                             height: 8.0,
                           ),
-                          if (asset.original.reference?.fragment?.string?.raw != null &&
-                              uint8list == null)
-                            SingleChildScrollView(
-                              child: HighlightView(
-                                asset.original.reference?.fragment?.string?.raw ?? '',
-                                language: 'dart',
-                                theme: githubTheme,
-                                padding: EdgeInsets.all(16),
-                                textStyle: TextStyle(fontSize: 18),
+                          if (asset.original.reference?.fragment?.string?.raw != null && uint8list == null)
+                            Expanded(
+                              child: SingleChildScrollView(
+                                child: HighlightView(
+                                  asset.original.reference?.fragment?.string?.raw ?? '',
+                                  language: 'dart',
+                                  theme: githubTheme,
+                                  padding: EdgeInsets.all(16),
+                                  textStyle: TextStyle(fontSize: 18),
+                                ),
                               ),
                             ),
-
                           if (uint8list != null)
                             Expanded(
-                              child: Image.memory(uint8list, fit: BoxFit.cover),
+                              child: Image.memory(
+                                uint8list,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           SizedBox(height: 8),
-
-                          /// The code creates a row of buttons and images that
-                          /// allow the user to copy an asset to the clipboard, share it, or close the current view.
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -764,13 +618,11 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                 onPressed: () async {
                                   if (uint8list != null) {
                                     final byteData = uint8list.buffer.asByteData();
-                                    final base64Image =
-                                        base64.encode(Uint8List.view(byteData.buffer));
+                                    final base64Image = base64.encode(Uint8List.view(byteData.buffer));
                                     await Clipboard.setData(ClipboardData(text: base64Image));
                                   } else if (rawString != null) {
                                     await Clipboard.setData(ClipboardData(text: rawString));
                                   }
-
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
@@ -787,7 +639,7 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                     Icon(
                                       Icons.copy_outlined,
                                       color: Colors.black,
-                                    ),
+                                    size: 16,),
                                     SizedBox(width: 4),
                                     Text(
                                       'copy',
@@ -804,8 +656,8 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                   children: [
                                     Image.asset(
                                       'img_2.png',
-                                      width: 24,
-                                      height: 24,
+                                      width: 20,
+                                      height: 20,
                                     ),
                                     SizedBox(width: 4),
                                     Text(
@@ -823,6 +675,7 @@ class _AssetGridPageState extends State<MaterialsPage> {
                           ),
                         ],
                       ),
+
                     ),
                   ),
                 );

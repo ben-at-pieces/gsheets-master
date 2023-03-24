@@ -38,32 +38,33 @@ class _ToggleableWidgetState extends State<ToggleableWidget> {
       children: [
         Row(
           children: [
-            Expanded(
-              child: TextButton(
-                onPressed: () {
-                  _toggleView();
-                },
-                child: Text(
-                  _isPreview ? 'Preview' : 'Raw String',
-                  style: TextStyle(
-                    color: _isPreview ? Colors.grey : Colors.black,
-                    fontWeight: _isPreview ? FontWeight.normal : FontWeight.bold,
-                  ),
+            TextButton(
+              onPressed: () {
+                _toggleView();
+              },
+              child: Text(
+                _isPreview ? 'edit' : 'make some changes...',
+                style: TextStyle(
+                  color: _isPreview ? Colors.grey : Colors.black,
+                  fontWeight: _isPreview ? FontWeight.normal : FontWeight.bold,
                 ),
               ),
             ),
           ],
         ),
         _isPreview
-            ? SizedBox(
-          width: 400,
-          height: 250,
-          child: widget.uint8list != null
-              ? Image.memory(
-            widget.uint8list!,
-            fit: BoxFit.contain,
-          )
-              : Center(child: Text('No image')),
+            ? SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: SizedBox(
+            width: 400,
+            height: 100,
+            child: widget.uint8list != null
+                ? Image.memory(
+              widget.uint8list!,
+              fit: BoxFit.contain,
+            )
+                : Center(child: Text('No image')),
+          ),
         )
             : TextField(
           controller: _textEditingController,
@@ -87,5 +88,6 @@ class _ToggleableWidgetState extends State<ToggleableWidget> {
         ),
       ],
     );
+
   }
 }
