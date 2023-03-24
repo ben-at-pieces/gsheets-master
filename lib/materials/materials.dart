@@ -43,9 +43,9 @@ class MaterialsPage extends StatefulWidget {
 }
 
 class _AssetGridPageState extends State<MaterialsPage> {
-  late final Assets assets;
-  late final AssetApi assetApi;
-  late final AssetsApi assetsApi;
+  Assets? assets;
+  late AssetApi assetApi;
+  late AssetsApi assetsApi;
   bool showRawStringAssets = false;
   bool showCodeEditor = false;
   TextEditingController codeEditorController = TextEditingController();
@@ -59,22 +59,25 @@ class _AssetGridPageState extends State<MaterialsPage> {
   }
 
   Future<void> fetchAssets() async {
-    assets = await assetsApi.assetsSnapshot(transferables: true);
-    setState(() {});
+    if (assets == null) {
+      assets = await assetsApi.assetsSnapshot(transferables: true);
+      setState(() {});
+    }
   }
 
   List<Asset> getAssetsToShow() {
     if (showRawStringAssets) {
-      return assets.iterable
+      return assets?.iterable
           .where((asset) => asset.original.reference?.fragment?.string?.raw != null)
-          .toList();
+          .toList() ??
+          [];
     } else {
-      return assets.iterable
+      return assets?.iterable
           .where((asset) => asset.original.reference?.file?.bytes?.raw != null)
-          .toList();
+          .toList() ??
+          [];
     }
   }
-
   ///===============================================================================
   Widget build(BuildContext context) {
     Future<Assets> getAssetsSnapshot() async {
@@ -82,6 +85,8 @@ class _AssetGridPageState extends State<MaterialsPage> {
     }
 
     Future<List<Asset>> getDiscoveredAssetsList() async {
+
+
       Assets assets = await assetsApi.assetsSnapshot(suggested: true, transferables: false);
       return assets.iterable.where((asset) => asset.discovered == true).toList() ?? [];
     }

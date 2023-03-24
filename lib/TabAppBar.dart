@@ -36,7 +36,7 @@ UserApi userApi = UserApi(ApiClient(basePath: host));
 // Assets assetsSnapshot = await assetsApi.assetsSnapshot();
 // Asset asset = assetsSnapshot.iterable.elementAt(index);
 // List assetsSnapshot = [];
-late Future<List> assetsSnapshotFuture = Boot().getAssets();
+ Future<List> assetsSnapshotFuture = Boot().getAssets();
 ApiClient api = ApiClient(basePath: 'http://localhost:1000');
 
 class TabAppBar extends StatefulWidget {
