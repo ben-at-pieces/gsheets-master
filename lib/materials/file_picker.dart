@@ -34,7 +34,7 @@ class _FilePickerWidgetState extends State<FilePickerWidget> {
           onPressed: () async {
             final result = await FilePicker.platform.pickFiles(
               type: FileType.custom,
-              allowedExtensions: ['png', 'svg', 'jpg', 'jpeg', 'txt'],
+              allowedExtensions: ['png', 'svg', 'jpg', 'jpeg', 'txt', 'stl'],
             );
             if (result != null) {
               setState(() {
