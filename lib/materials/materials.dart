@@ -69,16 +69,17 @@ class _AssetGridPageState extends State<MaterialsPage> {
   List<Asset> getAssetsToShow() {
     if (showRawStringAssets) {
       return assets?.iterable
-          .where((asset) => asset.original.reference?.fragment?.string?.raw != null)
-          .toList() ??
+              .where((asset) => asset.original.reference?.fragment?.string?.raw != null)
+              .toList() ??
           [];
     } else {
       return assets?.iterable
-          .where((asset) => asset.original.reference?.file?.bytes?.raw != null)
-          .toList() ??
+              .where((asset) => asset.original.reference?.file?.bytes?.raw != null)
+              .toList() ??
           [];
     }
   }
+
   ///===============================================================================
   Widget build(BuildContext context) {
     Future<Assets> getAssetsSnapshot() async {
@@ -86,8 +87,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
     }
 
     Future<List<Asset>> getDiscoveredAssetsList() async {
-
-
       Assets assets = await assetsApi.assetsSnapshot(suggested: true, transferables: false);
       return assets.iterable.where((asset) => asset.discovered == true).toList() ?? [];
     }
@@ -423,8 +422,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
-
                   Text(
                     '${StatisticsSingleton().statistics?.image.length ?? ''} Images ',
                     style: TitleText(),
@@ -498,74 +495,82 @@ class _AssetGridPageState extends State<MaterialsPage> {
                               height: 250,
                               child: uint8list != null
                                   ? Image.memory(
-                                uint8list,
-                                fit: BoxFit.contain,
-                              )
+                                      uint8list,
+                                      fit: BoxFit.contain,
+                                    )
                                   : SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Column(
-                                  children: [
-                                    Visibility(
-                                      visible: !showCodeEditor,
-                                      child: Container(
-                                        child: HighlightView(
-                                          rawString ?? '',
-                                          language: 'dart',
-                                          // Change this to the language of the code
-                                          theme: githubTheme,
-                                          textStyle: TextStyle(
-                                            fontSize: 18,
+                                      scrollDirection: Axis.vertical,
+                                      child: Column(
+                                        children: [
+                                          Visibility(
+                                            visible: !showCodeEditor,
+                                            child: Container(
+                                              child: HighlightView(
+                                                rawString ?? '',
+                                                language: 'dart',
+                                                // Change this to the language of the code
+                                                theme: githubTheme,
+                                                textStyle: TextStyle(
+                                                  fontSize: 18,
+                                                ),
+                                                // Increase font size for better readability
+                                                padding: EdgeInsets.all(16),
+                                              ),
+                                            ),
                                           ),
-                                          // Increase font size for better readability
-                                          padding: EdgeInsets.all(16),
-                                        ),
+                                          Visibility(
+                                            visible: showCodeEditor,
+                                            child: TextField(
+                                              controller: codeEditorController,
+                                              maxLines: null,
+                                              keyboardType: TextInputType.multiline,
+                                              decoration: InputDecoration(
+                                                hintText: 'Enter code snippet...',
+                                                contentPadding: EdgeInsets.all(16),
+                                                border: OutlineInputBorder(),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(height: 16),
+                                          ToggleableWidget(
+                                            value: showCodeEditor,
+                                            onChanged: (value) {
+                                              setState(
+                                                () {
+                                                  showCodeEditor = value;
+                                                  if (showCodeEditor) {
+                                                    codeEditorController.text =
+                                                        StatisticsSingleton()
+                                                                .statistics
+                                                                ?.snippetsListRaw
+                                                                .toList()
+                                                                .elementAt(index) ??
+                                                            '';
+                                                  } else {
+                                                    rawString = codeEditorController.text;
+                                                  }
+                                                },
+                                              );
+                                            },
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    Visibility(
-                                      visible: showCodeEditor,
-                                      child: TextField(
-                                        controller: codeEditorController,
-                                        maxLines: null,
-                                        keyboardType: TextInputType.multiline,
-                                        decoration: InputDecoration(
-                                          hintText: 'Enter code snippet...',
-                                          contentPadding: EdgeInsets.all(16),
-                                          border: OutlineInputBorder(),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(height: 16),
-                                    ToggleableWidget(
-                                      value: showCodeEditor,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          showCodeEditor = value;
-                                          if (showCodeEditor) {
-                                            codeEditorController.text = StatisticsSingleton().statistics?.snippetsListRaw.toList().elementAt(index) ?? '';
-                                          } else {
-                                            rawString = codeEditorController.text;
-                                          }
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
                             ),
-
                           ),
                         );
                       },
                     );
                   },
 
-                  /// Displays an asset's name, original reference, and image (if available) in a card format, with an option to view more details in a dialog box.
+                  /// Displays an asset's name, original reference, and image (if available)
+                  /// in a card format, with an option to view more details in a dialog box.
                   child: Card(
                     elevation: 4,
                     shadowColor: Colors.grey,
                     child: Padding(
                       padding: EdgeInsets.all(8.0),
-                      child:Column(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           SingleChildScrollView(
@@ -591,7 +596,8 @@ class _AssetGridPageState extends State<MaterialsPage> {
                           SizedBox(
                             height: 8.0,
                           ),
-                          if (asset.original.reference?.fragment?.string?.raw != null && uint8list == null)
+                          if (asset.original.reference?.fragment?.string?.raw != null &&
+                              uint8list == null)
                             Expanded(
                               child: SingleChildScrollView(
                                 child: HighlightView(
@@ -618,7 +624,8 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                 onPressed: () async {
                                   if (uint8list != null) {
                                     final byteData = uint8list.buffer.asByteData();
-                                    final base64Image = base64.encode(Uint8List.view(byteData.buffer));
+                                    final base64Image =
+                                        base64.encode(Uint8List.view(byteData.buffer));
                                     await Clipboard.setData(ClipboardData(text: base64Image));
                                   } else if (rawString != null) {
                                     await Clipboard.setData(ClipboardData(text: rawString));
@@ -639,7 +646,8 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                     Icon(
                                       Icons.copy_outlined,
                                       color: Colors.black,
-                                    size: 16,),
+                                      size: 16,
+                                    ),
                                     SizedBox(width: 4),
                                     Text(
                                       'copy',
@@ -675,7 +683,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
                           ),
                         ],
                       ),
-
                     ),
                   ),
                 );
