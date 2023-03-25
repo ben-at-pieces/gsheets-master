@@ -57,18 +57,18 @@ class _ToggleableWidgetState extends State<ToggleableWidget> {
           scrollDirection: Axis.vertical,
           child: SizedBox(
             width: 400,
-            height: 100,
+            height: 50,
             child: widget.uint8list != null
                 ? Image.memory(
               widget.uint8list!,
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
             )
                 : Center(child: Text('No image')),
           ),
         )
             : TextField(
           controller: _textEditingController,
-          readOnly: true,
+          readOnly: false,
           decoration: InputDecoration(
             suffixIcon: IconButton(
               onPressed: () {
