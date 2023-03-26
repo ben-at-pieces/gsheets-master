@@ -7,6 +7,7 @@ import 'package:gsheets/statistics_singleton.dart';
 import 'TabAppBar.dart';
 import 'create/create_function.dart';
 import 'init/src/gsheets.dart';
+import 'materials/material_list.dart';
 
  // This code initializes a statistics singleton with data fetched asynchronously, sets up a connection to a Google Sheets spreadsheet using credentials, and runs a Flutter app.
 void main() async {
@@ -17,6 +18,9 @@ void main() async {
   final gsheets = GSheets(credentials);
   final spreadsheetID = '18IlCBkFo9Y1Q0BshWiHehI0p3zufEImkWqOr23kBMcM';
   final ssheet = await gsheets.spreadsheet(spreadsheetID);
+
+  // print(programmingLanguages.toString());
+
   runApp(
     MyApp(),
   );

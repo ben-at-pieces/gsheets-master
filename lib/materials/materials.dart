@@ -499,44 +499,57 @@ class _AssetGridPageState extends State<MaterialsPage> {
                             /// highlighting syntax and
                             /// increasing font size for readability.
                             child: SizedBox(
-                              width: 400,
-                              height: 400,
+                              width: 450,
+                              height: 450,
                               child: uint8list != null
-                                  ? Container(
-                                      height: 250,
-                                      child: Image.memory(
-                                        uint8list,
-                                        fit: BoxFit.contain,
-                                      ),
-                                    )
+                                  ? Image.memory(
+                                    uint8list,
+                                    fit: BoxFit.contain,
+                                  )
+
+                                  /// Displays a widget with the
+                                  /// name and classification of an asset,
+                                  /// along with a code snippet that
+                                  /// can be toggled between a
+                                  /// read-only view and an editable view.
                                   : Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: Text(
-                                            asset.name ?? '',
-                                            style: TextStyle(fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.start,
+                                        AppBar(
+                                          leading: Icon(Icons.code),
+                                          backgroundColor: Colors.black12,
+                                          elevation: 0,
+                                          centerTitle: true,
+                                          title: SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: Text(
+                                              'name: ${asset.name ?? ''}',
+                                              style: TitleText(),
+                                              textAlign: TextAlign.start,
+                                            ),
                                           ),
                                         ),
-                                        Row(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            SingleChildScrollView(
-                                              scrollDirection: Axis.horizontal,
-                                              child: Text(
-                                                asset.original.reference?.classification.specific
-                                                        .value ??
-                                                    '',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 12,
-                                                    color: Colors.grey),
-                                                textAlign: TextAlign.start,
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              SingleChildScrollView(
+                                                scrollDirection: Axis.horizontal,
+                                                child: Text(
+                                                  asset.original.reference?.classification.specific
+                                                          .value
+                                                          .toUpperCase() ??
+                                                      '',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 20,
+                                                      color: Colors.grey),
+                                                  textAlign: TextAlign.start,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                         Visibility(
                                           visible: !showCodeEditor,
@@ -545,9 +558,10 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                             child: SingleChildScrollView(
                                               child: HighlightView(
                                                 rawString ?? '',
-                                                language: 'dart',
+                                                language:
+                                                    '${StatisticsSingleton().statistics?.classifications.keys.elementAt(index) ?? ''}',
                                                 theme: githubTheme,
-                                                textStyle: TextStyle(fontSize: 18),
+                                                textStyle: TitleText(),
                                                 padding: EdgeInsets.all(16),
                                               ),
                                             ),
@@ -658,11 +672,13 @@ class _AssetGridPageState extends State<MaterialsPage> {
                           child: Card(
                             elevation: 4,
                             child: Stack(
+                              fit: StackFit.loose,
                               children: [
                                 SingleChildScrollView(
                                   child: HighlightView(
                                     asset.original.reference?.fragment?.string?.raw ?? '',
-                                    language: 'dart',
+                                    language:
+                                        '${StatisticsSingleton().statistics?.classifications.keys.toString().toLowerCase() ?? ''}',
                                     theme: githubTheme,
                                     padding: EdgeInsets.all(16),
                                     textStyle: TitleText(),
@@ -686,8 +702,10 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                         onPressed: () async {
                                           if (uint8list != null) {
                                             final byteData = uint8list.buffer.asByteData();
-                                            final base64Image = base64.encode(Uint8List.view(byteData.buffer));
-                                            await Clipboard.setData(ClipboardData(text: base64Image));
+                                            final base64Image =
+                                                base64.encode(Uint8List.view(byteData.buffer));
+                                            await Clipboard.setData(
+                                                ClipboardData(text: base64Image));
                                           } else if (rawString != null) {
                                             await Clipboard.setData(ClipboardData(text: rawString));
                                           }
@@ -703,10 +721,22 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                           );
                                         },
                                         style: ButtonStyle(
-                                          backgroundColor: MaterialStateProperty.resolveWith((states) => Colors.white),
-                                          side: MaterialStateProperty.all(BorderSide(color: Colors.grey, width: 1.0)),
-                                          shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0))),
-                                          overlayColor: MaterialStateProperty.all(Colors.black12),
+                                          backgroundColor: MaterialStateProperty.resolveWith(
+                                              (states) => Colors.white),
+                                          side: MaterialStateProperty.all(
+                                            BorderSide(
+                                              color: Colors.grey,
+                                              width: 1.0,
+                                            ),
+                                          ),
+                                          shape: MaterialStateProperty.all(
+                                            RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(20.0),
+                                            ),
+                                          ),
+                                          overlayColor: MaterialStateProperty.all(
+                                            Colors.black12,
+                                          ),
                                           // foregroundColor: MaterialStateProperty.resolveWith((states) => states.contains(MaterialState.hovered) ? Colors.white : Colors.black),
                                         ),
                                         child: Row(
@@ -758,14 +788,9 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                             ),
                                           ),
                                         ),
-
                                       ),
                                     ],
                                   ),
-
-
-
-
                                 ),
                               ],
                             ),
@@ -777,114 +802,123 @@ class _AssetGridPageState extends State<MaterialsPage> {
                       /// copy or share the image using the device's clipboard.
                       if (uint8list != null)
                         Expanded(
-                          child: Stack(
-                            children: [
-                              Image.memory(
-                                uint8list,
-                                fit: BoxFit.cover,
-                              ),
-                              Positioned(
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    MouseRegion(
-                                      cursor: SystemMouseCursors.click,
-                                      child: AnimatedContainer(
-                                        duration: Duration(milliseconds: 200),
-                                        child: TextButton(
-                                          onPressed: () async {
-                                            if (uint8list != null) {
-                                              final byteData = uint8list.buffer.asByteData();
-                                              final base64Image =
-                                                  base64.encode(Uint8List.view(byteData.buffer));
-                                              await Clipboard.setData(
-                                                  ClipboardData(text: base64Image));
-                                            } else if (rawString != null) {
-                                              await Clipboard.setData(
-                                                  ClipboardData(text: rawString));
-                                            }
-                                            ScaffoldMessenger.of(context).showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                  'Copied to Clipboard',
-                                                  style: TextStyle(color: Colors.white),
+                          child: Card(
+                            elevation: 4,
+                            child: Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.memory(
+                                    uint8list,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 0,
+                                  left: 0,
+                                  right: 0,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      MouseRegion(
+                                        cursor: SystemMouseCursors.click,
+                                        child: AnimatedContainer(
+                                          duration: Duration(milliseconds: 200),
+                                          child: TextButton(
+                                            onPressed: () async {
+                                              if (uint8list != null) {
+                                                final byteData = uint8list.buffer.asByteData();
+                                                final base64Image = base64
+                                                    .encode(Uint8List.view(byteData.buffer));
+                                                await Clipboard.setData(
+                                                    ClipboardData(text: base64Image));
+                                              } else if (rawString != null) {
+                                                await Clipboard.setData(
+                                                    ClipboardData(text: rawString));
+                                              }
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'Copied to Clipboard',
+                                                    style: TextStyle(color: Colors.white),
+                                                  ),
+                                                  backgroundColor: Colors.grey,
+                                                  duration: Duration(milliseconds: 1030),
                                                 ),
-                                                backgroundColor: Colors.grey,
-                                                duration: Duration(milliseconds: 1030),
+                                              );
+                                            },
+                                            style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.resolveWith(
+                                                (states) =>
+                                                    states.contains(MaterialState.hovered)
+                                                        ? Colors.grey
+                                                        : Colors.white,
                                               ),
-                                            );
-                                          },
-                                          style: ButtonStyle(
-                                            backgroundColor: MaterialStateProperty.resolveWith(
-                                              (states) => states.contains(MaterialState.hovered)
-                                                  ? Colors.grey
-                                                  : Colors.white,
+                                              foregroundColor:
+                                                  MaterialStateProperty.resolveWith(
+                                                (states) =>
+                                                    states.contains(MaterialState.hovered)
+                                                        ? Colors.white
+                                                        : Colors.black,
+                                              ),
                                             ),
-                                            foregroundColor: MaterialStateProperty.resolveWith(
-                                              (states) => states.contains(MaterialState.hovered)
-                                                  ? Colors.white
-                                                  : Colors.black,
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.copy_outlined,
+                                                  color: Colors.black,
+                                                  size: 12,
+                                                ),
+                                                SizedBox(width: 4),
+                                                Text(
+                                                  'copy',
+                                                  style: TextStyle(fontSize: 12),
+                                                ),
+                                              ],
                                             ),
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                Icons.copy_outlined,
-                                                color: Colors.black,
-                                                size: 12,
-                                              ),
-                                              SizedBox(width: 4),
-                                              Text(
-                                                'copy',
-                                                style: TextStyle(fontSize: 12),
-                                              ),
-                                            ],
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(width: 8),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 8),
-                                      child: ClipOval(
-                                        child: Material(
-                                          color: Colors.white, // button color
-                                          child: InkWell(
-                                            splashColor: Colors.grey,
-                                            child: MouseRegion(
-                                              cursor: SystemMouseCursors.click,
-                                              child: AnimatedContainer(
-                                                duration: Duration(milliseconds: 200),
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(20),
-                                                  border: Border.all(color: Colors.grey),
-                                                ),
-                                                child: SizedBox(
-                                                  width: 30,
-                                                  height: 30,
-                                                  child: Icon(
-                                                    Icons.share,
-                                                    color: Colors.black,
-                                                    size: 12,
+                                      SizedBox(width: 8),
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 8),
+                                        child: ClipOval(
+                                          child: Material(
+                                            color: Colors.white, // button color
+                                            child: InkWell(
+                                              splashColor: Colors.grey,
+                                              child: MouseRegion(
+                                                cursor: SystemMouseCursors.click,
+                                                child: AnimatedContainer(
+                                                  duration: Duration(milliseconds: 200),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(20),
+                                                    border: Border.all(color: Colors.grey),
+                                                  ),
+                                                  child: SizedBox(
+                                                    width: 30,
+                                                    height: 30,
+                                                    child: Icon(
+                                                      Icons.share,
+                                                      color: Colors.black,
+                                                      size: 12,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
+                                              onTap: () {
+                                                // share image
+                                              },
                                             ),
-                                            onTap: () {
-                                              // share image
-                                            },
                                           ),
                                         ),
                                       ),
-
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         )
                     ],

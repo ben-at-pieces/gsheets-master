@@ -171,6 +171,7 @@ print(userProfilesList.length);
 
   /// ============== classifications map (String, double) =============
   Map<String, double> classifications = {};
+
 // int unique = ;
   List<Iterable<Asset>> filteredList = [];
 
@@ -206,7 +207,11 @@ print(userProfilesList.length);
 
   for (Asset asset in assets.iterable) {
     String? classification = asset.original.reference?.classification.specific.value;
+
+
     String? raw;
+
+
 
     if (asset.original.reference?.classification.generic == ClassificationGenericEnum.CODE) {
       raw = asset.original.reference?.fragment?.string?.raw;
