@@ -9,7 +9,6 @@ import 'package:core_openapi/api.dart';
 import 'package:core_openapi/api_client.dart';
 import 'package:gsheets/CustomAppBar.dart';
 import 'package:gsheets/materials/textPreview.dart';
-import 'package:gsheets/materials/zoom.dart';
 import 'package:gsheets/statistics_singleton.dart';
 import '../Bottom_bar/bottom_appbar_class.dart';
 import '../Dashboard/Language_Logic/batch_language.dart';
