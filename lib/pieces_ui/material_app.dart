@@ -2,70 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:gsheets/pieces_ui/search.dart';
 import 'carousel.dart';
 import 'chip.dart';
+import 'message_action.dart';
 
 class MyApp extends StatelessWidget {
-  final List<String> options = ['blended', 'fts', 'ncs'];
-  final String selectedOption = 'blended';
+  final List<String> options = ['Carousel', 'Workflow Activity', 'Global Search'];
+  final String selectedOption = 'Carousel';
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
+        // backgroundColor: Colors.black45,
         body: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        items: options.map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.view_carousel_rounded,
-                                  size: 24,
-                                  color: Colors.black.withOpacity(0.54),
-                                ),
-                                SizedBox(width: 8.0),
-                                Text(
-                                  value,
-                                  style: TextStyle(
-                                    color: Colors.black.withOpacity(0.87),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16.0,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }).toList(),
-                        value: selectedOption,
-                        onChanged: (String? value) {
-                          print('Selected option: $value');
-                        },
-                        hint: Text('Select an option'),
-                        isExpanded: true,
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 600,
-                  child: SearchBar(),
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  DropdownWidget(selectedOption: 'Carousel',),
+                  SearchBar(),
+                ],
+              ),
             ),
             Expanded(
-              child: CarouselWithIndicatorDemo(),
+              child: CarouselDemo(),
             ),
             Container(
               margin: EdgeInsets.symmetric(vertical: 16.0),
-              child: MyChips(chipTitles: ['add', 'discover', 'paste', 'sort','sort'],),
+              child: MyChips(
+                chipTitles: ['add', 'discover', 'paste', 'sort', 'sort'],
+              ),
             ),
           ],
         ),

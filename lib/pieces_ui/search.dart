@@ -1,33 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:gsheets/pieces_ui/views_dropdown.dart';
-
 
 class SearchBar extends StatelessWidget {
-
-
-
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-
-        Expanded(
-          child: TextField(
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 8.0),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
+    return Container(
+      width: 290,
+      height: 55,
+      child: Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Row(
+            children: [
+              Icon(
+                Icons.search,
+                color: Colors.grey,
               ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey, width: 2.0),
-                borderRadius: BorderRadius.circular(10.0),
+              SizedBox(width: 8.0),
+              Expanded(
+                child: TextField(
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Search...',
+                    hintStyle: TextStyle(color: Colors.grey),
+                  ),
+                ),
               ),
-              hintText: 'Search...',
-              suffixIcon: Icon(Icons.image),
-            ),
+              Icon(
+                Icons.account_circle_rounded,
+                color: Colors.grey,
+              ),
+            ],
           ),
         ),
-      ],
+      ),
     );
   }
 }
