@@ -6,7 +6,6 @@ import 'package:core_openapi/api/assets_api.dart';
 import 'package:core_openapi/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:gsheets/pieces_ui/sidebar.dart';
 
 import '../api.dart';
 import 'dart:convert';
