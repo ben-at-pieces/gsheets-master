@@ -6,6 +6,7 @@ import 'package:core_openapi/api/assets_api.dart';
 import 'package:core_openapi/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:gsheets/pieces_ui/sidebar.dart';
 
 import '../api.dart';
 import 'dart:convert';
@@ -43,6 +44,14 @@ class _DropdownWidgetState extends State<DropdownWidget> {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+
+
+
+
+
+
+
+
                     SizedBox(width: 8),
                     Text(
                       'Carousel',

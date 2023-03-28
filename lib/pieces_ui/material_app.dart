@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gsheets/pieces_ui/search.dart';
+import 'package:gsheets/pieces_ui/sidebar.dart';
 import 'carousel.dart';
 import 'chip.dart';
 import 'message_action.dart';
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+appBar:   AppBar(leading:   FloatingActionButtonWithSideBar(),),
         // backgroundColor: Colors.black45,
         body: Column(
           children: [

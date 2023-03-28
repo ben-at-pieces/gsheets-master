@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
 class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 290,
+      width: 320,
       height: 55,
       child: Card(
         elevation: 4,
