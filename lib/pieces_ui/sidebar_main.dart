@@ -35,23 +35,29 @@ class _NavRailExampleState extends State<NavRailExample> {
         backgroundColor: Colors.grey[800],
         title: SearchBar(),
         leadingWidth: 300,
-        leading: Row(
-          children: [
-            IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () {
-                setState(() {
-                  _isRailVisible = !_isRailVisible;
-                });
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: DropdownWidget(
-                selectedOption: 'Carousel',
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 30.0),
+          child: Row(
+            children: [
+
+              /// This code creates a button with a menu icon that toggles the visibility of a rail when pressed.
+
+              IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () {
+                  setState(() {
+                    _isRailVisible = !_isRailVisible;
+                  });
+                },
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DropdownWidget(
+                  selectedOption: 'Carousel',
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       body: Row(
@@ -94,3 +100,4 @@ class _NavRailExampleState extends State<NavRailExample> {
     );
   }
 }
+ // This code creates a layout with a NavigationRail and a CarouselDemo widget. The NavigationRail allows the user to select between three options, while the CarouselDemo widget takes up the remaining space and displays content.

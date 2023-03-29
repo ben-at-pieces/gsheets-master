@@ -50,51 +50,60 @@ class _CarouselDemoState extends State<CarouselDemo> {
             elevation: 4,
             child: Row(
               children: [
-                Container(
-                  width: 200,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Row(
-                        children: [
-                          Icon(Icons.description_rounded),
-                          Text(
-                            'description',
-                            style: TitleText(),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.black12,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SingleChildScrollView(
-                              child: Container(
-                                height: 400,
-                                child: SelectableText(
-                                  '${assets?.iterable.elementAt(index).description ?? ''}' ?? '',
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: 200,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.description_rounded),
+                            Text(
+                              'description',
+                              style: TitleText(),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  blurRadius: 2.0,
+                                  offset: Offset(0, 1),
+                                ),
+                              ],
+                            ),                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SingleChildScrollView(
+                                child: Container(
+                                  height: 400,
+                                  child: SelectableText(
+                                    '${assets?.iterable.elementAt(index).description ?? ''}' ?? '',
+                                  ),
                                 ),
                               ),
+                              // style: TextStyle(
+                              //   fontSize: 16.0,
+                              // ),
+                              // ),
                             ),
-                            // style: TextStyle(
-                            //   fontSize: 16.0,
-                            // ),
-                            // ),
                           ),
                         ),
-                      ),
-                      Flexible(
-                        fit: FlexFit.tight,
-                        child: SizedBox(
-                          height: 10,
+                        Flexible(
+                          fit: FlexFit.tight,
+                          child: SizedBox(
+                            height: 10,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
                 Expanded(
@@ -128,14 +137,20 @@ class _CarouselDemoState extends State<CarouselDemo> {
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.black12,
+                            color: Colors.white,
                             borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: Padding(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                blurRadius: 2.0,
+                                offset: Offset(0, 1),
+                              ),
+                            ],
+                          ),                          child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: SingleChildScrollView(
                               child: Container(
-                                height: 400,
+                                height: 300,
                                 child: SelectableText(
                                   '${assets?.iterable.elementAt(index).original.reference?.fragment?.string?.raw ?? ''}' ?? '',
                                 ),
