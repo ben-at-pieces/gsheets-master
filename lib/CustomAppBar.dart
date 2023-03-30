@@ -74,11 +74,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       ),
                       content: SizedBox(
                         height: 220,
+
                         child: Column(
                           children: [
                             Container(
                               color: Colors.white,
-                              // height: 300,
+                              height: 200,
                               width: 500,
                               child: TextField(
                                 autofocus: true,
@@ -96,9 +97,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                                 autocorrect: true,
                                 controller: _textFieldController,
                                 decoration: InputDecoration(
-                                  // suffixIcon: FilePickerWidget(
-                                  //   textEditingController: _textFieldController,
-                                  // ),
+
                                   labelStyle: ParticleFont.micro(
                                     context,
                                     customization: TextStyle(color: Colors.black, fontSize: 16),
@@ -107,20 +106,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                                   labelText: 'Type something...',
                                   hintStyle: ParticleFont.micro(context,
                                       customization: TextStyle(color: Colors.black)),
-                                  prefix: Column(
-                                    children: [
-                                      IconButton(
-                                        iconSize: 15,
-                                        icon: Icon(
-                                          Icons.clear,
-                                          color: Colors.grey,
-                                        ),
-                                        onPressed: () {
-                                          _textFieldController.clear();
-                                        },
-                                      ),
-                                    ],
-                                  ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       style: BorderStyle.solid,
@@ -348,7 +333,7 @@ hello chat GPT, please give me an explanation and example about the text below:
               child: Row(
                 children: [
                   Icon(
-                    Icons.add_box,
+                    Icons.add_box_outlined,
                     size: 18,
                     color: Colors.black,
                   ),

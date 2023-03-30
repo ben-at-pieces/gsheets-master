@@ -161,12 +161,32 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                   ? Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
+
+                                      AppBar(
+                                        leading: Icon(Icons.image, color: Colors.black87,),
+                                        backgroundColor: Colors.black12,
+                                        elevation: 0,
+                                        centerTitle: true,
+                                        title: SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Text(
+                                            'image name: ${asset.name ?? ''}',
+                                            style: TitleText(),
+                                            textAlign: TextAlign.start,
+                                          ),
+                                        ),
+                                      ),
+
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: Image.memory(
-                                            uint8list,
-                                            fit: BoxFit.contain,
-                                          ),
+                                        child: Container(
+                                          height: 350,
+                                          width: 500,
+                                          child: Image.memory(
+                                              uint8list,
+                                              fit: BoxFit.contain,
+                                            ),
+                                        ),
                                       ),
                                       IconButton(
                                           icon: Icon(Icons.copy),
@@ -189,7 +209,7 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         AppBar(
-                                          leading: Icon(Icons.code),
+                                          leading: Icon(Icons.code, color: Colors.black87,),
                                           backgroundColor: Colors.black12,
                                           elevation: 0,
                                           centerTitle: true,
@@ -240,31 +260,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                             ),
                                           ),
                                         ),
-                                        // Visibility(
-                                        //   visible: showCodeEditor,
-                                        //   // child: TextField(
-                                        //   //   controller: codeEditorController,
-                                        //   //   maxLines: null,
-                                        //   //   keyboardType: TextInputType.multiline,
-                                        //   //   decoration: InputDecoration(
-                                        //   //     hintText: 'Enter code snippet...',
-                                        //   //     contentPadding: EdgeInsets.all(16),
-                                        //   //     border: OutlineInputBorder(),
-                                        //   //     enabledBorder: OutlineInputBorder(
-                                        //   //       borderSide:
-                                        //   //           BorderSide(color: Colors.grey, width: 1.0),
-                                        //   //       borderRadius:
-                                        //   //           BorderRadius.all(Radius.circular(4.0)),
-                                        //   //     ),
-                                        //   //     focusedBorder: OutlineInputBorder(
-                                        //   //       borderSide:
-                                        //   //           BorderSide(color: Colors.grey, width: 1.0),
-                                        //   //       borderRadius:
-                                        //   //           BorderRadius.all(Radius.circular(4.0)),
-                                        //   //     ),
-                                        //   //   ),
-                                        //   // ),
-                                        // ),
                                         ToggleableWidget(
                                           value: showCodeEditor,
                                           onChanged: (value) {

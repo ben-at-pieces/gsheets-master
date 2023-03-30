@@ -6,6 +6,17 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+class SnippetTitleText extends TextStyle {
+  SnippetTitleText()
+      : super(
+    fontFamily: 'Roboto',
+    fontSize: 24,
+    color: Colors.white,
+    fontWeight: FontWeight.w500,
+  );
+}
+
+
 class ProductTitleText extends TextStyle {
   ProductTitleText()
       : super(
@@ -50,9 +61,18 @@ class TitleBlackText extends TextStyle {
   TitleBlackText()
       : super(
     fontFamily: 'Roboto',
-    fontSize: 16,
+    fontSize: 20,
     color: Colors.black,
     fontWeight: FontWeight.bold,
+  );
+}
+class SuggestedStyle extends TextStyle {
+  SuggestedStyle()
+      : super(
+    fontFamily: 'Roboto',
+    fontSize: 15,
+    color: Colors.white,
+    // fontWeight: FontWeight.bold,
   );
 }
 

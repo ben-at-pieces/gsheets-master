@@ -25,9 +25,14 @@ class SuggestedAssetsButton extends StatelessWidget {
         } else if (snapshot.hasData) {
           final assets = snapshot.data?.iterable.toList() ?? [];
           return TextButton(
-            child: Text(
-              'Suggested: (${assets.length})',
-              style: TitleText(),
+            child: Chip(
+              elevation: 4,
+              shadowColor: Colors.grey,
+              backgroundColor: Colors.black,
+              label: Text(
+                'Suggested: (${StatisticsSingleton().statistics?.suggestionsListed.length})',
+                style: SuggestedStyle()
+              ),
             ),
             onPressed: () {
               _showSuggestedSnippets(context);
@@ -50,28 +55,21 @@ void _showSuggestedSnippets(BuildContext context) {
       return Column(
         children: [
           Container(
-            decoration: BoxDecoration(
-              // color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-            ),
-            height: 56,
-            child: Container(
-              color: Colors.grey,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(width: 16),
-                  Text(
-                    'Suggested (${StatisticsSingleton().statistics?.suggestedCount ?? 1})',
-                    style: TextStyle(fontSize: 16, color: Colors.white),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.close),
-                    color: Colors.white,
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ],
-              ),
+            color: Colors.grey,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(width: 16),
+                Text(
+                  'Suggested (${StatisticsSingleton().statistics?.suggestedCount ?? 1})',
+                  style: SnippetTitleText(),
+                ),
+                IconButton(
+                  icon: Icon(Icons.close),
+                  color: Colors.white,
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ],
             ),
           ),
           Expanded(
@@ -96,10 +94,14 @@ void _showSuggestedSnippets(BuildContext context) {
                     trailing: Text(
                         '${StatisticsSingleton().statistics?.suggestionsListed.elementAt(index).original.reference?.classification.specific.value}'),
                     subtitle: Container(
-                      // height: 30,
-                      child: Text(
-                          StatisticsSingleton().statistics?.suggestedDesc.elementAt(index) ??
-                              ''),
+                      height: 60,
+                      width: 200,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Text(
+                            StatisticsSingleton().statistics?.suggestedDesc.elementAt(index) ??
+                                ''),
+                      ),
                     ),
                     title: Text(
                         StatisticsSingleton().statistics?.suggestedNames.elementAt(index) ??

@@ -139,7 +139,7 @@ Future<Statistics?> getStats() async {
   List<dynamic> userProfileList = [userProfile.id, userProfile.name, userProfile.email, userProfile.picture];
   userProfilesList.add(userProfileList);
   }
-print(userProfilesList.length);
+// print(userProfilesList.length);
 
   if (picture.isEmpty) {
     String picture = '';
