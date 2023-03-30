@@ -29,8 +29,19 @@ class DiscoveredAssetsButton extends StatelessWidget {
             onPressed: () {
               _showDiscoveredAssets(context, assets);
             },
-            child: Text(
-              'Discovered: ${StatisticsSingleton().statistics?.discoveredAssetsList.length ?? 0}',              style: TitleText(),
+            child: Chip(
+              elevation: 4,
+              shadowColor: Colors.grey,
+              backgroundColor: Colors.black54,
+              label: Row(
+                children: [
+                  Icon(Icons.travel_explore_rounded, color: Colors.white),
+                  Text(
+                      'Discovered: (${StatisticsSingleton().statistics?.discoveredAssetsList.length})',
+                      style: SuggestedStyle()
+                  ),
+                ],
+              ),
             ),
           );
         } else {

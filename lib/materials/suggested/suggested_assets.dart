@@ -28,10 +28,16 @@ class SuggestedAssetsButton extends StatelessWidget {
             child: Chip(
               elevation: 4,
               shadowColor: Colors.grey,
-              backgroundColor: Colors.black,
-              label: Text(
-                'Suggested: (${StatisticsSingleton().statistics?.suggestionsListed.length})',
-                style: SuggestedStyle()
+              backgroundColor: Colors.black54,
+              label: Row(
+                children: [
+                  Icon(Icons.lightbulb_outline_sharp, color: Colors.white),
+
+                  Text(
+                    'Suggested: (${StatisticsSingleton().statistics?.suggestionsListed.length})',
+                    style: SuggestedStyle()
+                  ),
+                ],
               ),
             ),
             onPressed: () {
