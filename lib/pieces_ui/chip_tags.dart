@@ -46,7 +46,7 @@ class _ChipInputWidgetState extends State<ChipInputWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 200,
+              height: 150,
               width: 180,
               child: TextField(
                 controller: _textController,

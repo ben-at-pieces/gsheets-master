@@ -6,8 +6,8 @@ import 'package:gsheets/statistics.dart';
 import 'package:gsheets/statistics_singleton.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'Bottom_bar/bottom_appbar_class.dart';
-import 'init/src/gsheets.dart';
+import '../Bottom_bar/bottom_appbar_class.dart';
+import '../init/src/gsheets.dart';
 
 void main() async{
 

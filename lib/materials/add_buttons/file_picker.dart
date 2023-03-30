@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 
-import '../Dashboard/custom_classes.dart';
+import '../../Dashboard/custom_classes.dart';
 
 class FilePickerWidget extends StatefulWidget {
   final TextEditingController textEditingController;

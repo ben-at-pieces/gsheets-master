@@ -16,7 +16,7 @@ import '../lists/relatedLists.dart';
 import '../statistics_singleton.dart';
 import 'dart:html';
 
-import 'materials/file_picker.dart';
+import 'materials/add_buttons/file_picker.dart';
 
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {

@@ -5,7 +5,7 @@ import 'package:core_openapi/api_client.dart';
 import 'package:flutter/material.dart';
 import 'package:gsheets/statistics_singleton.dart';
 
-import 'Dashboard/custom_classes.dart';
+import '../Dashboard/custom_classes.dart';
 
 void main() {
   runApp(MyApp());

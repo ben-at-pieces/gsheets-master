@@ -53,7 +53,7 @@ class _CarouselDemoState extends State<CarouselDemo> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                    width: 200,
+                    width: 250,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -69,6 +69,7 @@ class _CarouselDemoState extends State<CarouselDemo> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
+                            height: 300,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(8.0),
@@ -79,7 +80,8 @@ class _CarouselDemoState extends State<CarouselDemo> {
                                   offset: Offset(0, 1),
                                 ),
                               ],
-                            ),                            child: Padding(
+                            ),
+                            child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: SingleChildScrollView(
                                 child: Container(
@@ -109,14 +111,17 @@ class _CarouselDemoState extends State<CarouselDemo> {
                 Expanded(
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          Icon(Icons.drive_file_rename_outline),
-                          Text(
-                            'name',
-                            style: TitleText(),
-                          ),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Icon(Icons.drive_file_rename_outline),
+                            Text(
+                              'name',
+                              style: TitleText(),
+                            ),
+                          ],
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -146,13 +151,16 @@ class _CarouselDemoState extends State<CarouselDemo> {
                                 offset: Offset(0, 1),
                               ),
                             ],
-                          ),                          child: Padding(
+                          ),
+                          child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: SingleChildScrollView(
                               child: Container(
                                 height: 300,
+                                width: 250,
                                 child: SelectableText(
-                                  '${assets?.iterable.elementAt(index).original.reference?.fragment?.string?.raw ?? ''}' ?? '',
+                                  '${assets?.iterable.elementAt(index).original.reference?.fragment?.string?.raw ?? ''}' ??
+                                      '',
                                 ),
                               ),
                             ),
@@ -170,28 +178,34 @@ class _CarouselDemoState extends State<CarouselDemo> {
                   width: 250,
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          Icon(Icons.loyalty_outlined),
-                          Text(
-                            'tags',
-                            style: TitleText(),
-                          ),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Icon(Icons.loyalty_outlined),
+                            Text(
+                              'tags',
+                              style: TitleText(),
+                            ),
+                          ],
+                        ),
                       ),
                       ChipInputWidget(),
                       SizedBox(height: 10),
-
-                      Row(
-                        children: [
-                          Icon(Icons.dataset_linked_rounded),
-                          Text(
-                            'related links',
-                            style: TitleText(),
-                          ),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Icon(Icons.dataset_linked_rounded),
+                            Text(
+                              'related links',
+                              style: TitleText(),
+                            ),
+                          ],
+                        ),
                       ),
-                      RelatedLinkWidget(),   ],
+                      RelatedLinkWidget(),
+                    ],
                   ),
                 ),
               ],

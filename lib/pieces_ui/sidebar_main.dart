@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: NavRailExample(),
     );
   }
@@ -26,7 +27,7 @@ class NavRailExample extends StatefulWidget {
 
 class _NavRailExampleState extends State<NavRailExample> {
   int _selectedIndex = 0;
-  bool _isRailVisible = true;
+  bool _isRailVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +66,8 @@ class _NavRailExampleState extends State<NavRailExample> {
           Visibility(
             visible: _isRailVisible,
             child: NavigationRail(
+              leading: Text('Folders'),
+              trailing: Icon(Icons.settings),
               selectedIndex: _selectedIndex,
               onDestinationSelected: (int index) {
                 setState(() {
@@ -74,18 +77,18 @@ class _NavRailExampleState extends State<NavRailExample> {
               labelType: NavigationRailLabelType.none,
               destinations: const <NavigationRailDestination>[
                 NavigationRailDestination(
-                  icon: Icon(Icons.favorite_border),
-                  selectedIcon: Icon(Icons.favorite),
-                  label: Text('First'),
+                  icon: Icon(Icons.folder),
+                  selectedIcon: Icon(Icons.folder),
+                  label: Text('Favorites'),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.bookmark_border),
-                  selectedIcon: Icon(Icons.book),
-                  label: Text('Second'),
+                  icon: Icon(Icons.expand_more),
+                  selectedIcon: Icon(Icons.expand_more),
+                  label: Text('All Snippets', selectionColor: Colors.grey,),
                 ),
                 NavigationRailDestination(
-                  icon: Icon(Icons.star_border),
-                  selectedIcon: Icon(Icons.star),
+                  icon: Icon(Icons.expand_more),
+                  selectedIcon: Icon(Icons.expand_more),
                   label: Text('Third'),
                 ),
               ],
