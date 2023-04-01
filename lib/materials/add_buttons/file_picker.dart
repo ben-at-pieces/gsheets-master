@@ -74,7 +74,7 @@ class _FilePickerWidgetState extends State<FilePickerWidget> {
                         onPressed: () async {
                           if (_fileBytes != null) {
                             Asset createdAsset = await createImageAsset(_fileBytes!);
-                            print('Created asset: ${createdAsset.toJson()}');
+                            // print('Created asset: ${createdAsset.toJson().entries}');
                           }
 
                           _fileBytes?.toList();
@@ -228,10 +228,10 @@ hello chat GPT, please give me an explanation and example about the text below:
             }
           },
           child: Padding(
-            padding: const EdgeInsets.only(top: 16.0),
+            padding: const EdgeInsets.only(top: 15.0),
             child: Row(
               children: [
-                Icon(Icons.attach_file_outlined, color: Colors.black, size: 18),
+                Icon(Icons.attach_file_outlined, color: Colors.black, size: 20),
                 Text(
                   'attach',
                   style: TitleText(),

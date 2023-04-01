@@ -13,7 +13,6 @@ import 'package:flutter/services.dart';
 import '../../Tab_Peoples_List/peoples_list.dart';
 import '../../Tab_Plugins_and_More/plugins_and_more.dart';
 import '../../Tab_DashBoard/checkbox_class.dart';
-import '../../lists/relatedLists.dart';
 import '../../statistics_singleton.dart';
 import '../custom_classes.dart';
 

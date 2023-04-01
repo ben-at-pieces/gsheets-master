@@ -16,6 +16,10 @@ import '../Tab_Origin_Pie_Chart/BottomPieChartPopUp.dart';
 import '../Tab_Plugins_and_More/pluginButton.dart';
 import '../Tab_Plugins_and_More/plugins_and_more.dart';
 import '../create/create_function.dart';
+import '../google_sheets/Pieces_for_X.dart';
+import '../google_sheets/chrome.dart';
+import '../google_sheets/jetbrains.dart';
+import '../google_sheets/vs_code.dart';
 import '../init/src/gsheets.dart';
 import '../lists/relatedLists.dart';
 
@@ -32,7 +36,8 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(width: 15,),
               Card(
@@ -68,36 +73,45 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                 ),
               ),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  CustomIconButton(
-                    imageAssetPath: 'img_2.png',
-                    tooltip: 'Desktop',
-                    url: 'https://code.pieces.app/install',
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  CustomIconButton(
-                    imageAssetPath: 'vscode.png',
-                    tooltip: 'VS Code',
-                    url: 'https://marketplace.visualstudio.com/items?itemName=MeshIntelligentTechnologiesInc.pieces-vscode',
-                  ),
-                ],
-              ),
-              CustomIconButton(
-                imageAssetPath: 'jetbrains.png',
-                tooltip: 'JetBrains',
-                url: 'https://plugins.jetbrains.com/plugin/17328-pieces--save-search-share--reuse-code-snippets',
-              ),
-              CustomIconButton(
-                imageAssetPath: 'Chrome.png',
-                tooltip: 'Chrome',
-                url: 'https://chrome.google.com/webstore/detail/pieces-save-code-snippets/igbgibhbfonhmjlechmeefimncpekepm',
-              ),
+
+
+
+              Pieces_Gsheets(),
+              VSCodeAlertDialog(),
+              JetBrainsAlertDialog(),
+              ChromeAlertDialog(),
+
+              // Row(
+              //             mainAxisAlignment: MainAxisAlignment.end,
+              //             children: [
+              //               CustomIconButton(
+              //                 imageAssetPath: 'img_2.png',
+              //                 tooltip: 'Desktop',
+              //                 url: 'https://code.pieces.app/install',
+              //               ),
+              //             ],
+              //           ),
+
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: [
+              //     CustomIconButton(
+              //       imageAssetPath: 'vscode.png',
+              //       tooltip: 'VS Code',
+              //       url: 'https://marketplace.visualstudio.com/items?itemName=MeshIntelligentTechnologiesInc.pieces-vscode',
+              //     ),
+              //   ],
+              // ),
+              // CustomIconButton(
+              //   imageAssetPath: 'jetbrains.png',
+              //   tooltip: 'JetBrains',
+              //   url: 'https://plugins.jetbrains.com/plugin/17328-pieces--save-search-share--reuse-code-snippets',
+              // ),
+              // CustomIconButton(
+              //   imageAssetPath: 'Chrome.png',
+              //   tooltip: 'Chrome',
+              //   url: 'https://chrome.google.com/webstore/detail/pieces-save-code-snippets/igbgibhbfonhmjlechmeefimncpekepm',
+              // ),
 
 
 

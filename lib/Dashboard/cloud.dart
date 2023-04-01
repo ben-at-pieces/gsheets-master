@@ -11,7 +11,6 @@ import 'package:runtime_client/particle.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../Tab_Plugins_and_More/plugins_and_more.dart';
-import '../../lists/relatedLists.dart';
 import '../statistics_singleton.dart';
 import 'custom_classes.dart';
 
@@ -27,6 +26,7 @@ class CustomAlertDialog extends StatefulWidget {
 class _CustomAlertDialogState extends State<CustomAlertDialog> {
   late TextEditingController _textController;
 
+  int index = StatisticsSingleton().statistics?.asset.length.toInt() ?? 0;
   @override
   void initState() {
     super.initState();

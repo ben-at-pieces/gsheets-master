@@ -71,7 +71,7 @@ class SuggestedStyle extends TextStyle {
       : super(
     fontFamily: 'Roboto',
     fontSize: 15,
-    color: Colors.white,
+    color: Colors.black,
     // fontWeight: FontWeight.bold,
   );
 }

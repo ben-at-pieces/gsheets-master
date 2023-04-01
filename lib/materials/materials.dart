@@ -103,6 +103,9 @@ class _AssetGridPageState extends State<MaterialsPage> {
               ),
             ],
           ),
+          Divider(
+            height: 30,
+          ),
 
           /// The code displays a grid of assets with their
           /// names, original references, and images (if available).
@@ -159,36 +162,37 @@ class _AssetGridPageState extends State<MaterialsPage> {
                               height: 500,
                               child: uint8list != null
                                   ? Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-
-                                      AppBar(
-                                        leading: Icon(Icons.image, color: Colors.black87,),
-                                        backgroundColor: Colors.black12,
-                                        elevation: 0,
-                                        centerTitle: true,
-                                        title: SingleChildScrollView(
-                                          scrollDirection: Axis.horizontal,
-                                          child: Text(
-                                            'image name: ${asset.name ?? ''}',
-                                            style: TitleText(),
-                                            textAlign: TextAlign.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        AppBar(
+                                          leading: Icon(
+                                            Icons.image,
+                                            color: Colors.grey,
+                                          ),
+                                          backgroundColor: Colors.black12,
+                                          elevation: 0,
+                                          centerTitle: true,
+                                          title: SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: Text(
+                                              'image name: ${asset.name ?? ''}',
+                                              style: TitleText(),
+                                              textAlign: TextAlign.start,
+                                            ),
                                           ),
                                         ),
-                                      ),
-
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          height: 350,
-                                          width: 500,
-                                          child: Image.memory(
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            height: 350,
+                                            width: 500,
+                                            child: Image.memory(
                                               uint8list,
-                                              fit: BoxFit.contain,
+                                              fit: BoxFit.fitHeight,
                                             ),
+                                          ),
                                         ),
-                                      ),
-                                      IconButton(
+                                        IconButton(
                                           icon: Icon(Icons.copy),
                                           onPressed: () async {
                                             // await Clipboard.setData(ClipboardData(text: uint8list));
@@ -197,8 +201,8 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                             );
                                           },
                                         ),
-                                    ],
-                                  )
+                                      ],
+                                    )
 
                                   /// Displays a widget with the
                                   /// name and classification of an asset,
@@ -209,7 +213,10 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         AppBar(
-                                          leading: Icon(Icons.code, color: Colors.black87,),
+                                          leading: Icon(
+                                            Icons.code,
+                                            color: Colors.black87,
+                                          ),
                                           backgroundColor: Colors.black12,
                                           elevation: 0,
                                           centerTitle: true,
@@ -248,11 +255,12 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                           visible: !showCodeEditor,
                                           child: Container(
                                             height: 250,
+                                            width: 250,
                                             child: SingleChildScrollView(
                                               child: HighlightView(
                                                 rawString ?? '',
                                                 language:
-                                                    '${getAssetsToShow().elementAt(index).original.reference?.classification.generic.value?? ''}',
+                                                    '${getAssetsToShow().elementAt(index).original.reference?.classification.generic.value ?? ''}',
                                                 theme: githubTheme,
                                                 textStyle: TitleText(),
                                                 padding: EdgeInsets.all(16),
@@ -370,7 +378,8 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                         onPressed: () async {
                                           if (uint8list != null) {
                                             final byteData = uint8list.buffer.asByteData();
-                                            final base64Image = base64.encode(Uint8List.view(byteData.buffer));
+                                            final base64Image =
+                                                base64.encode(Uint8List.view(byteData.buffer));
                                             if (base64Image.length > 10000) {
                                               ScaffoldMessenger.of(context).showSnackBar(
                                                 SnackBar(
@@ -383,7 +392,8 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                                 ),
                                               );
                                             } else {
-                                              await Clipboard.setData(ClipboardData(text: base64Image));
+                                              await Clipboard.setData(
+                                                  ClipboardData(text: base64Image));
                                               ScaffoldMessenger.of(context).showSnackBar(
                                                 SnackBar(
                                                   content: Text(
@@ -410,7 +420,8 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                           }
                                         },
                                         style: ButtonStyle(
-                                          backgroundColor: MaterialStateProperty.resolveWith((states) => Colors.white),
+                                          backgroundColor: MaterialStateProperty.resolveWith(
+                                              (states) => Colors.white),
                                           side: MaterialStateProperty.all(
                                             BorderSide(
                                               color: Colors.grey,
@@ -442,7 +453,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                           ],
                                         ),
                                       ),
-
                                       SizedBox(width: 8),
                                       Padding(
                                         padding: const EdgeInsets.only(right: 8),

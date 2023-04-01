@@ -13,7 +13,6 @@ import 'package:runtime_client/particle.dart';
 import '../Dashboard/custom_classes.dart';
 import '../Dashboard/faqs.dart';
 import '../Dashboard/reference_GPT.dart/gpt_modify_text.dart';
-import '../lists/relatedLists.dart';
 import '../statistics_singleton.dart';
 import 'custom_text_buttons.dart';
 
@@ -388,7 +387,7 @@ hello chat GPT, please give me an explanation and example about the text below:
                   },
                 ),
                 LabeledChipButton(
-                  chipLabel: 'learn: ${prompts.toList().length}' ?? '',
+                  chipLabel: 'learn: ',
                   onPressed: () {
                     setState(() {
                       input = 'learn!';

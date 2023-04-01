@@ -12,7 +12,6 @@ import 'Dashboard/custom_classes.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
-import '../lists/relatedLists.dart';
 import '../statistics_singleton.dart';
 import 'dart:html';
 

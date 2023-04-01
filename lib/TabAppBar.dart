@@ -12,8 +12,6 @@ import 'package:core_openapi/api_client.dart';
 import 'package:flutter/material.dart';
 
 import 'DashBoard.dart';
-import 'Dashboard/Empty States/sample2.dart';
-import 'Dashboard/vertical_language_tabs.dart';
 import 'Language_Pie_List/pieChartWidget.dart';
 import 'Tab_Activity_Bar_Chart/bar_chart.dart';
 import 'Tab_Origin_Pie_Chart/originPieChart.dart';
@@ -21,7 +19,6 @@ import 'Tab_Plugins_and_More/plugins_and_more.dart';
 import 'Tab_Related_Links_List/related_links_List.dart';
 import 'Tab_Tags_List/tags_list.dart';
 import 'boot.dart';
-import 'jscon_converter/tree_from_json.dart';
 import 'materials/materials.dart';
 
 
@@ -112,13 +109,7 @@ class HomePageState extends State<TabAppBar> {
                     fontSize: 10,
                   ),
                 ),
-                // Text(
-                //   'People',
-                //   style:  TextStyle(
-                //     color: Colors.black,
-                //     fontSize: 10,
-                //   ),
-                // ),
+
                 Text(
                   'Tags',
                   style: TextStyle(

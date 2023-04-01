@@ -27,11 +27,11 @@ class SuggestedAssetsButton extends StatelessWidget {
           return TextButton(
             child: Chip(
               elevation: 4,
-              shadowColor: Colors.grey,
-              backgroundColor: Colors.black54,
+              shadowColor: Colors.black,
+              backgroundColor: Colors.white,
               label: Row(
                 children: [
-                  Icon(Icons.lightbulb_outline_sharp, color: Colors.white),
+                  Icon(Icons.lightbulb_outline_sharp, color: Colors.grey),
 
                   Text(
                     'Suggested: (${StatisticsSingleton().statistics?.suggestionsListed.length})',

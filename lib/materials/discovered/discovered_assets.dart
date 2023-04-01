@@ -31,11 +31,11 @@ class DiscoveredAssetsButton extends StatelessWidget {
             },
             child: Chip(
               elevation: 4,
-              shadowColor: Colors.grey,
-              backgroundColor: Colors.black54,
+              shadowColor: Colors.black,
+              backgroundColor: Colors.white,
               label: Row(
                 children: [
-                  Icon(Icons.travel_explore_rounded, color: Colors.white),
+                  Icon(Icons.travel_explore_rounded, color: Colors.grey),
                   Text(
                       'Discovered: (${StatisticsSingleton().statistics?.discoveredAssetsList.length})',
                       style: SuggestedStyle()
