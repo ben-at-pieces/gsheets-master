@@ -11,6 +11,8 @@ import '../Bottom_bar/bottom_appbar_class.dart';
 import '../Dashboard/custom_classes.dart';
 import '../create/create_function.dart';
 import '../init/src/gsheets.dart';
+import '../material_buttons/file_picker.dart';
+import 'attach_pieces.dart';
 
 
 
@@ -49,17 +51,28 @@ class _CustomAlertDialogState extends State<Pieces_Gsheets> {
                   Text('Pieces for X'),
                 ],
               ),
-              content: Container(
-                height: 200.0,
-                width: 400,
-                child: TextField(
-                  maxLines: null,
-                  controller: _textFieldController,
-                  decoration: InputDecoration(
-                    hintText: 'Enter your text',
-                    border: InputBorder.none,
+              content: Column(
+                children: [
+                  Container(
+                    height: 330.0,
+                    width: 400,
+                    child: TextField(
+                      maxLines: null,
+                      controller: _textFieldController,
+                      decoration: InputDecoration(
+                        // label: FilePickerSheets(textEditingController: _textFieldController,),
+                        hintText: 'Enter your text',
+                        border: InputBorder.none,
+                      ),
+                    ),
                   ),
-                ),
+                  FilePickerSheets(
+                    textEditingController: _textFieldController,
+                    // textButtonBuilder: (BuildContext context) {
+                    //   return Text('hello');
+                    // },
+                  ),
+                ],
               ),
               actions: <Widget>[
 

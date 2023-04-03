@@ -43,7 +43,7 @@ class _RelatedItemsState extends State<Dashboard> {
     // ),
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'Dashboard',
+        title: 'Search',
       ),
       body: DashboardBody(),
       bottomNavigationBar: CustomBottomAppBar(),

@@ -59,7 +59,7 @@ class HomePageState extends State<TabAppBar> {
               indicatorColor: Colors.black,
               tabs: [
                 Text(
-                  'Home',
+                  'Materials',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 10,
@@ -73,7 +73,7 @@ class HomePageState extends State<TabAppBar> {
                 // ),
                 //     ),
                 Text(
-                  'Materials',
+                  'Search',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 10,

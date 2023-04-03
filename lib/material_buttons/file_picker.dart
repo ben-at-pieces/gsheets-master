@@ -12,10 +12,12 @@ import '../../Dashboard/custom_classes.dart';
 
 class FilePickerWidget extends StatefulWidget {
   final TextEditingController textEditingController;
+  final Widget Function(BuildContext) textButtonBuilder; // new parameter
 
   const FilePickerWidget({
     Key? key,
     required this.textEditingController,
+    required this.textButtonBuilder, // initialize new parameter
   }) : super(key: key);
 
   @override

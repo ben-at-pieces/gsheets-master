@@ -45,6 +45,15 @@ class TitleText extends TextStyle {
     fontWeight: FontWeight.bold,
   );
 }
+class EditingTextStyle extends TextStyle {
+  EditingTextStyle()
+      : super(
+    fontFamily: 'Roboto',
+    fontSize: 10,
+    color: Colors.black,
+    fontWeight: FontWeight.bold,
+  );
+}
 
 class PluginsAndMore extends TextStyle {
   PluginsAndMore()

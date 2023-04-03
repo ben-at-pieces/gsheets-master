@@ -1,93 +1,100 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_highlight/flutter_highlight.dart';
-import 'package:flutter_highlight/themes/github.dart';
+import '../Dashboard/custom_classes.dart';
 
-class ToggleableWidget extends StatefulWidget {
-  final Uint8List? uint8list;
-  final String? rawString;
+class EditableTextWidget extends StatefulWidget {
+  final String initialText;
 
-  ToggleableWidget({this.uint8list, this.rawString, required bool value, required  Function(dynamic value) onChanged});
+  EditableTextWidget({required this.initialText});
 
   @override
-  _ToggleableWidgetState createState() => _ToggleableWidgetState();
+  _EditableTextWidgetState createState() => _EditableTextWidgetState();
 }
 
-class _ToggleableWidgetState extends State<ToggleableWidget> {
-  bool _isPreview = true;
-
-  TextEditingController _textEditingController = TextEditingController();
-
-  void _toggleView() {
-    setState(() {
-      _isPreview = !_isPreview;
-    });
-  }
+class _EditableTextWidgetState extends State<EditableTextWidget> {
+  late TextEditingController _textController;
+  bool _isEditing = false;
 
   @override
   void initState() {
     super.initState();
-    _textEditingController.text = widget.rawString ?? '';
+    _textController = TextEditingController(text: widget.initialText);
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Row(
           children: [
-            TextButton(
-              onPressed: () {
-                _toggleView();
-              },
-              child: Text(
-                _isPreview ? 'edit' : 'make some changes...',
-                style: TextStyle(
-                  color: _isPreview ? Colors.grey : Colors.black,
-                  fontWeight: _isPreview ? FontWeight.normal : FontWeight.bold,
+            Column(
+              children: [
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      _isEditing = !_isEditing;
+                    });
+                  },
+                  child: Text(
+                    _isEditing ? 'CANCEL' : 'EDIT',
+                    style: TitleText(),
+                  ),
                 ),
-              ),
+
+              ],
             ),
           ],
         ),
-        _isPreview
-            ? SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: SizedBox(
-            width: 400,
-            height: 50,
-            child: widget.uint8list != null
-                ? Image.memory(
-              widget.uint8list!,
-              fit: BoxFit.cover,
-            )
-                : Center(child: Text('No image')),
+        if (_isEditing)
+          Column(
+            children: [
+              Container(
+                width: 250,
+                height: 300,
+                child: TextField(
+                  autofocus: false,
+                  maxLines: null,
+                  controller: _textController,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelStyle: EditingTextStyle(),
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      'save',
+                      style: TitleText(),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      'close',
+                      style: TitleText(),
+                    ),
+                  ), ],
+              ),
+            ],
+          )
+        else if (_textController.text.isNotEmpty)
+          Container(
+            height: 200,
+            width: 250,
+            child: Text(''),
           ),
-        )
-            : TextField(
-          controller: _textEditingController,
-          readOnly: false,
-          decoration: InputDecoration(
-            suffixIcon: IconButton(
-              onPressed: () {
-                _textEditingController.clear();
-              },
-              icon: Icon(Icons.clear),
-            ),
-            hintText: 'Raw String',
-            border: OutlineInputBorder(),
-          ),
-          maxLines: null,
-          style: TextStyle(
-            fontFamily: 'RobotoMono',
-            fontSize: 14,
-            height: 1.5,
-          ),
-        ),
       ],
     );
+  }
 
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
   }
 }
