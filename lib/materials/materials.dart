@@ -15,6 +15,7 @@ import 'package:flutter_highlight/flutter_highlight.dart';
 import 'package:flutter_highlight/themes/github.dart';
 
 import '../Dashboard/reference_GPT.dart/gpt_modify_text.dart';
+import '../material_buttons/delete_button.dart';
 import '../material_buttons/material_copy_button.dart';
 import '../material_buttons/share button.dart';
 import 'discovered/discovered_assets.dart';
@@ -455,6 +456,52 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                           // Do something
                                         },
                                       ),
+
+                                      IconButton(
+                                        onPressed: () async {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: Text('Are you sure you want this deleted?'),
+                                                content: SingleChildScrollView(
+                                                  child: HighlightView(
+                                                    asset.original.reference?.fragment?.string
+                                                            ?.raw ??
+                                                        '',
+                                                    language:
+                                                        '${StatisticsSingleton().statistics?.classifications.keys.toString().toLowerCase() ?? ''}',
+                                                    theme: githubTheme,
+                                                    padding: EdgeInsets.all(16),
+                                                    textStyle: TitleText(),
+                                                  ),
+                                                ),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () => Navigator.of(context).pop(),
+                                                    child: Text('cancel'),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () async {
+                                                      Navigator.of(context).pop();
+                                                      Asset findAsset =
+                                                          (await assetsApi.assetsSnapshot())
+                                                              .iterable
+                                                              .elementAt(index);
+
+                                                      /// (2) define your indexed asset ID (string) from your assets snapshot
+                                                      String deleted = await assetsApi
+                                                          .assetsDeleteAsset(findAsset.id);
+                                                    },
+                                                    child: Text('delete'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                        icon: Icon(Icons.delete),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -537,23 +584,55 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                           ),
                                         ),
                                         SizedBox(width: 8),
-                                        ClipOval(
-                                          child: Material(
-                                            color: Colors.white, // button color
-                                            child: InkWell(
-                                              splashColor: Colors.grey,
-                                              child: SizedBox(
-                                                width: 30,
-                                                height: 30,
-                                                child: Icon(Icons.delete,
-                                                    color: Colors.black, size: 12),
-                                              ),
-                                              onTap: () {
-                                                // delete image
+
+                                        /// Deletes the indexed asset from a list of assets
+                                        /// and displays a delete icon button.
+                                        IconButton(
+                                          onPressed: () async {
+                                            await showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title:
+                                                      Text('Are you sure you want this deleted?'),
+                                                  content: SizedBox(
+                                                    height: 250,
+                                                    width: 250,
+                                                    child: Image.memory(
+                                                      uint8list!,
+                                                      fit: BoxFit.fitHeight,
+                                                    ),
+                                                  ),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () => Navigator.of(context).pop(),
+                                                      child: Text('cancel'),
+                                                    ),
+                                                    TextButton(
+                                                      onPressed: () async {
+                                                        Navigator.of(context).pop();
+
+                                                          SnackBar(
+                                                            content:
+                                                                Text('Asset deleted successfully.'),
+                                                            duration: Duration(seconds: 2),
+                                                        );
+
+                                                        Asset findAsset = asset;
+
+                                                        /// (2) define your indexed asset ID (string) from your assets snapshot
+                                                        String deleted = await assetsApi
+                                                            .assetsDeleteAsset(findAsset.id);
+                                                      },
+                                                      child: Text('delete'),
+                                                    ),
+                                                  ],
+                                                );
                                               },
-                                            ),
-                                          ),
-                                        ),
+                                            );
+                                          },
+                                          icon: Icon(Icons.delete),
+                                        )
                                       ],
                                     ),
                                   ),
