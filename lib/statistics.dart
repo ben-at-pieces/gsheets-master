@@ -123,10 +123,13 @@ Future<Statistics?> getStats() async {
   List<int>? bytes = assetsListed[index].original.reference?.file?.bytes?.raw.toList();
   List<int> _bytes = bytes?.toList() ?? [0];
   final UsersApi users = UsersApi(ApiClient(basePath: host));
-
   var snapshot = await users.usersSnapshot();
 
-  String picture = snapshot.iterable.first.picture ?? '';
+  String picture = '';
+
+  if (snapshot.iterable.first.picture != null) {
+    picture = snapshot.iterable.first.picture;
+  }
 
   List<UserProfile> usersSnapshot = snapshot.iterable;
 
@@ -141,9 +144,9 @@ Future<Statistics?> getStats() async {
   }
 // print(userProfilesList.length);
 
-  if (picture.isEmpty) {
-    String picture = '';
-  }
+  // if (picture.isEmpty) {
+  //   String picture = '';
+  // }
 
   /// ============== applications ====================================
 
