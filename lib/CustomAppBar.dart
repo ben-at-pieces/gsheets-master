@@ -30,16 +30,20 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     String userPic = StatisticsSingleton().statistics?.picture.toString() ?? '';
 
+
+    // backgroundImage: NetworkImage(
+    //   userPic,
+    //   scale: 1,
+    // ),
     return Container(
       color: Colors.white,
       child: ListTile(
         leading: CircleAvatar(
-          backgroundImage: NetworkImage(
-            userPic,
-            scale: 1,
-          ),
-          radius: 20,
+          // backgroundImage: AssetImage('img_3.png'),
+          foregroundImage: AssetImage('img_5.png'),
+          radius: 35,
         ),
+
         title: Text(
           title,
           style: ParticleFont.micro(

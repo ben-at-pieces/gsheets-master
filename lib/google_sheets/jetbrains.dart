@@ -11,6 +11,7 @@ import '../Bottom_bar/bottom_appbar_class.dart';
 import '../Dashboard/custom_classes.dart';
 import '../create/create_function.dart';
 import '../init/src/gsheets.dart';
+import 'attach_pieces.dart';
 
 
 class JetBrainsAlertDialog extends StatefulWidget {
@@ -63,6 +64,14 @@ class _CustomVSCodeAlertDialogState extends State<JetBrainsAlertDialog> {
               ),
               actions: <Widget>[
 
+                FilePickerSheets(
+                  textEditingController: _textFieldController,
+                  // textButtonBuilder: (BuildContext context) {
+                  //   return Text('hello');
+                  // },
+                ),
+
+
                 TextButton(
                   child: Row(
                     children: [
@@ -105,7 +114,7 @@ class _CustomVSCodeAlertDialogState extends State<JetBrainsAlertDialog> {
 
 
                 TextButton(
-                  child: Text('Close'),
+                  child: Text('Close', style: TitleText(),),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },

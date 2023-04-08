@@ -35,10 +35,18 @@ class DiscoveredAssetsButton extends StatelessWidget {
               backgroundColor: Colors.white,
               label: Row(
                 children: [
-                  Icon(Icons.travel_explore_rounded, color: Colors.grey),
-                  Text(
-                      'Discovered: (${StatisticsSingleton().statistics?.discoveredAssetsList.length})',
-                      style: SuggestedStyle()
+                  SizedBox(
+                    height: 30,
+                    width: 30,
+                    child: Image.asset(
+                      'discover.png',
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                        'Discovered: (${StatisticsSingleton().statistics?.discoveredAssetsList.length})',
+                        style: TitleText()),
                   ),
                 ],
               ),
@@ -70,7 +78,7 @@ void _showDiscoveredAssets(BuildContext context, List<Asset> discoveredAssetsLis
                 SizedBox(width: 16),
                 Text(
                   'Discovered: ${StatisticsSingleton().statistics?.discoveredAssetsList.length ?? 0}',
-                  style: SnippetTitleText(),
+                  style: TitleText(),
                 ),
                 IconButton(
                   icon: Icon(Icons.close),

@@ -66,6 +66,17 @@ class PluginsAndMore extends TextStyle {
   );
 }
 
+class TitleGreyText extends TextStyle {
+  TitleGreyText()
+      : super(
+    fontFamily: 'Roboto',
+    fontSize: 20,
+    color: Colors.black,
+    fontWeight: FontWeight.bold,
+  );
+}
+
+
 class TitleBlackText extends TextStyle {
   TitleBlackText()
       : super(
@@ -90,6 +101,14 @@ class CustomIcon extends Icon {
       : super(
     icon,
     size: 18,
+    color: Colors.grey,
+  );
+}
+class DeleteIcon extends Icon {
+  DeleteIcon(IconData icon)
+      : super(
+    icon,
+    size: 14,
     color: Colors.grey,
   );
 }

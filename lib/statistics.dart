@@ -128,8 +128,19 @@ Future<Statistics?> getStats() async {
   String picture = '';
 
   if (snapshot.iterable.first.picture != null) {
-    picture = snapshot.iterable.first.picture;
+  String  picture = snapshot.iterable.first.picture;
   }
+  // if (snapshot.iterable.isEmpty) {
+  //   picture =
+  // }
+
+
+
+
+  // if (picture == null || picture.isEmpty) {
+  //   // Set a default icon in place of the image
+  //   picture = 'https://www.notion.so/getpieces/app_icon_white-a8b8562d3b2d4a04a105a273801d5a95?pvs=4';
+  // }
 
   List<UserProfile> usersSnapshot = snapshot.iterable;
 

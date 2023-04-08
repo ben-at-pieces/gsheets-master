@@ -93,7 +93,7 @@ class CopyToClipboardButton extends StatelessWidget {
           SizedBox(width: 4),
           Text(
             'copy',
-            // style: PluginsAndMore(),
+            style: TextStyle(color: Colors.black, fontSize: 10),
           ),
         ],
       ),

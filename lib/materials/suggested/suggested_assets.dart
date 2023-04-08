@@ -31,11 +31,14 @@ class SuggestedAssetsButton extends StatelessWidget {
               backgroundColor: Colors.white,
               label: Row(
                 children: [
-                  Icon(Icons.lightbulb_outline_sharp, color: Colors.grey),
+                  Icon(Icons.lightbulb, color: Colors.black, size: 20,),
 
-                  Text(
-                    'Suggested: (${StatisticsSingleton().statistics?.suggestionsListed.length})',
-                    style: SuggestedStyle()
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Suggested: (${StatisticsSingleton().statistics?.suggestionsListed.length})',
+                      style: TitleText()
+                    ),
                   ),
                 ],
               ),

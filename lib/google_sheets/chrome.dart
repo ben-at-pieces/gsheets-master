@@ -10,6 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../Bottom_bar/bottom_appbar_class.dart';
 import '../create/create_function.dart';
 import '../init/src/gsheets.dart';
+import 'attach_pieces.dart';
 
 class ChromeAlertDialog extends StatefulWidget {
   @override
@@ -59,6 +60,17 @@ class _CustomVSCodeAlertDialogState extends State<ChromeAlertDialog> {
                 ),
               ),
               actions: <Widget>[
+
+
+                FilePickerSheets(
+                  textEditingController: _textFieldController,
+                  // textButtonBuilder: (BuildContext context) {
+                  //   return Text('hello');
+                  // },
+                ),
+
+
+
                 TextButton(
                   child: Row(
                     children: [

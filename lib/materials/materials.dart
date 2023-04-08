@@ -145,6 +145,7 @@ class _AssetGridPageState extends State<MaterialsPage> {
                           backgroundColor: Colors.transparent,
                           child: Container(
                             width: 600,
+                            height: 500,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(16),
@@ -169,14 +170,14 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                   width: 500,
                                   height: 500,
                                   child: uint8list != null
-                                      ? Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: [
-                                            Card(
-                                              elevation: 4,
-                                              shadowColor: Colors.black,
-                                              child: AppBar(
+                                      ? Card(
+                                          elevation: 4,
+                                          shadowColor: Colors.grey,
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                            children: [
+                                              AppBar(
                                                 leading: Icon(
                                                   Icons.image,
                                                   color: Colors.grey,
@@ -187,48 +188,44 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                                 title: SingleChildScrollView(
                                                   scrollDirection: Axis.horizontal,
                                                   child: Text(
-                                                    'image name: ${asset.name ?? ''}',
+                                                    '${asset.name ?? ''}',
                                                     style: TitleText(),
                                                     textAlign: TextAlign.start,
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Container(
-                                                height: 350,
-                                                width: 500,
-                                                child: Image.memory(
-                                                  uint8list,
-                                                  fit: BoxFit.fitHeight,
+                                              Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Container(
+                                                  height: 350,
+                                                  width: 500,
+                                                  child: Image.memory(
+                                                    uint8list,
+                                                    fit: BoxFit.fitHeight,
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            Card(
-                                              elevation: 4,
-                                              shadowColor: Colors.black,
-                                              child: Row(
+                                              Row(
                                                 crossAxisAlignment: CrossAxisAlignment.center,
                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
                                                   IconButton(
                                                     icon: Icon(Icons.copy),
                                                     onPressed: () async {
-                                                      // await Clipboard.setData(ClipboardData(text: uint8list));
+                                                      await Clipboard.setData(ClipboardData(
+                                                          text: uint8list?.toList().toString()));
                                                       ScaffoldMessenger.of(context).showSnackBar(
                                                         SnackBar(
                                                             content: Text('Copied to clipboard')),
                                                       );
                                                     },
                                                   ),
-                                                  SizedBox(
-                                                    width: 30,
-                                                  ),
+                                                  SizedBox(width: 30),
                                                   IconButton(
                                                     icon: Icon(Icons.people_alt_outlined),
                                                     onPressed: () async {
-                                                      // await Clipboard.setData(ClipboardData(text: uint8list));
+                                                      await Clipboard.setData(ClipboardData(
+                                                          text: uint8list?.toList().toString()));
                                                       ScaffoldMessenger.of(context).showSnackBar(
                                                         SnackBar(
                                                             content: Text('Copied to clipboard')),
@@ -237,15 +234,9 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                                   ),
                                                 ],
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         )
-
-                                      /// Displays a widget with the
-                                      /// name and classification of an asset,
-                                      /// along with a code snippet that
-                                      /// can be toggled between a
-                                      /// read-only view and an editable view.
                                       : Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
@@ -268,10 +259,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                             ),
                                             Padding(
                                               padding: const EdgeInsets.all(8.0),
-
-                                              /// Displays a horizontally scrollable text widget with a bold,
-                                              /// uppercase classification value,
-                                              /// or an empty string if the value is null.
                                               child: Row(
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
@@ -282,11 +269,7 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                                               .specific.value
                                                               ?.toUpperCase() ??
                                                           '',
-                                                      style: TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                        fontSize: 20,
-                                                        color: Colors.grey,
-                                                      ),
+                                                      style: TitleGreyText(),
                                                       textAlign: TextAlign.start,
                                                     ),
                                                   ),
@@ -300,7 +283,7 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                                   Visibility(
                                                     visible: !showCodeEditor,
                                                     child: Container(
-                                                      height: 225,
+                                                      height: 350,
                                                       width: 250,
                                                       child: SingleChildScrollView(
                                                         child: HighlightView(
@@ -333,8 +316,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                                 ],
                                               ),
                                             ),
-
-                                            // ToggleableWidget(),
                                           ],
                                         ),
                                 ),
@@ -351,36 +332,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      // SingleChildScrollView(
-                      //   scrollDirection: Axis.horizontal,
-                      //   child: Padding(
-                      //     padding: const EdgeInsets.all(8.0),
-                      //     child: Text(
-                      //       asset.name?.toUpperCase() ?? '',
-                      //       style: TextStyle(fontWeight: FontWeight.bold),
-                      //       textAlign: TextAlign.start,
-                      //     ),
-                      //   ),
-                      // ),
-                      // SingleChildScrollView(
-                      //   scrollDirection: Axis.horizontal,
-                      //   child: Padding(
-                      //     padding: const EdgeInsets.all(2.0),
-                      //     child: Text(
-                      //       asset.original.reference?.classification.specific.value ?? '',
-                      //       style: TextStyle(
-                      //         fontWeight: FontWeight.bold,
-                      //         fontSize: 12,
-                      //         color: Colors.grey,
-                      //       ),
-                      //       textAlign: TextAlign.start,
-                      //     ),
-                      //   ),
-                      // ),
-                      // Divider(
-                      //   color: Colors.grey,
-                      //   thickness: 2,
-                      // ),
                       /// Creates a box with a fixed height of 8.0.
                       SizedBox(
                         height: 2.0,
@@ -402,34 +353,42 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
                                       asset.name?.toUpperCase() ?? '',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: TitleText(),
                                       textAlign: TextAlign.start,
                                     ),
                                   ),
                                 ),
-                                SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(2.0),
-                                    child: Text(
-                                      asset.original.reference?.classification.specific.value ?? '',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12,
-                                        color: Colors.grey,
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 30, top: 30.0),
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(2.0),
+                                      child: Container(
+                                        height: 250,
+                                        child: Text(
+                                          asset.original.reference?.classification.specific
+                                                  .value ??
+                                              '',
+                                          style: TitleText(),
+                                          textAlign: TextAlign.start,
+                                        ),
                                       ),
-                                      textAlign: TextAlign.start,
                                     ),
                                   ),
                                 ),
-                                SingleChildScrollView(
-                                  child: HighlightView(
-                                    asset.original.reference?.fragment?.string?.raw ?? '',
-                                    language:
-                                        '${StatisticsSingleton().statistics?.classifications.keys.toString().toLowerCase() ?? ''}',
-                                    theme: githubTheme,
-                                    padding: EdgeInsets.all(16),
-                                    textStyle: TitleText(),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 50.0),
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
+                                    child: HighlightView(
+                                      asset.original.reference?.fragment?.string?.raw ?? '',
+                                      language: 'dart',
+                                      // '${StatisticsSingleton().statistics?.classifications.keys.toString().toLowerCase() ?? ''}',
+                                      theme: githubTheme,
+                                      padding: EdgeInsets.all(16),
+                                      textStyle: TitleText(),
+                                    ),
                                   ),
                                 ),
                                 Positioned(
@@ -445,25 +404,18 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                   /// copied to the clipboard, and a
                                   /// snackbar is displayed to users
                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       CopyToClipboardButton(),
                                       SizedBox(width: 8),
-
-                                      /// This code creates a circular button with a share icon that,
-                                      /// when clicked, triggers a function to share an image.
-                                      ShareIconButton(
-                                        onTap: () {
-                                          // Do something
-                                        },
-                                      ),
-
                                       IconButton(
                                         onPressed: () async {
                                           await showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
                                               return AlertDialog(
-                                                title: Text('Are you sure you want this deleted?'),
+                                                title:
+                                                    Text('Are you sure you want this deleted?'),
                                                 content: SingleChildScrollView(
                                                   child: HighlightView(
                                                     asset.original.reference?.fragment?.string
@@ -492,6 +444,14 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                                       /// (2) define your indexed asset ID (string) from your assets snapshot
                                                       String deleted = await assetsApi
                                                           .assetsDeleteAsset(findAsset.id);
+
+                                                      ScaffoldMessenger.of(context).showSnackBar(
+                                                        SnackBar(
+                                                          content:
+                                                              Text('Asset deleted successfully.'),
+                                                          duration: Duration(seconds: 2),
+                                                        ),
+                                                      );
                                                     },
                                                     child: Text('delete'),
                                                   ),
@@ -500,7 +460,7 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                             },
                                           );
                                         },
-                                        icon: Icon(Icons.delete),
+                                        icon: Icon(Icons.delete, size: 30),
                                       )
                                     ],
                                   ),
@@ -527,10 +487,7 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                     SizedBox(height: 2),
                                     Text(
                                       asset.original.reference?.classification.specific.value ?? '',
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey,
-                                          backgroundColor: Colors.white),
+                                      style: TitleText(),
                                     ),
                                   ],
                                 ),
@@ -588,51 +545,76 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                         /// Deletes the indexed asset from a list of assets
                                         /// and displays a delete icon button.
                                         IconButton(
+                                          style: ButtonStyle(
+                                            backgroundColor: MaterialStateProperty.resolveWith(
+                                                (states) => Colors.white12),
+                                            side: MaterialStateProperty.all(
+                                                BorderSide(color: Colors.grey, width: 1.0)),
+                                            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(20.0))),
+                                            overlayColor: MaterialStateProperty.all(Colors.black12),
+                                          ),
+                                          icon: Icon(
+                                            Icons.delete,
+                                            size: 20,
+                                          ),
                                           onPressed: () async {
-                                            await showDialog(
+                                            final shouldDelete = await showDialog<bool>(
                                               context: context,
-                                              builder: (BuildContext context) {
-                                                return AlertDialog(
-                                                  title:
-                                                      Text('Are you sure you want this deleted?'),
-                                                  content: SizedBox(
-                                                    height: 250,
-                                                    width: 250,
-                                                    child: Image.memory(
-                                                      uint8list!,
-                                                      fit: BoxFit.fitHeight,
+                                              builder: (context) => AlertDialog(
+                                                title: Text(
+                                                    'Are you sure you want to delete this asset?'),
+                                                content: SizedBox(
+                                                  height: 150,
+                                                  width: 150,
+                                                  child: Image.memory(
+                                                    uint8list!,
+                                                    fit: BoxFit.fitHeight,
+                                                  ),
+                                                ),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.of(context).pop(false),
+                                                    child: Text(
+                                                      'Cancel',
+                                                      style: TitleText(),
                                                     ),
                                                   ),
-                                                  actions: [
-                                                    TextButton(
-                                                      onPressed: () => Navigator.of(context).pop(),
-                                                      child: Text('cancel'),
+                                                  TextButton(
+                                                    onPressed: () async {
+                                                      Navigator.of(context).pop(true);
+                                                    },
+                                                    child: Text(
+                                                      'Delete',
+                                                      style: TitleText(),
                                                     ),
-                                                    TextButton(
-                                                      onPressed: () async {
-                                                        Navigator.of(context).pop();
-
-                                                          SnackBar(
-                                                            content:
-                                                                Text('Asset deleted successfully.'),
-                                                            duration: Duration(seconds: 2),
-                                                        );
-
-                                                        Asset findAsset = asset;
-
-                                                        /// (2) define your indexed asset ID (string) from your assets snapshot
-                                                        String deleted = await assetsApi
-                                                            .assetsDeleteAsset(findAsset.id);
-                                                      },
-                                                      child: Text('delete'),
-                                                    ),
-                                                  ],
-                                                );
-                                              },
+                                                  ),
+                                                ],
+                                              ),
                                             );
+
+                                            if (shouldDelete != null && shouldDelete) {
+                                              try {
+                                                final deletedAsset =
+                                                    await assetsApi.assetsDeleteAsset(asset.id);
+                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                  SnackBar(
+                                                    content: Text('Asset deleted successfully.'),
+                                                    duration: Duration(seconds: 2),
+                                                  ),
+                                                );
+                                              } catch (e) {
+                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                  SnackBar(
+                                                    content: Text('Error deleting asset: $e'),
+                                                    duration: Duration(seconds: 2),
+                                                  ),
+                                                );
+                                              }
+                                            }
                                           },
-                                          icon: Icon(Icons.delete),
-                                        )
+                                        ),
                                       ],
                                     ),
                                   ),

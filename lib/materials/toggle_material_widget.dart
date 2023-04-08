@@ -1,3 +1,7 @@
+// ignore_for_file: omit_local_variable_types
+
+import 'package:core_openapi/api.dart';
+import 'package:core_openapi/api_client.dart';
 import 'package:flutter/material.dart';
 import '../Dashboard/custom_classes.dart';
 
@@ -64,15 +68,55 @@ class _EditableTextWidgetState extends State<EditableTextWidget> {
               Row(
                 children: [
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () async {    String port = '1000';
+                    String host = 'http://localhost:$port';
+                    final AssetsApi assetsApi = AssetsApi(ApiClient(basePath: host));
+
+                    final ApplicationsApi applicationsApi =
+                        await ApplicationsApi(ApiClient(basePath: host));
+
+                    Applications applicationsSnapshot =
+                        await applicationsApi.applicationsSnapshot();
+
+                    var first = applicationsSnapshot.iterable.first;
+
+                    final Asset response = await assetsApi.assetsCreateNewAsset(
+                      seed: Seed(
+                        asset: SeededAsset(
+                          application: Application(
+                            privacy: first.privacy,
+                            name: first.name,
+                            onboarded: first.onboarded,
+                            platform: first.platform,
+                            version: first.version,
+                            id: first.id,
+                          ),
+                          format: SeededFormat(
+                            fragment: SeededFragment(
+                              string: TransferableString(
+                                raw: _textController.text,
+                              ),
+                            ),
+                          ),
+                        ),
+                        type: SeedTypeEnum.ASSET,
+                      ),
+                    );
+                    _textController.clear();
+                    Navigator.of(context).pop();
+                    },
                     child: Text(
                       'save',
                       style: TitleText(),
                     ),
                   ),
                   TextButton(
-                    onPressed: () {
+                    onPressed: () async {
+
+                      _textController.clear();
                       Navigator.of(context).pop();
+
+
                     },
                     child: Text(
                       'close',

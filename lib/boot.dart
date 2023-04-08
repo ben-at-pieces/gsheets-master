@@ -14,6 +14,7 @@ String host = 'http://localhost:1000';
 AssetsApi assetsApi = AssetsApi(ApiClient(basePath: host));
 AssetApi assetApi = AssetApi(ApiClient(basePath: host));
 
+/// The code attempts to connect to a server at localhost:1000 with an application named SUBLIME, version debug, and platform MACOS. It sends a POST request with the application information and prints a success message if the connection is established.
 class Boot {
   Future<bool> connect() async {
     print('Trying to connect..');

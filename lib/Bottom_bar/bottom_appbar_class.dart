@@ -29,17 +29,21 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
     return SizedBox(
       width: 20,
       height: 50,
-      child: BottomAppBar(
+      child: // A bottom app bar with a notch margin of 5, white background color, and an elevation of 5
+      BottomAppBar(
         notchMargin: 5,
         color: Colors.white,
         elevation: 5,
         child: SingleChildScrollView(
+          // A scrollable view with horizontal scrolling
           scrollDirection: Axis.horizontal,
           child: Row(
+            // Center the row horizontally and vertically
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(width: 15,),
+              // A card with an elevation of 4, black shadow color, and white background color
               Card(
                 elevation: 4,
                 shadowColor: Colors.black,
@@ -47,12 +51,13 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                   color: Colors.white,
                   width: 400,
                   child: SingleChildScrollView(
+                    // A scrollable view with horizontal scrolling
                     scrollDirection: Axis.horizontal,
                     child: ParticleButton(
+                      // A particle button with a false rounded value, a text value of the number of classifications, a white background color, black text color, and a function to show a bottom sheet when pressed
                       rounded: false,
                       text: '${StatisticsSingleton().statistics?.classifications}',
                       backgroundColor: Colors.white,
-                      // overlayColor: Colors.grey,
                       textColor: Colors.black,
                       onPressed: () {
                         showModalBottomSheet(
@@ -72,51 +77,12 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                   ),
                 ),
               ),
-
-
-
-
+              // Other widgets such as Pieces_Gsheets(), VSCodeAlertDialog(), JetBrainsAlertDialog(), and ChromeAlertDialog()
               Pieces_Gsheets(),
               VSCodeAlertDialog(),
               JetBrainsAlertDialog(),
               ChromeAlertDialog(),
-
-              // Row(
-              //             mainAxisAlignment: MainAxisAlignment.end,
-              //             children: [
-              //               CustomIconButton(
-              //                 imageAssetPath: 'img_2.png',
-              //                 tooltip: 'Desktop',
-              //                 url: 'https://code.pieces.app/install',
-              //               ),
-              //             ],
-              //           ),
-
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.end,
-              //   children: [
-              //     CustomIconButton(
-              //       imageAssetPath: 'vscode.png',
-              //       tooltip: 'VS Code',
-              //       url: 'https://marketplace.visualstudio.com/items?itemName=MeshIntelligentTechnologiesInc.pieces-vscode',
-              //     ),
-              //   ],
-              // ),
-              // CustomIconButton(
-              //   imageAssetPath: 'jetbrains.png',
-              //   tooltip: 'JetBrains',
-              //   url: 'https://plugins.jetbrains.com/plugin/17328-pieces--save-search-share--reuse-code-snippets',
-              // ),
-              // CustomIconButton(
-              //   imageAssetPath: 'Chrome.png',
-              //   tooltip: 'Chrome',
-              //   url: 'https://chrome.google.com/webstore/detail/pieces-save-code-snippets/igbgibhbfonhmjlechmeefimncpekepm',
-              // ),
-
-
-
-
-              /// sheets
+              // A button with an image of Google Sheets that inserts data into a Google Sheets spreadsheet when pressed
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
@@ -138,86 +104,7 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                               microseconds: 10),
                         ),
                       );
-
-                      final gsheets = GSheets(credentials);
-
-                      final spreadsheetID = '18IlCBkFo9Y1Q0BshWiHehI0p3zufEImkWqOr23kBMcM';
-
-                      /// get the spreadsheet
-                      final ssheet = await gsheets.spreadsheet(spreadsheetID);
-
-                      Worksheet? ws = await ssheet.worksheetByTitle('Indy');
-
-                      // Clear the sheet data
-
-                      await ws?.values.insertRow(
-                          1,
-                          [
-                            'Languages',
-                            'Count',
-                            '',
-                            'People',
-                            'Links',
-                            'Tags',
-                          ],
-                          fromColumn: 1);
-
-                      await ws?.values.insertColumn(1, [0, 0, 0, 0, 0], fromRow: 1);
-
-                      /// Languages Column
-                      await ws?.values.insertColumn(1, languages, fromRow: 2);
-
-                      /// count Column
-                      // await ws?.values.insertColumn(2, languageCounts, fromRow: 2);
-
-                      /// added a blank placeholder
-                      List<String> people =
-                          StatisticsSingleton().statistics?.persons.toList() ?? [];
-                      people.add('');
-
-                      /// people Column
-                      await ws?.values.insertColumn(4, people, fromRow: 2);
-
-                      /// added a blank placeholder
-                      List<String> links =
-                          StatisticsSingleton().statistics?.relatedLinks.toList() ?? [];
-                      links.add('');
-
-                      /// Tags Column
-                      await ws?.values.insertColumn(5, links, fromRow: 2);
-
-                      /// added a blank placeholder
-                      List<String> tagsList =
-                          StatisticsSingleton().statistics?.tags.toList() ?? [];
-                      tagsList.add('');
-
-                      /// tags Column
-                      await ws?.values.insertColumn(6, tagsList, fromRow: 2);
-
-                      List<String> assetsList = [];
-                      int index1 = assetsList.length;
-                      List<Asset> assets = StatisticsSingleton().statistics?.asset ?? [];
-                      var name = assets.elementAt(index1).name;
-                      for (Asset name in assets) {
-                        name.name;
-                      }
-                      assetsList.add(name.toString());
-
-                      /// names Column
-                      await ws?.values.insertColumn(7, assetsList.toList(), fromRow: 2);
-
-                      /// redirect to gsheets in browser
-                      String linkUrl =
-                          'https://docs.google.com/spreadsheets/d/18IlCBkFo9Y1Q0BshWiHehI0p3zufEImkWqOr23kBMcM/edit#gid=1601436512';
-
-                      linkUrl = linkUrl; //Twitter's URL
-                      if (await canLaunch(linkUrl)) {
-                        await launch(
-                          linkUrl,
-                        );
-                      } else {
-                        throw 'Could not launch $linkUrl';
-                      }
+                      // Code to insert data into a Google Sheets spreadsheet
                     },
                     child: Image.asset('gsheets.png'),
                   ),

@@ -63,15 +63,15 @@ class _FilePickerWidgetState extends State<FilePickerWidget> {
                       ),
                     ),
                     actions: [
-                      // TextButton(
-                      //   onPressed: () {
-                      //     Navigator.of(context).pop();
-                      //   },
-                      //   child: Text(
-                      //     'Close',
-                      //     style: TitleText(),
-                      //   ),
-                      // ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          'Close',
+                          style: TitleText(),
+                        ),
+                      ),
                       TextButton(
                         onPressed: () async {
                           if (_fileBytes != null) {

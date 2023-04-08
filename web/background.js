@@ -1,3 +1,4 @@
+ /// This code listens for a command called "inject-script" and if it is received, it enables the extension, sets the popup to "index.html", and logs a message saying the extension has been activated.
 chrome.commands.onCommand.addListener(function(command) {
     if (command === "inject-script") {
         chrome.action.enable().then(() => {

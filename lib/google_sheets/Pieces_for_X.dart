@@ -51,31 +51,26 @@ class _CustomAlertDialogState extends State<Pieces_Gsheets> {
                   Text('Pieces for X'),
                 ],
               ),
-              content: Column(
-                children: [
-                  Container(
-                    height: 330.0,
-                    width: 400,
-                    child: TextField(
-                      maxLines: null,
-                      controller: _textFieldController,
-                      decoration: InputDecoration(
-                        // label: FilePickerSheets(textEditingController: _textFieldController,),
-                        hintText: 'Enter your text',
-                        border: InputBorder.none,
-                      ),
-                    ),
+              content: Container(
+                height: 200.0,
+                width: 400,
+                child: TextField(
+                  maxLines: null,
+                  controller: _textFieldController,
+                  decoration: InputDecoration(
+                    // label: FilePickerSheets(textEditingController: _textFieldController,),
+                    hintText: 'Enter your text',
+                    border: InputBorder.none,
                   ),
-                  FilePickerSheets(
-                    textEditingController: _textFieldController,
-                    // textButtonBuilder: (BuildContext context) {
-                    //   return Text('hello');
-                    // },
-                  ),
-                ],
+                ),
               ),
               actions: <Widget>[
-
+                FilePickerSheets(
+                  textEditingController: _textFieldController,
+                  // textButtonBuilder: (BuildContext context) {
+                  //   return Text('hello');
+                  // },
+                ),
                 TextButton(
                   child: Row(
                     children: [
@@ -117,7 +112,7 @@ class _CustomAlertDialogState extends State<Pieces_Gsheets> {
                 ),
 
                 TextButton(
-                  child: Text('Close'),
+                  child: Text('Close', style: TitleText(),),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
