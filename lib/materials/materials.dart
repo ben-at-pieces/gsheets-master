@@ -204,41 +204,13 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                               Padding(
                                                 padding: const EdgeInsets.all(8.0),
                                                 child: Container(
-                                                  // height: 350,
-                                                  width: 250,
+                                                  height: 300,
+                                                  width: 300,
                                                   child: Image.memory(
                                                     uint8list,
-                                                    fit: BoxFit.contain,
+                                                    fit: BoxFit.cover,
                                                   ),
                                                 ),
-                                              ),
-                                              Container(
-                                                height: 80.0,
-                                                width: 400,
-                                                child: TextField(
-                                                  maxLines: 5,
-                                                  // controller: Image(),
-                                                  decoration: InputDecoration(
-                                                    // label: FilePickerSheets(textEditingController: _textFieldController,),
-                                                    hintText: 'Enter your text',
-                                                    enabledBorder: OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        style: BorderStyle.solid,
-                                                        color: Colors.grey,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Row(
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Pieces_Gsheets(),
-                                                  VSCodeAlertDialog(),
-                                                  JetBrainsAlertDialog(),
-                                                  ChromeAlertDialog(),
-                                                ],
                                               ),
                                               Row(
                                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -263,16 +235,18 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                                       );
 
                                                       if (bytes != null) {
-                                                        final image = await decodeImageFromList(Uint8List.fromList(bytes));
+                                                        final image = await decodeImageFromList(
+                                                            Uint8List.fromList(bytes));
                                                         if (image != null) {
-                                                          final pngBytes = await image.toByteData(format: ImageByteFormat.png);
+                                                          final pngBytes = await image.toByteData(
+                                                              format: ImageByteFormat.png);
                                                           await Clipboard.setData(
                                                             ClipboardData(
-                                                               text: '${pngBytes}',
-                                                          ),
-                                                      );
-                                                    }
-                                                    }
+                                                              text: '${pngBytes}',
+                                                            ),
+                                                          );
+                                                        }
+                                                      }
                                                     },
                                                     child: IconButton(
                                                       icon: Icon(
@@ -283,10 +257,32 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                                       onPressed: null,
                                                     ),
                                                   ),
-
-                                                  SizedBox(width: 30),
+                                                  Pieces_Gsheets(),
+                                                  VSCodeAlertDialog(),
+                                                  JetBrainsAlertDialog(),
+                                                  ChromeAlertDialog(),
                                                 ],
                                               ),
+                                              Container(
+                                                height: 40.0,
+                                                width: 400,
+                                                child: TextField(
+                                                  maxLines: 5,
+                                                  // controller: Image(),
+                                                  decoration: InputDecoration(
+                                                    // label: FilePickerSheets(textEditingController: _textFieldController,),
+                                                    hintText: 'Describe it...',
+                                                    hintStyle: TitleText(),
+                                                    enabledBorder: OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        style: BorderStyle.solid,
+                                                        color: Colors.grey,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+
                                             ],
                                           ),
                                         )
@@ -559,8 +555,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                         /// This code creates a button with an icon that, when pressed, shows a brief message and copies some text to the clipboard.
                                         GestureDetector(
                                           onTap: () async {
-
-
                                             if (bytes != null) {
                                               final image = await decodeImageFromList(
                                                   Uint8List.fromList(bytes));
@@ -577,30 +571,28 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                             ;
                                           },
                                           child: IconButton(
-                                            icon: Icon(
-                                              Icons.copy,
-                                              color: Colors.black,
-                                              size: 20,
-                                            ),
-                                            onPressed: () {
-                                              ScaffoldMessenger.of(context).showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    'Copied to Clipboard',
+                                              icon: Icon(
+                                                Icons.copy,
+                                                color: Colors.black,
+                                                size: 20,
+                                              ),
+                                              onPressed: () {
+                                                ScaffoldMessenger.of(context).showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                      'Copied to Clipboard',
+                                                    ),
+                                                    duration: Duration(
+                                                      days: 0,
+                                                      hours: 0,
+                                                      minutes: 0,
+                                                      seconds: 1,
+                                                      milliseconds: 30,
+                                                      microseconds: 10,
+                                                    ),
                                                   ),
-                                                  duration: Duration(
-                                                    days: 0,
-                                                    hours: 0,
-                                                    minutes: 0,
-                                                    seconds: 1,
-                                                    milliseconds: 30,
-                                                    microseconds: 10,
-                                                  ),
-                                                ),
-                                              );
-
-                                            }
-                                          ),
+                                                );
+                                              }),
                                         ),
 
                                         /// Deletes the indexed asset from a list of assets

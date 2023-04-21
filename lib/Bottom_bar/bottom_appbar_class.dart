@@ -44,72 +44,74 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
             children: [
               SizedBox(width: 15,),
               // A card with an elevation of 4, black shadow color, and white background color
-              Card(
-                elevation: 4,
-                shadowColor: Colors.black,
-                child: Container(
-                  color: Colors.white,
-                  width: 400,
-                  child: SingleChildScrollView(
-                    // A scrollable view with horizontal scrolling
-                    scrollDirection: Axis.horizontal,
-                    child: ParticleButton(
-                      // A particle button with a false rounded value, a text value of the number of classifications, a white background color, black text color, and a function to show a bottom sheet when pressed
-                      rounded: false,
-                      text: '${StatisticsSingleton().statistics?.classifications}',
-                      backgroundColor: Colors.white,
-                      textColor: Colors.black,
-                      onPressed: () {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Container(
-                              height: 500,
-                              width: 330,
-                              child: Center(
-                                child: BottomPieChart(),
-                              ),
-                            );
-                          },
-                        );
-                      },
+              Container(
+                color: Colors.white,
+                width: 500,
+                child: SingleChildScrollView(
+                  // A scrollable view with horizontal scrolling
+                  scrollDirection: Axis.horizontal,
+                  child: TextButton(
+                    // A particle button with a false rounded value, a text value of the number of classifications, a white background color, black text color, and a function to show a bottom sheet when pressed
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Container(
+                            height: 500,
+                            width: 330,
+                            child: Center(
+                              child: BottomPieChart(),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: Text('${StatisticsSingleton().statistics?.classifications}',
+                        style: TitleText(),
                     ),
                   ),
                 ),
               ),
               // Other widgets such as Pieces_Gsheets(), VSCodeAlertDialog(), JetBrainsAlertDialog(), and ChromeAlertDialog()
-              Pieces_Gsheets(),
-              VSCodeAlertDialog(),
-              JetBrainsAlertDialog(),
-              ChromeAlertDialog(),
-              // A button with an image of Google Sheets that inserts data into a Google Sheets spreadsheet when pressed
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  height: 35,
-                  width: 35,
-                  child: TextButton(
-                    onPressed: () async {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'hold tight while we gather your snapshot!',
-                          ),
-                          duration: Duration(
-                              days: 0,
-                              hours: 0,
-                              minutes: 0,
-                              seconds: 4,
-                              milliseconds: 30,
-                              microseconds: 10),
-                        ),
-                      );
-                      // Code to insert data into a Google Sheets spreadsheet
-                    },
-                    child: Image.asset('gsheets.png'),
-                  ),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Pieces_Gsheets(),
+                  VSCodeAlertDialog(),
+                  JetBrainsAlertDialog(),
+                  ChromeAlertDialog(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      height: 35,
+                      width: 35,
+                      child: TextButton(
+                        onPressed: () async {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'hold tight while we gather your snapshot!',
+                              ),
+                              duration: Duration(
+                                  days: 0,
+                                  hours: 0,
+                                  minutes: 0,
+                                  seconds: 4,
+                                  milliseconds: 30,
+                                  microseconds: 10),
+                            ),
+                          );
+                          // Code to insert data into a Google Sheets spreadsheet
+                        },
+                        child: Image.asset('gsheets.png'),
+                      ),
+                    ),
+                  ),  ],
               ),
+
+              // A button with an image of Google Sheets that inserts data into a Google Sheets spreadsheet when pressed
+
             ],
           ),
         ),

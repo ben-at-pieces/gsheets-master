@@ -9,10 +9,10 @@ import '../../boot.dart';
 import '../../statistics_singleton.dart';
 
 class SuggestedAssetsButton extends StatelessWidget {
-
   Future<Assets> getAssetsSnapshot() async {
     return await assetsApi.assetsSnapshot(suggested: true, transferables: false);
   }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Assets>(
@@ -25,27 +25,32 @@ class SuggestedAssetsButton extends StatelessWidget {
         } else if (snapshot.hasData) {
           final assets = snapshot.data?.iterable.toList() ?? [];
           return TextButton(
+            onPressed: () {
+              _showSuggestedSnippets(context);
+            },
             child: Chip(
               elevation: 4,
               shadowColor: Colors.black,
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.black12,
               label: Row(
                 children: [
-                  Icon(Icons.lightbulb, color: Colors.black, size: 20,),
-
+                  Icon(
+                    Icons.lightbulb,
+                    color: Colors.yellowAccent,
+                    size: 20,
+                  ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(4.0),
                     child: Text(
                       'Suggested: (${StatisticsSingleton().statistics?.suggestionsListed.length})',
-                      style: TitleText()
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-            onPressed: () {
-              _showSuggestedSnippets(context);
-            },
           );
         } else {
           return const Text('No data found.');
@@ -54,6 +59,7 @@ class SuggestedAssetsButton extends StatelessWidget {
     );
   }
 }
+
 /// This code displays a modal bottom sheet with a list of suggested snippets,
 /// including their names, descriptions, and classifications.
 /// The user can copy the snippet to the clipboard or view more details.
@@ -86,14 +92,14 @@ void _showSuggestedSnippets(BuildContext context) {
               itemCount: StatisticsSingleton().statistics?.suggestedCount ?? 0,
               itemBuilder: (context, index) {
                 String rawSnippet = StatisticsSingleton()
-                    .statistics
-                    ?.suggestionsListed
-                    .elementAt(index)
-                    .original
-                    .reference
-                    ?.fragment
-                    ?.string
-                    ?.raw ??
+                        .statistics
+                        ?.suggestionsListed
+                        .elementAt(index)
+                        .original
+                        .reference
+                        ?.fragment
+                        ?.string
+                        ?.raw ??
                     '';
 
                 return Card(
@@ -108,13 +114,11 @@ void _showSuggestedSnippets(BuildContext context) {
                       child: SingleChildScrollView(
                         scrollDirection: Axis.vertical,
                         child: Text(
-                            StatisticsSingleton().statistics?.suggestedDesc.elementAt(index) ??
-                                ''),
+                            StatisticsSingleton().statistics?.suggestedDesc.elementAt(index) ?? ''),
                       ),
                     ),
                     title: Text(
-                        StatisticsSingleton().statistics?.suggestedNames.elementAt(index) ??
-                            ''),
+                        StatisticsSingleton().statistics?.suggestedNames.elementAt(index) ?? ''),
                     leading: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -136,7 +140,7 @@ void _showSuggestedSnippets(BuildContext context) {
                                       onPressed: () async {
                                         await Clipboard.setData(ClipboardData(
                                             text:
-                                            '${StatisticsSingleton().statistics?.suggestionsListed ?? ''}'));
+                                                '${StatisticsSingleton().statistics?.suggestionsListed ?? ''}'));
                                         Navigator.of(context).pop();
                                         ScaffoldMessenger.of(context).showSnackBar(
                                           SnackBar(content: Text('Copied to clipboard')),
@@ -152,8 +156,6 @@ void _showSuggestedSnippets(BuildContext context) {
                                             Icons.copy,
                                             color: Colors.black,
                                           ),
-
-
                                         ],
                                       ),
                                     ),
@@ -184,5 +186,5 @@ void _showSuggestedSnippets(BuildContext context) {
     },
   );
 }
-final TextEditingController _textEditController = TextEditingController();
 
+final TextEditingController _textEditController = TextEditingController();

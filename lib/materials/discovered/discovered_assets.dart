@@ -32,21 +32,22 @@ class DiscoveredAssetsButton extends StatelessWidget {
             child: Chip(
               elevation: 4,
               shadowColor: Colors.black,
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.black12,
               label: Row(
                 children: [
-                  SizedBox(
-                    height: 30,
-                    width: 30,
-                    child: Image.asset(
-                      'discover.png',
-                    ),
+                  Icon(
+                    Icons.troubleshoot_outlined,
+                    color: Colors.blue,
+                    size: 20,
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(4.0),
                     child: Text(
-                        'Discovered: (${StatisticsSingleton().statistics?.discoveredAssetsList.length})',
-                        style: TitleText()),
+                      'Discovered: (${StatisticsSingleton().statistics?.discoveredAssetsList.length})',
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
                   ),
                 ],
               ),

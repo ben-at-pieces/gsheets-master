@@ -33,8 +33,7 @@ class BottomPieChart extends StatelessWidget {
         child: Column(
           children: [
 
-
-
+            SizedBox(height: 10),
             Container(
               height: 24,
               color: Colors.white,
@@ -49,7 +48,18 @@ class BottomPieChart extends StatelessWidget {
                 ],
               ),
             ),
-             SizedBox(height: 10),
+            SizedBox(height: 10),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text('Languages', style: TitleBlackText(),),
+                Text('Origins', style: TitleBlackText(),),
+              ],
+            ),
+
+
+             SizedBox(height: 5),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -128,7 +138,7 @@ class BottomPieChart extends StatelessWidget {
               ],
             ),
              SizedBox(height: 10),
-             Divider(color: Colors.black54, thickness: 1),
+
 
           ],
         ),
