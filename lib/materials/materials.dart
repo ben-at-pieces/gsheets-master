@@ -254,7 +254,11 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                                         color: Colors.black,
                                                         size: 20,
                                                       ),
-                                                      onPressed: null,
+                                                      onPressed: () async {
+
+
+
+                                                      },
                                                     ),
                                                   ),
                                                   Pieces_Gsheets(),
@@ -282,7 +286,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                                   ),
                                                 ),
                                               ),
-
                                             ],
                                           ),
                                         )
@@ -447,7 +450,36 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      CopyToClipboardButton(),
+                                      /// ==============================================
+                                      /// This code creates a button with an icon that, when pressed, displays a short message indicating that the content has been copied to the clipboard.
+                                      IconButton(
+                                          icon: Icon(
+                                            Icons.copy,
+                                            color: Colors.black,
+                                            size: 20,
+                                          ),
+                                          onPressed: () async {
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'Copied to Clipboard',
+                                                ),
+                                                duration: Duration(
+                                                  days: 0,
+                                                  hours: 0,
+                                                  minutes: 0,
+                                                  seconds: 1,
+                                                  milliseconds: 30,
+                                                  microseconds: 10,
+                                                ),
+                                              ),
+                                            );
+
+                                            ClipboardData data = ClipboardData(text: asset.original.reference?.fragment?.string?.raw ?? '',);
+                                            await Clipboard.setData(data);
+                                          }),
+
+                                      // CopyToClipboardButton(),
                                       SizedBox(width: 8),
                                       IconButton(
                                         onPressed: () async {

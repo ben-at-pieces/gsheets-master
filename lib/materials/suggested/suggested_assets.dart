@@ -35,7 +35,7 @@ class SuggestedAssetsButton extends StatelessWidget {
               label: Row(
                 children: [
                   Icon(
-                    Icons.lightbulb,
+                    Icons.lightbulb_outline_rounded,
                     color: Colors.yellowAccent,
                     size: 20,
                   ),
