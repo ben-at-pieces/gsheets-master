@@ -95,22 +95,25 @@ class _CustomVSCodeAlertDialogState extends State<JetBrainsAlertDialog> {
                     final values = await ws?.values.allRows();
                     final lastRowIndex = values?.length ?? 0;
 
+                    // Add the product and timestamp to the new row
+                    final newRow = [
+                      '${_textFieldController.text}',
+                      DateTime.now().toString(),
+                    ];
+
                     // Insert the new row 1 row below the last row index
                     await ws?.values.insertRow(
                       lastRowIndex + 1,
-                      [
-                        '${_textFieldController.text}',
-                      ],
+                      newRow,
                       fromColumn: 1,
                     );
 
                     _textFieldController.clear();
 
                     Navigator.of(context).pop();
-
-
                   },
                 ),
+
 
 
                 TextButton(

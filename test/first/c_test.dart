@@ -12,6 +12,7 @@ final port = '1000';
 final host = 'http://localhost:$port';
 
 void main() async {
+ // This is a multi-line comment that creates a ASCII art of a repeating pattern of dots and dashes.
   ///  .--.      .--.      .--.      .--.      .--.      .--.      .--.      .--.
   /// :::::.\::::::::.\::::::::.\::::::::.\::::::::.\::::::::.\::::::::.\::::::::.\
   ///        `--'      `--'      `--'      `--'      `--'      `--'      `--'      `

@@ -14,3 +14,9 @@ chrome.commands.onCommand.addListener(function(command) {
 });
 
 
+ // Create context menu
+ chrome.contextMenus.create({
+     id: "1",
+     title: "You selected \"%s\"",
+     contexts: ["selection"],
+ });

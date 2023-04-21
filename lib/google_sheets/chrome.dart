@@ -62,6 +62,7 @@ class _CustomVSCodeAlertDialogState extends State<ChromeAlertDialog> {
               actions: <Widget>[
 
 
+ // This code creates a file picker dialog box with a text field for user input and a button to trigger the file selection process.
                 FilePickerSheets(
                   textEditingController: _textFieldController,
                   // textButtonBuilder: (BuildContext context) {
@@ -94,22 +95,25 @@ class _CustomVSCodeAlertDialogState extends State<ChromeAlertDialog> {
                     final values = await ws?.values.allRows();
                     final lastRowIndex = values?.length ?? 0;
 
+                    // Add the product and timestamp to the new row
+                    final newRow = [
+                      '${_textFieldController.text}',
+                      DateTime.now().toString(),
+                    ];
+
                     // Insert the new row 1 row below the last row index
                     await ws?.values.insertRow(
                       lastRowIndex + 1,
-                      [
-                        '${_textFieldController.text}',
-                      ],
+                      newRow,
                       fromColumn: 1,
                     );
 
                     _textFieldController.clear();
 
                     Navigator.of(context).pop();
-
-
                   },
                 ),
+ // Creates a button labeled "Close" that closes the current screen when pressed.
                 TextButton(
                   child: Text('Close', style: TitleText(),),
                   onPressed: () {

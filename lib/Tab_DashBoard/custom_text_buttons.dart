@@ -21,7 +21,7 @@ class LabeledChipButton extends StatelessWidget {
       padding: const EdgeInsets.all(4.0),
       child: TextButton(
         child: Chip(
-          side: BorderSide(color: Colors.white, width: 1, strokeAlign: StrokeAlign.inside),
+          // side: BorderSide(color: Colors.white, width: 1, strokeAlign: StrokeAlign.inside),
           shadowColor: Colors.black,
           elevation: 2,
           label: Text(

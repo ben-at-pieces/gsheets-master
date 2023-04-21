@@ -29,6 +29,7 @@ void main() {
 
   });
 
+ // This code searches for assets with a specific query string using an API and expects the result to be of a certain type.
   test('/assets/search?query=string [GET]', () async {
     /// (1) define your string query to be searched
     String query = 'dart';

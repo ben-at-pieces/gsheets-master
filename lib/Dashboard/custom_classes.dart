@@ -36,6 +36,17 @@ class ClassificationsTitleText extends TextStyle {
   );
 }
 
+class EditTextStyle extends TextStyle {
+  EditTextStyle()
+      : super(
+    fontFamily: 'Roboto',
+    fontSize: 8,
+    color: Colors.black,
+    fontWeight: FontWeight.w500,
+  );
+}
+
+
 class TitleText extends TextStyle {
   TitleText()
       : super(

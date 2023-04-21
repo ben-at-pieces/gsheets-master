@@ -20,15 +20,5 @@
 
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'; script-src-elem 'self' wasm-unsafe-eval https://unpkg.com;"
-  },
-  "commands": {
-    "inject-script": {
-      "suggested_key": {
-        "windows": "Ctrl+Shift+A",
-        "mac": "Command+Shift+A"
-      },
-      "description": "inject-script",
-      "global": true
-    }
   }
 }
