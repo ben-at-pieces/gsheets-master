@@ -3,6 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:core_openapi/api.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_highlight/flutter_highlight.dart';
+import 'package:flutter_highlight/themes/github.dart';
+import 'package:gsheets/Bottom_bar/bottom_appbar_class.dart';
 
 import '../../Dashboard/custom_classes.dart';
 import '../../boot.dart';
@@ -32,12 +35,12 @@ class DiscoveredAssetsButton extends StatelessWidget {
             child: Chip(
               elevation: 4,
               shadowColor: Colors.black,
-              backgroundColor: Colors.black12,
+              backgroundColor: Colors.black54,
               label: Row(
                 children: [
                   Icon(
-                    Icons.troubleshoot_outlined,
-                    color: Colors.blue,
+                    Icons.troubleshoot,
+                    color: Colors.white,
                     size: 20,
                   ),
                   Padding(
@@ -45,7 +48,7 @@ class DiscoveredAssetsButton extends StatelessWidget {
                     child: Text(
                       'Discovered: (${StatisticsSingleton().statistics?.discoveredAssetsList.length})',
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Colors.white,
                       ),
                     ),
                   ),
@@ -79,7 +82,7 @@ void _showDiscoveredAssets(BuildContext context, List<Asset> discoveredAssetsLis
                 SizedBox(width: 16),
                 Text(
                   'Discovered: ${StatisticsSingleton().statistics?.discoveredAssetsList.length ?? 0}',
-                  style: TitleText(),
+                  style: SnippetTitleText(),
                 ),
                 IconButton(
                   icon: Icon(Icons.close),
@@ -112,7 +115,7 @@ void _showDiscoveredAssets(BuildContext context, List<Asset> discoveredAssetsLis
                       '${StatisticsSingleton().statistics?.discoveredAssetsList.elementAt(index).original.reference?.classification.specific.value ?? ''}',
                       style: TitleText(),
                     ),
-                    subtitle: Row(
+                    title: Row(
                       children: [
                         Container(
                           child: Text(StatisticsSingleton()
@@ -122,24 +125,63 @@ void _showDiscoveredAssets(BuildContext context, List<Asset> discoveredAssetsLis
                                   .name ??
                               ''),
                         ),
-                        // Text(StatisticsSingleton()
-                        //         .statistics
-                        //         ?.discoveredAssetsList
-                        //         .elementAt(index)
-                        //         .tags
-                        //         ?.iterable
-                        //         .toList()
-                        //         .elementAt(index)
-                        //         .text ??
-                        //     ''),
                       ],
                     ),
-                    title: Text(StatisticsSingleton()
-                            .statistics
-                            ?.discoveredAssetsList
-                            .elementAt(index)
-                            .description ??
-                        ''),
+                    subtitle: Row(
+                      children: [
+                        Container(
+                          height: 150,
+                          width: 300,
+                          child: SingleChildScrollView(
+                            child: HighlightView(
+                              rawSnippet ?? '',
+                              language: 'dart',
+
+                              theme: githubTheme,
+                              // textStyle: TitleText(),
+                              padding: const EdgeInsets.all(2),
+                            ),
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            Chip(
+                              label: SizedBox(
+                                height: 20,
+                                width: 150,
+                                child: Text(
+                                  StatisticsSingleton()
+                                          .statistics
+                                          ?.discoveredAssetsList
+                                          .elementAt(index)
+                                          .tags
+                                          ?.iterable
+                                          .toList()
+                                          .elementAt(index)
+                                          .text ??
+                                      '',
+                                  style: TitleText(),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 150,
+                              width: 250,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.vertical,
+
+                                child: Text(StatisticsSingleton()
+                                        .statistics
+                                        ?.discoveredAssetsList
+                                        .elementAt(index)
+                                        .description ??
+                                    ''),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                     leading: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [

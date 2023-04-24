@@ -17,6 +17,7 @@ import '../Tab_Plugins_and_More/pluginButton.dart';
 import '../Tab_Plugins_and_More/plugins_and_more.dart';
 import '../create/create_function.dart';
 import '../google_sheets/Pieces_for_X.dart';
+import '../google_sheets/Teams.dart';
 import '../google_sheets/chrome.dart';
 import '../google_sheets/jetbrains.dart';
 import '../google_sheets/vs_code.dart';
@@ -58,7 +59,7 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                         builder: (BuildContext context) {
                           return Container(
                             height: 500,
-                            width: 330,
+                            width: 320,
                             child: Center(
                               child: BottomPieChart(),
                             ),
@@ -81,6 +82,7 @@ class CustomBottomAppBar extends StatelessWidget implements PreferredSizeWidget 
                   VSCodeAlertDialog(),
                   JetBrainsAlertDialog(),
                   ChromeAlertDialog(),
+                  Teams_Gsheets(),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(

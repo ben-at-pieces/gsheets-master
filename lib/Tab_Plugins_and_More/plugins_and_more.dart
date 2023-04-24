@@ -177,7 +177,7 @@ class Plugins extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               CustomTextButton(
-                                imageAssetPath: 'screenshot.png',
+                                imageAssetPath: 'toml-white.jpg',
                                 text: 'Code From Screenshot',
                                 url: 'https://www.codefromscreenshot.com/',
                               ),
@@ -188,7 +188,7 @@ class Plugins extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             CustomTextButton(
-                              imageAssetPath: 'codeScreenshot.png',
+                              imageAssetPath: 'text.jpg',
                               text: 'Text From Screenshot',
                               url: 'https://www.textfromscreenshot.com/',
                             ),
@@ -198,7 +198,7 @@ class Plugins extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             CustomTextButton(
-                              imageAssetPath: 'slackNew.png',
+                              imageAssetPath: 'bettercode.jpg',
                               text: 'Code Plus Plus',
                               url: 'https://www.codeplusplus.app/',
                             ),

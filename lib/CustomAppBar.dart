@@ -18,7 +18,6 @@ import 'dart:html';
 import 'google_sheets/attach_pieces.dart';
 import 'material_buttons/file_picker.dart';
 
-
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
@@ -30,7 +29,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     String userPic = StatisticsSingleton().statistics?.picture.toString() ?? '';
 
-
     // backgroundImage: NetworkImage(
     //   userPic,
     //   scale: 1,
@@ -38,12 +36,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Container(
       color: Colors.white,
       child: ListTile(
-        leading: CircleAvatar(
-          // backgroundImage: AssetImage('img_3.png'),
-          foregroundImage: AssetImage('img_5.png'),
-          radius: 35,
+        leading: SizedBox(
+          height: 30,
+          width: 30,
+          child: CircleAvatar(
+            backgroundColor: Colors.black87,
+            foregroundImage: AssetImage('icon_path_white.png'),
+            radius: 35,
+          ),
         ),
-
         title: Text(
           title,
           style: ParticleFont.micro(
@@ -53,17 +54,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
-
           children: [
             FilePickerWidget(
-              textEditingController: _textFieldController, textButtonBuilder: (BuildContext ) { return Text('data'); },
+              textEditingController: _textFieldController,
+              textButtonBuilder: (BuildContext) {
+                return Text('data');
+              },
               // textButtonBuilder: (BuildContext context) {
               //   return Text('hello');
               // },
             ),
-
             TextButton(
-
               onPressed: () {
                 showDialog(
                   context: context,
@@ -82,7 +83,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       ),
                       content: SizedBox(
                         height: 220,
-
                         child: Column(
                           children: [
                             Container(
@@ -105,7 +105,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                                 autocorrect: true,
                                 controller: _textFieldController,
                                 decoration: InputDecoration(
-
                                   labelStyle: ParticleFont.micro(
                                     context,
                                     customization: TextStyle(color: Colors.black, fontSize: 16),
@@ -122,11 +121,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                                   ),
                                 ),
                               ),
-
-
-
                             ),
-
                           ],
                         ),
                       ),
@@ -134,9 +129,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-
-
-
                             ///close button Teams
                             /// This code creates a button
                             /// that, when pressed,
@@ -149,10 +141,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                                 final AssetsApi assetsApi = AssetsApi(ApiClient(basePath: host));
 
                                 final ApplicationsApi applicationsApi =
-                                await ApplicationsApi(ApiClient(basePath: host));
+                                    await ApplicationsApi(ApiClient(basePath: host));
 
                                 Applications applicationsSnapshot =
-                                await applicationsApi.applicationsSnapshot();
+                                    await applicationsApi.applicationsSnapshot();
 
                                 var first = applicationsSnapshot.iterable.first;
 
@@ -230,8 +222,6 @@ hello chat GPT, please give me an explanation and example about the text below:
                                 await Clipboard.setData(data);
                                 // Navigator.of(context).pop();
 
-
-
                                 String linkUrl = 'https://chat.openai.com/chat';
 
                                 linkUrl = linkUrl; //Twitter's URL
@@ -243,12 +233,10 @@ hello chat GPT, please give me an explanation and example about the text below:
                                   throw 'Could not launch $linkUrl';
                                 }
                               },
-
-
-
                               child: Row(
                                 children: [
-                                  SizedBox(height: 20, width: 18, child: Image.asset('black_gpt.png')),
+                                  SizedBox(
+                                      height: 20, width: 18, child: Image.asset('black_gpt.png')),
                                   Padding(
                                     padding: const EdgeInsets.all(2.0),
                                     child: Text(
@@ -259,7 +247,6 @@ hello chat GPT, please give me an explanation and example about the text below:
                                 ],
                               ),
                             ),
-
 
                             /// Displays a confirmation dialog
                             /// with "Yes" and "No" buttons.
@@ -316,21 +303,23 @@ hello chat GPT, please give me an explanation and example about the text below:
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(Icons.close_sharp, size: 14, color: Colors.black,),
+                                      Icon(
+                                        Icons.close_sharp,
+                                        size: 14,
+                                        color: Colors.black,
+                                      ),
                                       Text(
                                         'close',
                                         style: TextStyle(
-                                            color: Colors.black, fontSize: 12, fontWeight: FontWeight.bold),
+                                            color: Colors.black,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ],
                                   ),
                                 ],
                               ),
                             ),
-
-
-
-
                           ],
                         ),
                       ],
@@ -352,8 +341,6 @@ hello chat GPT, please give me an explanation and example about the text below:
                 ],
               ),
             ),
-
-
           ],
         ),
       ),

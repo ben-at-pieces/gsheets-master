@@ -11,24 +11,25 @@ import '../Bottom_bar/bottom_appbar_class.dart';
 import '../Dashboard/custom_classes.dart';
 import '../create/create_function.dart';
 import '../init/src/gsheets.dart';
+import '../material_buttons/file_picker.dart';
 import 'attach_pieces.dart';
 
 
-class JetBrainsAlertDialog extends StatefulWidget {
+
+class Teams_Gsheets extends StatefulWidget {
   @override
-  _CustomVSCodeAlertDialogState createState() =>
-      _CustomVSCodeAlertDialogState();
+  _CustomAlertDialogState createState() => _CustomAlertDialogState();
 }
 
-class _CustomVSCodeAlertDialogState extends State<JetBrainsAlertDialog> {
+class _CustomAlertDialogState extends State<Teams_Gsheets> {
   final TextEditingController _textFieldController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      tooltip: 'jetbrains note',
+      tooltip: 'Teams note',
       icon: Image.asset(
-        'jetbrains.png',
+        'teams.png', // Replace this with your own image asset
         width: 30.0,
         height: 30.0,
       ),
@@ -43,36 +44,36 @@ class _CustomVSCodeAlertDialogState extends State<JetBrainsAlertDialog> {
               title: Row(
                 children: [
                   Image.asset(
-                    'jetbrains.png',// Replace this with your own image asset
+                    'teams.png', // Replace this with your own image asset
                     width: 40.0,
                     height: 40.0,
                   ),
                   SizedBox(width: 10.0),
-                  Text('JetBrains'),
+                  Text('Teams'),
                 ],
               ),
               content: Container(
                 height: 200.0,
                 width: 400,
                 child: TextField(
+
                   maxLines: null,
                   controller: _textFieldController,
                   decoration: InputDecoration(
+
+                    // label: FilePickerSheets(textEditingController: _textFieldController,),
                     hintText: 'Enter your text',
                     border: InputBorder.none,
                   ),
                 ),
               ),
               actions: <Widget>[
-
                 FilePickerSheets(
                   textEditingController: _textFieldController,
                   // textButtonBuilder: (BuildContext context) {
                   //   return Text('hello');
                   // },
                 ),
-
-
                 TextButton(
                   child: Row(
                     children: [
@@ -90,13 +91,13 @@ class _CustomVSCodeAlertDialogState extends State<JetBrainsAlertDialog> {
 
                     // Get the spreadsheet
                     final ssheet = await gsheets.spreadsheet(spreadsheetID);
-                    final ws = await ssheet.worksheetByTitle('jetbrains_');
+                    final ws = await ssheet.worksheetByTitle('MS_Teams');
 
                     // Get existing values and calculate the last row index
                     final values = await ws?.values.allRows();
                     final lastRowIndex = values?.length ?? 0;
 
-                    // Add the product and timestamp to the new row
+                    // Add the message and timestamp to the new row
                     final newRow = [
                       '${_textFieldController.text}',
                       DateTime.now().toString(),
@@ -116,7 +117,6 @@ class _CustomVSCodeAlertDialogState extends State<JetBrainsAlertDialog> {
                 ),
 
 
-
                 TextButton(
                   child: Text('Close', style: TitleText(),),
                   onPressed: () {
@@ -125,6 +125,7 @@ class _CustomVSCodeAlertDialogState extends State<JetBrainsAlertDialog> {
                 ),
               ],
             );
+
           },
         );
       },

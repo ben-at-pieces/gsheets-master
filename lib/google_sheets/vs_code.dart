@@ -26,6 +26,7 @@ class _CustomVSCodeAlertDialogState extends State<VSCodeAlertDialog> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      tooltip: 'vs code note',
       icon: Image.asset(
         'vscode.png', // Replace this with your own image asset
         width: 30.0,

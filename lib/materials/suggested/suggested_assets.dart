@@ -31,12 +31,12 @@ class SuggestedAssetsButton extends StatelessWidget {
             child: Chip(
               elevation: 4,
               shadowColor: Colors.black,
-              backgroundColor: Colors.black12,
+              backgroundColor: Colors.black54,
               label: Row(
                 children: [
                   Icon(
-                    Icons.lightbulb_outline_rounded,
-                    color: Colors.yellowAccent,
+                    Icons.lightbulb,
+                    color: Colors.white,
                     size: 20,
                   ),
                   Padding(
@@ -44,7 +44,7 @@ class SuggestedAssetsButton extends StatelessWidget {
                     child: Text(
                       'Suggested: (${StatisticsSingleton().statistics?.suggestionsListed.length})',
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Colors.white,
                       ),
                     ),
                   ),

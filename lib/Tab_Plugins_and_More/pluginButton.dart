@@ -35,7 +35,7 @@ class CustomTextButton extends StatelessWidget {
             }
           },
         ),
-        SizedBox(height: 25, width: 25, child: Image.asset(imageAssetPath)),
+        SizedBox(height: 30, width: 30, child: Image.asset(imageAssetPath)),
       ],
     );
   }

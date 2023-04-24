@@ -37,6 +37,7 @@ class _AssetGridPageState extends State<MaterialsPage> {
   bool showRawStringAssets = false;
   bool showCodeEditor = false;
   TextEditingController codeEditorController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
 
   @override
   void initState() {
@@ -82,40 +83,6 @@ class _AssetGridPageState extends State<MaterialsPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              SuggestedAssetsButton(),
-              DiscoveredAssetsButton(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '${StatisticsSingleton().statistics?.image.length ?? ''} Images ',
-                    style: TitleText(),
-                  ),
-                  Switch(
-                    activeColor: Colors.black,
-                    value: showRawStringAssets,
-                    onChanged: (value) {
-                      setState(() {
-                        showRawStringAssets = value;
-                      });
-                    },
-                  ),
-                  Text(
-                    'Snippets',
-                    // ' ${StatisticsSingleton().statistics?.classifications.length ?? ''}',
-                    style: TitleText(),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Divider(
-            height: 30,
-          ),
-
           /// The code displays a grid of assets with their
           /// names, original references, and images (if available).
           /// When an asset is tapped,
@@ -151,8 +118,8 @@ class _AssetGridPageState extends State<MaterialsPage> {
                         return Dialog(
                           backgroundColor: Colors.transparent,
                           child: Container(
-                            width: 600,
-                            height: 500,
+                            width: 700,
+                            height: 520,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(16),
@@ -177,117 +144,179 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                   width: 500,
                                   height: 500,
                                   child: uint8list != null
-                                      ? Card(
-                                          elevation: 4,
-                                          shadowColor: Colors.grey,
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              AppBar(
-                                                leading: Icon(
-                                                  Icons.image,
-                                                  color: Colors.grey,
-                                                ),
-                                                backgroundColor: Colors.white,
-                                                elevation: 0,
-                                                centerTitle: true,
-                                                title: SingleChildScrollView(
-                                                  scrollDirection: Axis.horizontal,
-                                                  child: Text(
-                                                    '${asset.name ?? ''}',
-                                                    style: TitleText(),
-                                                    textAlign: TextAlign.start,
-                                                  ),
+                                      ? Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            AppBar(
+                                              leading: Icon(
+                                                Icons.image,
+                                                color: Colors.grey,
+                                              ),
+                                              backgroundColor: Colors.white,
+                                              elevation: 0,
+                                              centerTitle: true,
+                                              title: SingleChildScrollView(
+                                                scrollDirection: Axis.horizontal,
+                                                child: Text(
+                                                  '${asset.name ?? ''}',
+                                                  style: TitleText(),
+                                                  textAlign: TextAlign.start,
                                                 ),
                                               ),
-                                              Padding(
-                                                padding: const EdgeInsets.all(8.0),
-                                                child: Container(
-                                                  height: 300,
-                                                  width: 300,
-                                                  child: Image.memory(
-                                                    uint8list,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
-                                              Row(
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  GestureDetector(
-                                                    onTap: () async {
-                                                      ScaffoldMessenger.of(context).showSnackBar(
-                                                        SnackBar(
-                                                          content: Text(
-                                                            'Copied to Clipboard',
-                                                          ),
-                                                          duration: Duration(
-                                                            days: 0,
-                                                            hours: 0,
-                                                            minutes: 0,
-                                                            seconds: 1,
-                                                            milliseconds: 30,
-                                                            microseconds: 10,
-                                                          ),
+                                            ),
+
+                                            /// This code creates a row with several child widgets including icons and alerts.
+                                            /// When the copy icon is tapped,
+                                            /// an image is decoded and copied to the clipboard with a snackbar message displayed.
+                                            Row(
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    // Text('${StatisticsSingleton().statistics?.asset.elementAt(index).original.reference?.tags?.iterable.elementAt(index)}' ?? ''),
+
+                                                    /// Adds padding to a container with an image inside,
+                                                    /// specifying its height and width.
+                                                    /// The image is loaded from a byte array and set to cover the container.
+                                                    Padding(
+                                                      padding: const EdgeInsets.all(2.0),
+                                                      child: Container(
+                                                        height: 300,
+                                                        width: 450,
+                                                        child: Image.memory(
+                                                          uint8list,
+                                                          fit: BoxFit.contain,
                                                         ),
-                                                      );
-
-                                                      if (bytes != null) {
-                                                        final image = await decodeImageFromList(
-                                                            Uint8List.fromList(bytes));
-                                                        if (image != null) {
-                                                          final pngBytes = await image.toByteData(
-                                                              format: ImageByteFormat.png);
-                                                          await Clipboard.setData(
-                                                            ClipboardData(
-                                                              text: '${pngBytes}',
-                                                            ),
-                                                          );
-                                                        }
-                                                      }
-                                                    },
-                                                    child: IconButton(
-                                                      icon: Icon(
-                                                        Icons.copy,
-                                                        color: Colors.black,
-                                                        size: 20,
                                                       ),
-                                                      onPressed: () async {
-
-
-
-                                                      },
                                                     ),
-                                                  ),
-                                                  Pieces_Gsheets(),
-                                                  VSCodeAlertDialog(),
-                                                  JetBrainsAlertDialog(),
-                                                  ChromeAlertDialog(),
-                                                ],
-                                              ),
-                                              Container(
-                                                height: 40.0,
-                                                width: 400,
-                                                child: TextField(
-                                                  maxLines: 5,
-                                                  // controller: Image(),
-                                                  decoration: InputDecoration(
-                                                    // label: FilePickerSheets(textEditingController: _textFieldController,),
-                                                    hintText: 'Describe it...',
-                                                    hintStyle: TitleText(),
-                                                    enabledBorder: OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        style: BorderStyle.solid,
-                                                        color: Colors.grey,
+
+                                                    Padding(
+                                                      padding: const EdgeInsets.all(2.0),
+                                                      child: Column(
+                                                        children: [
+                                                          GestureDetector(
+                                                            onTap: () async {
+                                                              ScaffoldMessenger.of(context)
+                                                                  .showSnackBar(
+                                                                SnackBar(
+                                                                  content: Text(
+                                                                    'Copied to Clipboard',
+                                                                  ),
+                                                                  duration: Duration(
+                                                                    days: 0,
+                                                                    hours: 0,
+                                                                    minutes: 0,
+                                                                    seconds: 1,
+                                                                    milliseconds: 30,
+                                                                    microseconds: 10,
+                                                                  ),
+                                                                ),
+                                                              );
+
+                                                              if (bytes != null) {
+                                                                final image =
+                                                                    await decodeImageFromList(
+                                                                        Uint8List.fromList(bytes));
+                                                                if (image != null) {
+                                                                  final pngBytes =
+                                                                      await image.toByteData(
+                                                                          format:
+                                                                              ImageByteFormat.png);
+                                                                  await Clipboard.setData(
+                                                                    ClipboardData(
+                                                                      text:
+                                                                          '${pngBytes?.buffer.asInt8List()}',
+                                                                    ),
+                                                                  );
+                                                                }
+                                                              }
+                                                            },
+                                                            child: IconButton(
+                                                              icon: Icon(
+                                                                Icons.copy,
+                                                                color: Colors.black,
+                                                                size: 20,
+                                                              ),
+                                                              onPressed: () async {},
+                                                            ),
+                                                          ),
+                                                          Pieces_Gsheets(),
+                                                          VSCodeAlertDialog(),
+                                                          JetBrainsAlertDialog(),
+                                                          ChromeAlertDialog(),
+                                                        ],
                                                       ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                IconButton(
+                                                  icon: Icon(Icons.edit),
+                                                  onPressed: () async {
+                                                    final port = '1000';
+                                                    final host = 'http://localhost:$port';
+                                                    AssetsApi assetsApi =
+                                                        AssetsApi(ApiClient(basePath: host));
+                                                    AssetApi assetApi =
+                                                        AssetApi(ApiClient(basePath: host));
+                                                    Assets assets =
+                                                        await assetsApi.assetsSnapshot();
+                                                    Asset asset = assets.iterable.elementAt(index);
+                                                    String initialDescription =
+                                                        asset.description ?? '';
+                                                    if (initialDescription !=
+                                                        _nameController.text) {
+                                                      Asset response =
+                                                          await assetApi.assetUpdate(asset: asset);
+                                                      response.description;
+                                                    }
+                                                  },
+                                                ),
+                                                SizedBox(
+                                                    height: 50,
+                                                    width: 400,
+                                                    child: SingleChildScrollView(
+                                                      scrollDirection: Axis.vertical,
+                                                      child: Text(
+                                                          '${StatisticsSingleton().statistics?.asset.elementAt(index).description}' ??
+                                                              ''),
+                                                    )),
+                                              ],
+                                            ),
+                                            Container(
+                                              height: 45.0,
+                                              width: 400,
+                                              child: TextField(
+                                                enableInteractiveSelection: true,
+                                                cursorHeight: 12,
+                                                autofocus: true,
+                                                showCursor: true,
+                                                cursorColor: Colors.black,
+                                                toolbarOptions: ToolbarOptions(
+                                                  copy: true,
+                                                  paste: true,
+                                                  selectAll: true,
+                                                  cut: true,
+                                                ),
+                                                maxLines: 5,
+                                                controller: _nameController,
+                                                decoration: InputDecoration(
+                                                  // label: FilePickerSheets(textEditingController: _textFieldController,),
+                                                  enabledBorder: OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      style: BorderStyle.solid,
+                                                      color: Colors.grey,
                                                     ),
                                                   ),
                                                 ),
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         )
                                       : Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -297,7 +326,7 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                                 Icons.code,
                                                 color: Colors.black87,
                                               ),
-                                              backgroundColor: Colors.black12,
+                                              backgroundColor: Colors.white,
                                               elevation: 0,
                                               centerTitle: true,
                                               title: SingleChildScrollView(
@@ -475,7 +504,11 @@ class _AssetGridPageState extends State<MaterialsPage> {
                                               ),
                                             );
 
-                                            ClipboardData data = ClipboardData(text: asset.original.reference?.fragment?.string?.raw ?? '',);
+                                            ClipboardData data = ClipboardData(
+                                              text:
+                                                  asset.original.reference?.fragment?.string?.raw ??
+                                                      '',
+                                            );
                                             await Clipboard.setData(data);
                                           }),
 
@@ -713,6 +746,39 @@ class _AssetGridPageState extends State<MaterialsPage> {
                 );
               },
             ),
+          ),
+          Divider(
+            height: 30,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SuggestedAssetsButton(),
+              DiscoveredAssetsButton(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    '${StatisticsSingleton().statistics?.image.length ?? ''} Images ',
+                    style: TitleText(),
+                  ),
+                  Switch(
+                    activeColor: Colors.black,
+                    value: showRawStringAssets,
+                    onChanged: (value) {
+                      setState(() {
+                        showRawStringAssets = value;
+                      });
+                    },
+                  ),
+                  Text(
+                    'Snippets',
+                    // ' ${StatisticsSingleton().statistics?.classifications.length ?? ''}',
+                    style: TitleText(),
+                  ),
+                ],
+              ),
+            ],
           ),
         ],
       ),

@@ -27,6 +27,7 @@ class _CustomAlertDialogState extends State<Pieces_Gsheets> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      tooltip: 'Pieces note',
       icon: Image.asset(
         'img_2.png', // Replace this with your own image asset
         width: 30.0,
